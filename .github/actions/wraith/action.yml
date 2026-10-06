@@ -1,0 +1,56 @@
+name: Wraith regression check
+description: Run agent scenarios or compare saved runs using a local Wraith binary
+inputs:
+  binary:
+    description: Path to a prebuilt native Wraith executable
+    required: true
+  config:
+    description: Configuration path (also selects the named-run directory)
+    default: wraith.yaml
+  mode:
+    description: run or compare
+    default: run
+  samples:
+    description: Independent observations per scenario
+    default: '1'
+  save:
+    description: Run name for run mode
+    default: candidate
+  baseline:
+    description: Baseline name or JSON path for compare mode
+    default: baseline
+  candidate:
+    description: Candidate name or JSON path for compare mode
+    default: candidate
+  policy:
+    description: Trusted configuration to enforce during comparison
+    default: ''
+  report:
+    description: Optional path for machine-readable stdout
+    default: ''
+outputs:
+  exit-code:
+    description: Wraith exit code; the action fails for nonzero values
+    value: ${{ steps.check.outputs.exit-code }}
+runs:
+  using: composite
+  steps:
+    - id: check
+      shell: bash
+      env:
+        WRAITH_ACTION_BINARY: ${{ inputs.binary }}
+        WRAITH_ACTION_CONFIG: ${{ inputs.config }}
+        WRAITH_ACTION_MODE: ${{ inputs.mode }}
+        WRAITH_ACTION_SAMPLES: ${{ inputs.samples }}
+        WRAITH_ACTION_SAVE: ${{ inputs.save }}
+        WRAITH_ACTION_BASELINE: ${{ inputs.baseline }}
+        WRAITH_ACTION_CANDIDATE: ${{ inputs.candidate }}
+        WRAITH_ACTION_POLICY: ${{ inputs.policy }}
+        WRAITH_ACTION_REPORT: ${{ inputs.report }}
+      run: |
+        python3 "$GITHUB_ACTION_PATH/../../../scripts/ci-check.py" \
+          --binary "$WRAITH_ACTION_BINARY" --config "$WRAITH_ACTION_CONFIG" \
+          --mode "$WRAITH_ACTION_MODE" --samples "$WRAITH_ACTION_SAMPLES" \
+          --save "$WRAITH_ACTION_SAVE" --baseline "$WRAITH_ACTION_BASELINE" \
+          --candidate "$WRAITH_ACTION_CANDIDATE" --policy "$WRAITH_ACTION_POLICY" \
+          --report "$WRAITH_ACTION_REPORT"

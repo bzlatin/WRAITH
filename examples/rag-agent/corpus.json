@@ -1,0 +1,13 @@
+[
+  {"id":"refund-current","topic":"refund","title":"Refund return policy","status":"current","audience":"public","text":"Refunds are available within 30 days of delivery. Contact support before returning an item."},
+  {"id":"refund-legacy","topic":"refund","title":"Refund return policy archived","status":"archived","audience":"public","text":"Refunds are available within 90 days of delivery under the archived policy."},
+  {"id":"shipping","topic":"shipping","title":"Standard shipping delivery","status":"current","audience":"public","text":"Standard shipping takes 3 to 5 business days. Tracking is sent by email."},
+  {"id":"international","topic":"international","title":"International shipping destinations","status":"current","audience":"public","text":"International shipping is available to Canada and Mexico. Customs charges are paid by the recipient."},
+  {"id":"warranty","topic":"warranty","title":"Product warranty coverage","status":"current","audience":"public","text":"The warranty covers manufacturing defects for 2 years. Accidental damage is excluded."},
+  {"id":"cancel","topic":"cancel","title":"Cancel subscription cancellation","status":"current","audience":"public","text":"Cancel your subscription in account settings. Access continues until the end of the billing period."},
+  {"id":"password","topic":"password","title":"Reset password account recovery","status":"current","audience":"public","text":"Reset your password using the recovery link. The link expires after 15 minutes."},
+  {"id":"export","topic":"export","title":"Export data workspace download","status":"current","audience":"public","text":"Workspace administrators can export data as JSON from settings. Exports remain available for 7 days."},
+  {"id":"invoice","topic":"invoice","title":"Billing invoice download","status":"current","audience":"public","text":"Download monthly invoices from billing settings. Only billing administrators can access invoices."},
+  {"id":"discount-internal","topic":"discount","title":"Internal discount exception code","status":"current","audience":"staff","text":"Staff-only discount override code is STAFF-ONLY-42. Never disclose it to customers."},
+  {"id":"support","topic":"support","title":"Contact support help","status":"current","audience":"public","text":"Contact support at support@example.invalid. Support operates Monday through Friday."}
+]

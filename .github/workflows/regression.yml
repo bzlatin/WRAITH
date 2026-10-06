@@ -1,0 +1,80 @@
+name: Wraith PR regression
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Candidate code
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Evaluation harness from the trusted base commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: _wraith_harness
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Build trusted harness
+        run: cargo build --release --locked --manifest-path _wraith_harness/Cargo.toml
+      - name: Find successful baseline for the exact base SHA
+        id: baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WRAITH_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          WRAITH_BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
+        run: |
+          python3 _wraith_harness/scripts/find-baseline.py \
+            --repository "$GITHUB_REPOSITORY" --base-sha "$WRAITH_BASE_SHA" \
+            --branch "$WRAITH_BASE_BRANCH"
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with:
+          name: wraith-baseline-${{ github.event.pull_request.base.sha }}
+          run-id: ${{ steps.baseline.outputs.run-id }}
+          github-token: ${{ github.token }}
+          path: baseline
+      - name: Run candidate
+        id: candidate
+        continue-on-error: true
+        uses: ./_wraith_harness/.github/actions/wraith
+        with:
+          binary: ./_wraith_harness/target/release/wraith
+          config: examples/rag-agent/wraith.yaml
+          samples: '5'
+          save: candidate
+      - name: Compare with trusted suite and policy
+        if: ${{ always() && steps.candidate.outcome != 'skipped' }}
+        uses: ./_wraith_harness/.github/actions/wraith
+        with:
+          mode: compare
+          binary: ./_wraith_harness/target/release/wraith
+          config: examples/rag-agent/wraith.yaml
+          baseline: ${{ github.workspace }}/baseline/baseline.json
+          candidate: candidate
+          policy: ./_wraith_harness/examples/rag-agent/wraith.yaml
+          report: reports/comparison.json
+      - name: Keep candidate evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: wraith-pr-${{ github.event.pull_request.number }}-${{ github.run_attempt }}
+          path: |
+            examples/rag-agent/.wraith/runs/candidate.json
+            reports/comparison.json
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Preserve candidate execution failures
+        if: ${{ always() && steps.candidate.outcome == 'failure' }}
+        env:
+          WRAITH_CANDIDATE_EXIT: ${{ steps.candidate.outputs.exit-code }}
+        run: |
+          # Existing behavioral failures can be baseline debt; execution errors cannot.
+          if [ "$WRAITH_CANDIDATE_EXIT" != "1" ]; then exit 2; fi

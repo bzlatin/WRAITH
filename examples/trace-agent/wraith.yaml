@@ -1,0 +1,16 @@
+version: 1
+agent:
+  command: "python3 agent.py"
+  timeout_ms: 3000
+tests:
+  - id: find-pto-policy
+    input:
+      text: "How many PTO days?"
+    expect:
+      output_contains: ["20"]
+      tools_called: [search_documents]
+      sources:
+        include: [employee_handbook]
+comparison:
+  tool_arguments: true
+  document_ids: true

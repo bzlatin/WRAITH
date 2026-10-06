@@ -1,0 +1,13 @@
+version: 1
+agent:
+  command: "python3 agent.py"
+  timeout_ms: 3000
+tests:
+  - id: varying-pto-answer
+    input:
+      text: "How many PTO days?"
+    expect:
+      output_contains: ["20"]
+thresholds:
+  success_rate:
+    regression: 0

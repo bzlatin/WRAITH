@@ -1,0 +1,9 @@
+{
+  "benign-wording": [],
+  "benign-order": [],
+  "benign-ranking": [],
+  "stale-policy": ["refund-window", "return-paraphrase"],
+  "missing-acl": ["private-discount"],
+  "wrong-route": ["order-status"],
+  "missing-citation": ["refund-window", "return-paraphrase", "standard-shipping", "international-destinations", "warranty-duration", "cancel-subscription", "password-expiry", "export-format", "invoice-access"]
+}
