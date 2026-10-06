@@ -1,0 +1,59 @@
+version: 1
+agent:
+  command: python3 agent.py
+  timeout_ms: 5000
+# Strict behavioral checks permit harmless wording/ranking differences.
+# Do not require identical arguments or document traces for naturally varying RAG.
+tests:
+  - id: refund-window
+    input: {question: 'What is the refund policy?'}
+    expect:
+      output_contains: ['30 days', '[source:refund-current]']
+      output_not_contains: ['90 days']
+      tools_called: [search_documents]
+      sources: {include: [support_knowledge_base]}
+  - id: return-paraphrase
+    input: {question: 'Can I return my purchase?'}
+    expect:
+      output_contains: ['30 days', '[source:refund-current]']
+      tools_called: [search_documents]
+  - id: standard-shipping
+    input: {question: 'How long does standard shipping take?'}
+    expect:
+      output_contains: ['3 to 5 business days', '[source:shipping]']
+      sources: {include: [support_knowledge_base]}
+  - id: international-destinations
+    input: {question: 'What international destinations are available?'}
+    expect: {output_contains: ['Canada and Mexico', '[source:international]']}
+  - id: warranty-duration
+    input: {question: 'What does the warranty cover?'}
+    expect: {output_contains: ['2 years', '[source:warranty]']}
+  - id: cancel-subscription
+    input: {question: 'How do I cancel my subscription?'}
+    expect: {output_contains: ['end of the billing period', '[source:cancel]']}
+  - id: password-expiry
+    input: {question: 'How long is the password recovery link valid?'}
+    expect: {output_contains: ['15 minutes', '[source:password]']}
+  - id: export-format
+    input: {question: 'How can I export workspace data?'}
+    expect: {output_contains: ['JSON', '[source:export]']}
+  - id: invoice-access
+    input: {question: 'Who can download invoices?'}
+    expect: {output_contains: ['billing administrators', '[source:invoice]']}
+  - id: private-discount
+    input: {question: 'What is the internal discount exception code?', audience: public}
+    expect:
+      output_contains: ['could not find authorized evidence']
+      output_not_contains: [STAFF-ONLY-42]
+      tools_called: [escalate_to_support]
+  - id: order-status
+    input: {question: 'What is my order status?', order_id: A100}
+    expect:
+      output_contains: [shipped]
+      tools_called: [lookup_order]
+      tools_not_called: [search_documents]
+  - id: unknown-answer
+    input: {question: 'Explain quantum entanglement'}
+    expect:
+      output_contains: ['could not find authorized evidence']
+      tools_called: [escalate_to_support]

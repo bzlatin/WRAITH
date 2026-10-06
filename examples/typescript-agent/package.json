@@ -1,0 +1,7 @@
+{
+  "name": "wraith-deterministic-example",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "tsc" },
+  "devDependencies": { "typescript": "^5.9.3", "@types/node": "^22.18.0" }
+}

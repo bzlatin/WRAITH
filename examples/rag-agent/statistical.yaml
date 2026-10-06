@@ -1,0 +1,19 @@
+version: 1
+agent:
+  command: python3 agent.py
+  timeout_ms: 5000
+# Illustrative allowance, not a recommended production tolerance.
+# This one-scenario suite keeps repeated offline experiments quick.
+comparison:
+  statistical:
+    min_samples: 100
+    max_failure_rate_increase_pp: 20
+    alpha: 0.05
+tests:
+  - id: refund-window
+    input: {question: 'What is the refund policy?'}
+    expect:
+      output_contains: ['30 days', '[source:refund-current]']
+      output_not_contains: ['90 days']
+      tools_called: [search_documents]
+      sources: {include: [support_knowledge_base]}
