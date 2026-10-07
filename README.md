@@ -8,20 +8,25 @@ or model configuration, then run the same checks in CI.
 
 ## Quick start
 
-This checkout is v0.5 development. Native packages and a checksum-verifying installer
-are prepared; v0.5 has not been published yet. To use this checkout:
+Download [install.py](https://github.com/bzlatin/WRAITH/releases/download/v0.5.0/install.py)
+from the v0.5.0 release, then install the native binary:
 
 ```sh
-cargo install --path crates/wraith-cli --locked
-mkdir wraith-demo && cd wraith-demo
+python3 install.py --version 0.5.0
+```
+
+Add the printed installation directory to PATH. In an empty directory:
+
+```sh
 wraith init --demo
 wraith doctor
 wraith baseline
 wraith check
 ```
 
-The demo is offline and requires Python 3. [Manual testing guide](docs/dogfooding.md). Build requires Rust 1.87+; a native release
-needs no Rust installation. See [installation](docs/install.md) for packaged binaries.
+The demo is offline and requires Python 3. Native packages require no Rust
+installation. See [installation](docs/install.md) for platform details and source
+builds, or [manual testing](docs/dogfooding.md) to try an intentional regression.
 
 ## Connect your agent
 
@@ -62,8 +67,8 @@ request caps cover calls instrumented through the adapter helpers.
 ## CI and examples
 
 `wraith ci init` creates an offline PR workflow that evaluates the exact base commit
-and candidate, then retains reports. Review its dependency step and publish the
-pinned Wraith version before enabling it. [CI guide](docs/ci-setup.md).
+and candidate, then retains reports. Review its dependency step and bootstrap your
+scenario suite on the default branch before enabling it. [CI guide](docs/ci-setup.md).
 
 The [external pilot](examples/external-agents/README.md) clones pinned PydanticAI and
 LangGraph examples and tests their actual orchestration with offline dependencies.

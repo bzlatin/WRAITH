@@ -280,8 +280,20 @@ fn inconclusive_is_exit_three_in_human_and_json_reports() {
 fn baseline_check_history_and_preflight_preserve_evidence() {
     let dir = tempfile::tempdir().unwrap();
     assert!(cli(dir.path(), &["init", "--demo"], false).status.success());
+    // This test verifies workflow state, not a three-second cold-start deadline.
+    // Parallel Python starts can exceed that deadline on busy Windows runners.
+    let config = dir.path().join("wraith.yaml");
+    let (mut suite, _) = wraith_core::config::load(&config).unwrap();
+    suite.agent.timeout_ms = 30000;
+    std::fs::write(&config, serde_json::to_vec_pretty(&suite).unwrap()).unwrap();
     assert!(cli(dir.path(), &["doctor"], false).status.success());
-    assert!(cli(dir.path(), &["baseline"], false).status.success());
+    let baseline = cli(dir.path(), &["baseline"], false);
+    assert!(
+        baseline.status.success(),
+        "{}\n{}",
+        String::from_utf8_lossy(&baseline.stdout),
+        String::from_utf8_lossy(&baseline.stderr)
+    );
     let pointer = dir.path().join(".wraith/baseline.json");
     let original = std::fs::read(&pointer).unwrap();
     assert_eq!(cli(dir.path(), &["baseline"], false).status.code(), Some(2));
@@ -302,7 +314,6 @@ fn baseline_check_history_and_preflight_preserve_evidence() {
     let history = cli(dir.path(), &["history", "--output", "json"], false);
     let records: serde_json::Value = serde_json::from_slice(&history.stdout).unwrap();
     assert_eq!(records.as_array().unwrap().len(), 2);
-    let config = dir.path().join("wraith.yaml");
     let changed = std::fs::read_to_string(&config)
         .unwrap()
         .replace("20 PTO days?", "21 PTO days?");

@@ -11,10 +11,10 @@ installation: the template handles adjacent `package-lock.json` and
 `requirements.txt`; other builds/package managers need your normal CI steps.
 
 The template pins a Wraith release version (override with `--version`). That version
-must have published native archives and `install.py`; the current local v0.5 code
-cannot be installed from GitHub until release publication. The repository is
-currently private, so unauthenticated installers also need an accessible release or
-an authenticated manual download. Existing Wraith-repo CI remains source-built.
+must have accessible published native archives and `install.py`. v0.5.0 is the
+initial native distribution version. Custom/private distributions need an accessible
+release location or authenticated downloads. Wraith's general build/release CI remains
+source-built; the generated regression workflow uses the published binary.
 
 For each PR the generated workflow:
 

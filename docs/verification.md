@@ -30,10 +30,15 @@ Verified locally on macOS arm64:
   A malformed mobile capture was discarded and recaptured in a fresh context.
   The visual review was performed in-thread; see [report-design.md](report-design.md).
 
-No additional live model requests, push, release publication, or hosted CI run took
-place for v0.5. Linux, Intel macOS, and Windows native execution of these changes
-remain for the release matrix. The repository is private and v0.5 is unpublished:
-anonymous release installation and generated CI need an accessible published version.
+The local development pass made no additional live model requests or publication.
+Subsequently, the owner authorized pushing v0.5 and making WRAITH public. The first
+[native release matrix](https://github.com/bzlatin/WRAITH/actions/runs/37557996087)
+passed on Linux x86_64, Apple Silicon/Intel macOS, and Windows x86_64 MSVC, including
+extracted archive execution. The initial general CI run exposed a Windows workflow
+fixture failure under its inherited three-second deadline; the state/evidence test
+now uses a separate 30-second allowance and prints full failure diagnostics.
+Dedicated timeout tests and the product's configured timeout remain unchanged.
+Publication and installed-binary PR checks are recorded after completion below.
 External pilots establish integration behavior, not natural bug discovery or adoption.
 
 

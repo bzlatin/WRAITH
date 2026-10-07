@@ -1,8 +1,8 @@
 # Install Wraith
 
-The v0.5 onboarding implementation is currently local and unpublished. The release
-workflow builds archives for macOS Apple Silicon/Intel, Linux x86_64 GNU, and Windows
-x86_64 MSVC. Publishing those assets is a separate owner-controlled step.
+Native archives cover macOS Apple Silicon/Intel, Linux x86_64 GNU, and Windows
+x86_64 MSVC. Download the installer and packages from
+[GitHub Releases](https://github.com/bzlatin/WRAITH/releases/tag/v0.5.0).
 
 ## From the current checkout
 
@@ -23,7 +23,7 @@ Download the native archive and matching `.sha256` file from GitHub Releases. Th
 installer detects your platform, checks archive and binary SHA-256, and atomically
 installs the executable. It changes no shell profiles and requires no Rust.
 
-After v0.5.0 is published, the one-command install from a checkout is:
+Install v0.5.0 from a checkout with:
 
 ```sh
 python3 scripts/install.py --version 0.5.0
