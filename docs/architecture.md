@@ -79,7 +79,9 @@ rerunning the baseline. There is no partial-suite success that hides removed tes
 Artifacts validate duplicate IDs, response identities, and consistency of evaluation
 results by recomputing deterministic checks before comparison.
 
-New failed expectations are classified as output, tool selection, source, policy
+Structured JSON checks use explicit pointers and typed operators over final output;
+see [structured-output.md](structured-output.md). New failed expectations are
+classified as output, structured output, tool selection, source, policy
 (forbidden tool), latency, or token regressions. Pass-to-fail and new execution
 errors always fail the comparison. Fail-to-pass is an improvement. Tool and source
 sets that differ produce warnings; output differences produce information.
@@ -119,11 +121,13 @@ Temporary files have restricted permissions. Directory fsync for power-loss
 durability is deferred. Errors never upload anything.
 
 Config version, protocol version, run schema version, and package version are
-independent. Current run schema is 3, with protocol and YAML version still 1. Unsupported schemas are rejected before typed
-deserialization, with an upgrade hint. The reader migrates schema 1 to schema 3 with `samplesPerScenario: 1`,
-`sampleIndex: 1`, and default comparison options, then validates the result. Preserve fixtures from each supported version; never silently reinterpret
-unknown versions. Schema 2 also migrates to strict schema 3 in memory. Comparison JSON has
-`schemaVersion: 3`, adding statistical decisions and an explicit inconclusive flag.
+independent. Current run/report schema is 4, with protocol and YAML version still 1.
+Unsupported schemas are rejected before typed deserialization, with an upgrade hint.
+Schema 1 migrates to schema 4 with one sample and default comparison options; schema
+2 retains strict gating; schema 3 preserves its statistical policy. Migration occurs
+in memory without rewriting old files. Schema 4 adds structured JSON assertions and
+the structured-output regression classification. Preserve supported-version fixtures
+and never silently reinterpret unknown versions.
 See [statistical-gating.md](statistical-gating.md) for the opt-in rate policy.
 
 Saved runs retain scenario inputs/metadata/expectations, normalized responses,
@@ -133,6 +137,36 @@ command for diagnostics). Adapter outputs, tool arguments,
 metadata, and error diagnostics can contain application secrets. No redaction
 engine is provided. Keep `.wraith` ignored and apply your own retention/access policy.
 The files are trusted local artifacts, not signed attestations.
+
+## Project workflow and function adapters
+
+CLI `project` creates and validates starter files; `workflow` manages the fixed
+baseline and immutable `.wraith/history/<id>/` directories. Each completed record
+contains the run, effective comparison when present, HTML report, declared model,
+command, Git commit/dirty state, and budget identity. Project/workflow schemas are
+1 independently of core schema 4. Reporting reads saved decisions rather than
+recomputing policy from a later edited config. Git state does not fingerprint
+uncommitted source; these local files are evidence, not attestations.
+
+A project lock serializes workflow runs. Atomic pointer writes accept a baseline
+only after complete execution without setup/instrumentation errors. Cancellation
+never saves a partial run as complete. For live experiments, a pre-execution attempt
+marker preserves authorization state even when no accepted baseline exists; another
+budget requires explicit `--replace`. A hard-killed process may leave a stale lock:
+verify it has stopped before removing the lock.
+
+Embedded Python/TypeScript helpers translate a user function into protocol 1. The
+application owns dependencies, provider calls, tool execution, and retries. Helpers
+record reported activity, redirect ordinary logs to stderr, and reserve live request
+slots with an exclusive file lock before each instrumented provider attempt. The
+core injects only the explicit budget path, removing any inherited budget override.
+Hidden SDK retries and network calls bypassing helpers cannot be counted or blocked.
+
+`cases` imports reviewed expectations and input fixtures; outputs never become
+assertions automatically. `ci` generates an offline PR workflow using exact base
+and candidate checkouts and the validated base policy. `report` emits escaped,
+self-contained HTML without scripts or remote resources. Distribution uses native
+archives and a checksum-verifying installer; setup commands do not publish releases.
 
 ## Growth without replacing the core
 

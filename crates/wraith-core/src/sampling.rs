@@ -85,7 +85,8 @@ pub(crate) fn decide(
     }
 }
 
-pub(crate) fn groups(run: &RunSnapshot) -> BTreeMap<&str, Vec<&ScenarioResult>> {
+/// Group independent observations by their stable scenario identity.
+pub fn groups(run: &RunSnapshot) -> BTreeMap<&str, Vec<&ScenarioResult>> {
     let mut groups: BTreeMap<&str, Vec<&ScenarioResult>> = BTreeMap::new();
     for result in &run.scenarios {
         groups.entry(&result.scenario.id).or_default().push(result);

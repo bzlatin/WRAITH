@@ -140,7 +140,7 @@ fn sampled_cli_schema_and_policy_override() {
     );
     assert!(result.status.success());
     let value: serde_json::Value = serde_json::from_slice(&result.stdout).unwrap();
-    assert_eq!(value["schemaVersion"], 3);
+    assert_eq!(value["schemaVersion"], 4);
     assert_eq!(value["samplesPerScenario"], 3);
     assert_eq!(value["scenarios"].as_array().unwrap().len(), 9);
     assert_eq!(
@@ -274,4 +274,265 @@ fn inconclusive_is_exit_three_in_human_and_json_reports() {
             .unwrap()
             .contains("INCONCLUSIVE")
     );
+}
+
+#[test]
+fn baseline_check_history_and_preflight_preserve_evidence() {
+    let dir = tempfile::tempdir().unwrap();
+    assert!(cli(dir.path(), &["init", "--demo"], false).status.success());
+    assert!(cli(dir.path(), &["doctor"], false).status.success());
+    assert!(cli(dir.path(), &["baseline"], false).status.success());
+    let pointer = dir.path().join(".wraith/baseline.json");
+    let original = std::fs::read(&pointer).unwrap();
+    assert_eq!(cli(dir.path(), &["baseline"], false).status.code(), Some(2));
+    assert_eq!(std::fs::read(&pointer).unwrap(), original);
+    let check = cli(dir.path(), &["check", "--output", "json"], true);
+    assert_eq!(
+        check.status.code(),
+        Some(1),
+        "{}",
+        String::from_utf8_lossy(&check.stderr)
+    );
+    let result: serde_json::Value = serde_json::from_slice(&check.stdout).unwrap();
+    assert_eq!(result["record"]["outcome"], "failed");
+    let html = std::fs::read_to_string(result["report"].as_str().unwrap()).unwrap();
+    assert!(html.contains("TOOL_SELECTION_REGRESSION"));
+    assert!(html.contains("Final output"));
+    assert_eq!(std::fs::read(&pointer).unwrap(), original);
+    let history = cli(dir.path(), &["history", "--output", "json"], false);
+    let records: serde_json::Value = serde_json::from_slice(&history.stdout).unwrap();
+    assert_eq!(records.as_array().unwrap().len(), 2);
+    let config = dir.path().join("wraith.yaml");
+    let changed = std::fs::read_to_string(&config)
+        .unwrap()
+        .replace("20 PTO days?", "21 PTO days?");
+    // Change a known input reliably, leaving expectations intact.
+    std::fs::write(
+        &config,
+        changed.replace(
+            "How many PTO days do employees receive?",
+            "How many holidays do employees receive?",
+        ),
+    )
+    .unwrap();
+    let check = cli(dir.path(), &["check"], false);
+    assert_eq!(check.status.code(), Some(2));
+    assert!(String::from_utf8_lossy(&check.stderr).contains("No agent was executed"));
+    assert_eq!(std::fs::read(&pointer).unwrap(), original);
+}
+
+#[test]
+fn live_function_adapter_budget_and_opt_in_fail_closed() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(dir.path().join("agent.py"),"def evaluate(input, context):\n    with context.model_call():\n        return {'text':'ok'}\n").unwrap();
+    assert!(
+        cli(
+            dir.path(),
+            &[
+                "init",
+                "--entrypoint",
+                "agent.py:evaluate",
+                "--language",
+                "python",
+                "--mode",
+                "live"
+            ],
+            false
+        )
+        .status
+        .success()
+    );
+    assert_eq!(cli(dir.path(), &["baseline"], false).status.code(), Some(2));
+    assert!(!dir.path().join(".wraith/history").exists());
+    assert!(
+        cli(
+            dir.path(),
+            &["baseline", "--allow-live", "--max-requests", "2"],
+            false
+        )
+        .status
+        .success()
+    );
+    assert_eq!(cli(dir.path(), &["check"], false).status.code(), Some(2));
+    assert!(
+        cli(dir.path(), &["check", "--allow-live"], false)
+            .status
+            .success()
+    );
+    let result = cli(dir.path(), &["check", "--allow-live"], false);
+    assert_eq!(result.status.code(), Some(2));
+    assert!(String::from_utf8_lossy(&result.stderr).contains("exhausted"));
+    let pointer: serde_json::Value =
+        serde_json::from_slice(&std::fs::read(dir.path().join(".wraith/baseline.json")).unwrap())
+            .unwrap();
+    let budget = dir
+        .path()
+        .join(".wraith/history")
+        .join(pointer["id"].as_str().unwrap())
+        .join("request-budget.json");
+    assert_eq!(
+        serde_json::from_slice::<serde_json::Value>(&std::fs::read(budget).unwrap()).unwrap()["used"],
+        2
+    );
+}
+
+#[test]
+fn failed_live_baseline_cannot_silently_reset_its_budget() {
+    let dir = tempfile::tempdir().unwrap();
+    let agent = dir.path().join("agent.py");
+    std::fs::write(&agent, "def evaluate(input, context):\n    with context.model_call():\n        raise RuntimeError('provider failed')\n").unwrap();
+    assert!(
+        cli(
+            dir.path(),
+            &[
+                "init",
+                "--entrypoint",
+                "agent.py:evaluate",
+                "--mode",
+                "live"
+            ],
+            false
+        )
+        .status
+        .success()
+    );
+    let args = ["baseline", "--allow-live", "--max-requests", "2"];
+    assert_eq!(cli(dir.path(), &args, false).status.code(), Some(2));
+    assert!(!dir.path().join(".wraith/baseline.json").exists());
+    let attempt_path = dir.path().join(".wraith/live-baseline-attempt.json");
+    let attempt = std::fs::read(&attempt_path).unwrap();
+    let value: serde_json::Value = serde_json::from_slice(&attempt).unwrap();
+    let budget_path = dir
+        .path()
+        .join(".wraith/history")
+        .join(value["budgetId"].as_str().unwrap())
+        .join("request-budget.json");
+    let budget = std::fs::read(&budget_path).unwrap();
+    assert_eq!(
+        serde_json::from_slice::<serde_json::Value>(&budget).unwrap()["used"],
+        1
+    );
+    std::fs::write(&agent, "def evaluate(input, context):\n    with context.model_call():\n        return {'text':'ok'}\n").unwrap();
+    let blocked = cli(dir.path(), &args, false);
+    assert_eq!(blocked.status.code(), Some(2));
+    assert!(String::from_utf8_lossy(&blocked.stderr).contains("No agent was executed"));
+    assert_eq!(std::fs::read(&attempt_path).unwrap(), attempt);
+    assert_eq!(std::fs::read(&budget_path).unwrap(), budget);
+    assert!(
+        cli(
+            dir.path(),
+            &[
+                "baseline",
+                "--replace",
+                "--allow-live",
+                "--max-requests",
+                "2"
+            ],
+            false
+        )
+        .status
+        .success()
+    );
+    assert_ne!(std::fs::read(attempt_path).unwrap(), attempt);
+    assert_eq!(std::fs::read(budget_path).unwrap(), budget);
+}
+
+#[test]
+fn generated_adapter_handles_async_logs_and_escapes_html() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(dir.path().join("agent.py"),"print('import log')\nasync def evaluate(input, context):\n    print('runtime log')\n    context.tool('lookup', {'q':'hello'}, 'found')\n    return {'text':'<script>alert(1)</script>'}\n").unwrap();
+    assert!(
+        cli(
+            dir.path(),
+            &[
+                "init",
+                "--entrypoint",
+                "agent.py:evaluate",
+                "--language",
+                "python",
+                "--template",
+                "tools"
+            ],
+            false
+        )
+        .status
+        .success()
+    );
+    let baseline = cli(dir.path(), &["baseline", "--output", "json"], false);
+    assert!(
+        baseline.status.success(),
+        "{}",
+        String::from_utf8_lossy(&baseline.stderr)
+    );
+    let result: serde_json::Value = serde_json::from_slice(&baseline.stdout).unwrap();
+    let html = std::fs::read_to_string(result["report"].as_str().unwrap()).unwrap();
+    assert!(!html.contains("<script>"));
+    assert!(html.contains("&lt;script&gt;"));
+    assert_eq!(
+        result["run"]["scenarios"][0]["run"]["response"]["toolCalls"][0]["name"],
+        "lookup"
+    );
+}
+
+#[test]
+fn import_reviewed_case_and_ci_bootstrap_are_reviewable() {
+    let dir = tempfile::tempdir().unwrap();
+    assert!(cli(dir.path(), &["init", "--demo"], false).status.success());
+    std::fs::write(
+        dir.path().join("input.json"),
+        r#"{"text":"reported request"}"#,
+    )
+    .unwrap();
+    std::fs::write(
+        dir.path().join("expect.json"),
+        r#"{"output_contains":["correct"]}"#,
+    )
+    .unwrap();
+    let args = [
+        "cases",
+        "add",
+        "--id",
+        "reported-bug",
+        "--input",
+        "input.json",
+        "--expect",
+        "expect.json",
+    ];
+    let imported = cli(dir.path(), &args, false);
+    assert!(
+        imported.status.success(),
+        "{}",
+        String::from_utf8_lossy(&imported.stderr)
+    );
+    let config = dir.path().join("wraith.yaml");
+    let bytes = std::fs::read(&config).unwrap();
+    let suite: serde_json::Value = serde_json::from_slice(&bytes).unwrap();
+    assert_eq!(suite["tests"].as_array().unwrap().len(), 4);
+    assert_eq!(cli(dir.path(), &args, false).status.code(), Some(2));
+    assert_eq!(std::fs::read(&config).unwrap(), bytes);
+    assert!(
+        Command::new("git")
+            .args(["init", "--quiet"])
+            .current_dir(dir.path())
+            .status()
+            .unwrap()
+            .success()
+    );
+    let generated = cli(dir.path(), &["ci", "init"], false);
+    assert!(
+        generated.status.success(),
+        "{}",
+        String::from_utf8_lossy(&generated.stderr)
+    );
+    let workflow = dir.path().join(".github/workflows/wraith.yml");
+    let original = std::fs::read(&workflow).unwrap();
+    let yaml = String::from_utf8(original.clone()).unwrap();
+    assert!(yaml.contains("github.event.pull_request.base.sha"));
+    assert!(yaml.contains("wraith-evidence"));
+    assert!(!yaml.contains("__CONFIG_JSON__"));
+    assert_eq!(
+        cli(dir.path(), &["ci", "init"], false).status.code(),
+        Some(2)
+    );
+    assert_eq!(std::fs::read(workflow).unwrap(), original);
 }

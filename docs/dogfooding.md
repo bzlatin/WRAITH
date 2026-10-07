@@ -1,5 +1,37 @@
 # Manually dogfood Wraith
 
+## Five-minute check with the new workflow
+
+The current checkout already has a built native binary. These macOS commands create
+an isolated offline demo; no API key or model request is needed:
+
+```sh
+WRAITH_BIN=/Users/ben/coding_projects/WRAITH/target/release/wraith
+WRAITH_DEMO_DIR=$(mktemp -d)
+cd "$WRAITH_DEMO_DIR"
+"$WRAITH_BIN" init --demo
+"$WRAITH_BIN" doctor
+"$WRAITH_BIN" baseline
+WRAITH_EXAMPLE_MODE=candidate "$WRAITH_BIN" check
+open .wraith/index.html
+```
+
+The check intentionally exits 1: the candidate uses `web_search` where the scenario
+requires `search_documents`. Open the latest check from the history page, expand
+its outputs and traces, and inspect expected versus observed tool use. Next run
+`"$WRAITH_BIN" check` without the override: it should pass against the same baseline.
+This demo is synthetic; it teaches the workflow.
+
+To try actual upstream orchestration, return to the Wraith repository and follow
+[the external pilot](../examples/external-agents/README.md). Both cloned examples
+already ran locally, with all six controlled regressions detected. To connect your
+own application, use [the function integration guide](getting-started.md). Start with
+three to ten reviewed cases and one real prompt/tool change; record useful catches
+and false alarms before adding more checks. `wraith ci init` generates offline PR CI
+once an accessible native release is published.
+
+## Explore the RAG fixture
+
 Run these commands from the repository root on macOS/Linux with Python 3 and Cargo
 available. The fixture uses actual corpus retrieval and extractive answers without
 network calls or model charges. On this development machine, if Cargo is absent:
@@ -92,16 +124,16 @@ in the same directory share `.wraith/runs`, so use distinct names as above.
 
 ## 5. Connect your own agent
 
-1. Create a new directory with `wraith --config /path/to/project/wraith.yaml init`.
-2. Replace the starter command with an adapter for your real agent. Read one JSON
-   request from stdin, invoke your agent, and write one JSON response to stdout.
-   Keep logs on stderr. See [protocol.md](protocol.md) and the Python/TypeScript examples.
-3. Define representative inputs and expected behavior from real tasks. Preserve
-   identical scenarios, metadata, and expectations across both versions.
-4. Save a baseline; change one prompt, model, tool, or retrieval setting; save a
-   candidate; compare. Restore the old agent and rerun if a finding looks noisy.
+1. Export a Python/TypeScript function accepting `(input, context)` and returning JSON.
+2. Run `wraith init --entrypoint agent.py:evaluate` (or `agent.ts:evaluate`) beside
+   your app. Use its runtime/virtualenv and review `wraith doctor` diagnostics.
+3. Define representative inputs and expected behavior from real tasks. Record actual
+   tool/retrieval activity using the supplied context helpers.
+4. Run `wraith baseline`; change one prompt, model, tool, or retrieval setting; run
+   `wraith check`. Inspect the HTML report and compare the output evidence.
 5. Record useful catches, missed failures, false alarms, setup time, and whether you
-   would run this again. Repeat-use evidence is the next product milestone.
+   would run this again. See [getting-started.md](getting-started.md) for live request
+   opt-in/budgets and importing reviewed cases from recorded failures.
 
 Supply provider credentials through your usual environment only when testing your
 own live agent. Account for each scenario/sample invoking it again. Keep live provider

@@ -28,7 +28,8 @@ around missing instrumentation and stochastic evidence.
 
 GitHub source, issues, releases, a clear README, binaries, and Actions are the initial
 distribution path. Native platform execution is checked by CI and native archive smoke tests;
-real project PR adoption still needs validation. Public releases and license selection require the owner's request.
+real project PR adoption still needs validation. Apache-2.0 is selected; public
+releases require the owner's request.
 Cloud, auth, billing, databases, dashboards, and a substantial website are deferred.
 
 ## Learn from real use

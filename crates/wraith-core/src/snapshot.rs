@@ -58,6 +58,19 @@ pub fn load(path: &Path) -> Result<RunSnapshot, Error> {
     let mut value: serde_json::Value = serde_json::from_slice(&contents)
         .map_err(|e| Error::Artifact(format!("Invalid JSON in {}: {e}", path.display())))?;
     let schema = value.get("schemaVersion").and_then(|v| v.as_u64());
+    if schema.is_some_and(|version| version <= 3)
+        && value["scenarios"].as_array().is_some_and(|scenarios| {
+            scenarios.iter().any(|s| {
+                s["scenario"]["expect"]["json"]
+                    .as_array()
+                    .is_some_and(|checks| !checks.is_empty())
+            })
+        })
+    {
+        return Err(Error::Artifact(
+            "Structured JSON checks require run schema 4".into(),
+        ));
+    }
     if schema == Some(1) {
         value["schemaVersion"] = SCHEMA_VERSION.into();
         value["samplesPerScenario"] = 1.into();
@@ -78,9 +91,11 @@ pub fn load(path: &Path) -> Result<RunSnapshot, Error> {
                 "Schema 2 cannot contain a statistical policy".into(),
             ));
         }
+    } else if schema == Some(3) {
+        value["schemaVersion"] = SCHEMA_VERSION.into();
     } else if schema != Some(u64::from(SCHEMA_VERSION)) {
         return Err(Error::Artifact(format!(
-            "Unsupported run schemaVersion {} in {}. This WRAITH supports schemas 1–3; upgrade WRAITH for newer schemas.",
+            "Unsupported run schemaVersion {} in {}. This WRAITH supports schemas 1–4; upgrade WRAITH for newer schemas.",
             value
                 .get("schemaVersion")
                 .unwrap_or(&serde_json::Value::Null),
@@ -96,7 +111,7 @@ pub fn load(path: &Path) -> Result<RunSnapshot, Error> {
 pub fn validate(snapshot: &RunSnapshot) -> Result<(), Error> {
     if snapshot.schema_version != SCHEMA_VERSION {
         return Err(Error::Artifact(
-            "Unsupported internal run schema; expected schema 3".into(),
+            "Unsupported internal run schema; expected schema 4".into(),
         ));
     }
     if !(1..=1000).contains(&snapshot.samples_per_scenario) {
@@ -184,7 +199,7 @@ mod tests {
             load(&path)
                 .unwrap_err()
                 .to_string()
-                .contains("supports schemas 1–3")
+                .contains("supports schemas 1–4")
         );
     }
 }

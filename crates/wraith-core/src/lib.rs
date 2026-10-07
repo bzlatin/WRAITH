@@ -3,6 +3,7 @@ pub mod comparison;
 pub mod config;
 pub mod error;
 pub mod evaluation;
+pub mod json_checks;
 pub mod model;
 mod process;
 pub mod runner;

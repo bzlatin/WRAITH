@@ -36,13 +36,14 @@ statistical acceptance. Omit those strict gates when their observed sensitivity 
 not intended. Forbidden-tool expectations also use the statistical allowance when
 enabled; for zero-tolerance requirements retain a separate strict comparison.
 
-Report schema 3 adds `statisticalResults` and `inconclusive`. Every endpoint records
+Report schema 3 introduced `statisticalResults` and `inconclusive`. Every endpoint records
 sample counts, failure counts, observed increase, simultaneous interval, allowance,
 alpha, family size, method, decision, and reason. `passed` is false for inconclusive
 results. An explicit `--policy` overrides candidate statistical settings just as it
-already overrides exact checks and thresholds. Run schemas 1 and 2 migrate in memory
-to schema 3 with strict behavior; files are not rewritten. Older Wraith versions
-reject schema 3 rather than silently ignore the new policy.
+already overrides exact checks and thresholds. The current run/report schema is 4.
+Run schemas 1 and 2 migrate with strict behavior; schema 3 retains its statistical
+policy. Files are not rewritten. Older Wraith versions reject newer schemas rather
+than silently ignoring new policies or structured checks.
 
 ## Method and limits
 

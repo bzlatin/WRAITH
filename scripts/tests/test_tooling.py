@@ -110,3 +110,52 @@ class CiContract(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class InstallerAndAdapters(unittest.TestCase):
+    def test_installer_checks_before_replacing_binary(self):
+        installer = load('installer', 'install.py')
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            target = installer.native_target()
+            archive = packager.package(BINARY, target, directory / 'packages')
+            version = subprocess.check_output([str(BINARY), '--version'], text=True).split()[1]
+            destination = installer.install(archive.read_bytes(), hashlib.sha256(archive.read_bytes()).hexdigest(), version, target, directory / 'bin')
+            self.assertEqual(destination.read_bytes(), BINARY.read_bytes())
+            before = destination.read_bytes()
+            with self.assertRaisesRegex(ValueError, 'SHA-256'):
+                installer.install(archive.read_bytes(), '0' * 64, version, target, directory / 'bin')
+            self.assertEqual(destination.read_bytes(), before)
+
+    def test_python_and_typescript_function_adapters_budget_retries(self):
+        import shlex
+        runtimes = [('python', sys.executable, '.py', "def evaluate(input, context):\n    print('diagnostic log')\n    context.tool('lookup', {'id':input['id']}, 'found')\n    with context.model_call():\n        context.usage(3, 2)\n    return {'answer':'ok'}\n")]
+        node = os.environ.get('WRAITH_DEMO_NODE') or __import__('shutil').which('node')
+        if node:
+            runtimes.append(('typescript', node, '.mjs', "export async function evaluate(input, ctx) { console.log('diagnostic log'); ctx.tool('lookup', {id:input.id}, 'found'); return await ctx.modelCall(async () => {ctx.usage(3,2); return {answer:'ok'};}); }"))
+        for language, runtime, extension, source in runtimes:
+            with self.subTest(language=language), tempfile.TemporaryDirectory() as directory:
+                directory = Path(directory)
+                script = directory / ('agent' + extension)
+                script.write_text(source)
+                # Init's starter input is intentionally generic; this wrapper needs an ID.
+
+                init = subprocess.run([str(BINARY), 'init', '--entrypoint', script.name + ':evaluate', '--language', language, '--runtime', runtime, '--mode', 'live'], cwd=directory, capture_output=True, text=True)
+                self.assertEqual(init.returncode, 0, init.stderr)
+                config_path = directory / 'wraith.yaml'
+                suite = json.loads(config_path.read_text())
+                suite['tests'][0]['input'] = {'id':'sample'}
+                config_path.write_text(json.dumps(suite))
+                def invoke(args):
+                    return subprocess.run([str(BINARY), *args, '--output', 'json'], cwd=directory, capture_output=True, text=True)
+                baseline = invoke(['baseline', '--allow-live', '--max-requests', '2'])
+                self.assertEqual(baseline.returncode, 0, baseline.stderr)
+                result = json.loads(baseline.stdout)
+                response = result['run']['scenarios'][0]['run']['response']
+                self.assertEqual(response['usage'], {'inputTokens':3,'outputTokens':2})
+                self.assertEqual(response['toolCalls'][0]['name'], 'lookup')
+                self.assertEqual(response['metadata']['wraith']['modelCalls'], 1)
+                candidate = invoke(['check', '--allow-live'])
+                self.assertEqual(candidate.returncode, 0, candidate.stderr)
+                refused = invoke(['check', '--allow-live'])
+                self.assertEqual(refused.returncode, 2)
+                self.assertIn('exhausted', refused.stderr)

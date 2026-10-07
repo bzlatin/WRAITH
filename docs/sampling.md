@@ -5,9 +5,9 @@ Each observation has a new contained process and identical request input/metadat
 The adapter owns external state and randomness. Wraith does not inject a seed or
 silently alter user metadata. Execution remains sequential.
 
-Run schema 3 stores `samplesPerScenario` and each observation's 1-based `sampleIndex`.
+Run schema 4 stores `samplesPerScenario` and each observation's 1-based `sampleIndex`.
 Every scenario must have exactly that many distinct indices and identical definitions.
-Schemas 1 and 2 migrate in memory to schema 3; schema 1 gets one sample. Old files are unchanged.
+Schemas 1–3 migrate in memory to schema 4; schema 1 gets one sample. Old files are unchanged.
 Unknown future versions, partial sample sets, duplicate indices, or inconsistent
 evaluation flags are rejected. Interrupted sampling has no completed snapshot.
 

@@ -14,7 +14,6 @@ path = "src/main.rs"
 wraith-core = { path = "../wraith-core" }
 clap = { version = "4", features = ["derive"] }
 serde_json.workspace = true
+serde.workspace = true
 tokio.workspace = true
-
-[dev-dependencies]
 tempfile = "3"
