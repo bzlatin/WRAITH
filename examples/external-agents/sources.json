@@ -1,0 +1,4 @@
+{
+  "pydantic-ai": {"url": "https://github.com/pydantic/pydantic-ai.git", "revision": "0ba01f92be3fc361f89970502cd6e7dd3611aec3", "paths": ["examples/pydantic_ai_examples"], "example": "examples/pydantic_ai_examples/weather_agent.py", "license": "MIT"},
+  "langgraph": {"url": "https://github.com/langchain-ai/langgraph.git", "revision": "3a1796ecf072b9f3bb429d5835179c15e92d719a", "paths": ["libs/sdk-py/integration/graph"], "example": "libs/sdk-py/integration/graph/tools_agent.py", "license": "MIT"}
+}

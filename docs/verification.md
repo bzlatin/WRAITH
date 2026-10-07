@@ -1,5 +1,71 @@
 # Verification record
 
+## v0.5 increment — October 6, 2026
+
+Package 0.5.0 adds guided function-adapter setup, `doctor`, immutable local workflow
+history, shared live request budgets, HTML reports, reviewed case import, a CI setup
+generator, and a checksum-verifying native installer. Protocol/config remain 1;
+run/comparison schemas remain 4; project and workflow records use independent schema 1.
+
+Verified locally on macOS arm64:
+
+- 42 Rust tests and seven Python adapter/packaging/CI tooling tests passed.
+- Formatting, Clippy with warnings denied, Rust 1.87 all-target checks, and locked
+  debug/release builds passed.
+- Python, JavaScript, direct TypeScript, compiled TypeScript, repeated-observation,
+  and exact-trace demos passed with both passing and deliberately failing agents.
+- RAG pilot: 21 comparisons, 0/213 false positives, 0/39 missed controlled regressions.
+  These deterministic fixtures do not estimate live-model accuracy.
+- Pinned official PydanticAI and LangGraph repositories were cloned locally. Their
+  real orchestration passed three cases each; all six controlled tool-skipping
+  regressions were detected. Mock model/tool boundaries used zero live model calls.
+- Live workflow tests verified explicit opt-in, shared request exhaustion, reserved
+  failed calls, and refusal to silently replace a failed experiment's request budget.
+- The generated PR workflow and native release workflow passed actionlint. Dependency
+  license notices remain current; no new Rust dependency versions were introduced.
+- Native macOS arm64 archive metadata/checksums, extracted-binary init/run/compare,
+  and atomic local installation passed. Bad checksums preserve an existing binary.
+- HTML reports were inspected in Chrome at desktop 1440px and mobile 390px: failures
+  precede performance, output disclosures work, and page width does not overflow.
+  A malformed mobile capture was discarded and recaptured in a fresh context.
+  The visual review was performed in-thread; see [report-design.md](report-design.md).
+
+No additional live model requests, push, release publication, or hosted CI run took
+place for v0.5. Linux, Intel macOS, and Windows native execution of these changes
+remain for the release matrix. The repository is private and v0.5 is unpublished:
+anonymous release installation and generated CI need an accessible published version.
+External pilots establish integration behavior, not natural bug discovery or adoption.
+
+
+## v0.4 increment — October 6, 2026
+
+Package 0.4.0 adds structured-output assertions for the Example application integration.
+Protocol/config remain version 1; run/report schemas are 4 with in-memory migration
+from schemas 1–3. This increment has been verified locally on macOS arm64; native
+CI results below apply to v0.3, not these unpushed changes.
+
+- 36 Rust tests passed, plus five packaging/CI tooling tests.
+- Formatting, Clippy with warnings denied, Rust 1.87 all-target check, and locked
+  release build passed. Python/TypeScript passing and failing adapter demos passed.
+- Example application server type-check and 141 unit tests passed. The existing
+  `upNextIntelligence` test needs a dummy localhost `DATABASE_URL` at import time;
+  no real database was used. The three adapter tests pass without database config.
+- The production generation body was moved verbatim into a shared module; the
+  adapter exercises it without loading the database or fatigue-query modules.
+- Ten offline baseline cases passed; harmless wording triggered 0/10 alarms;
+  all 50 delivered-output mutations were detected. These are controlled fixtures.
+- Four live baseline and four live candidate cases passed using 8 of 20 approved
+  requests. Candidate added a concise-reasoning instruction. This is a smoke check,
+  not a live false-positive-rate estimate or statistical equivalence result.
+- The separate baseline/edit/candidate workflow was exercised offline: frozen suite,
+  ten detected wrong-equipment failures, and refusal to overwrite the candidate.
+
+The app's `server/evals/wraith/README.md` documents repeat use. Local evidence stays
+under its ignored `server/.wraith/evals/` directory. The next validation is a useful
+natural regression during a real change. No extra model requests, deployment,
+release publication, or push occurred after the eight-request experiment.
+
+
 ## v0.3 increment — October 6, 2026
 
 Package 0.3.0; protocol/config remain version 1; run/report schemas are 3. The

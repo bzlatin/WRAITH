@@ -3,7 +3,7 @@ use serde_json::{Map, Value};
 
 pub type Metadata = Map<String, Value>;
 pub const PROTOCOL_VERSION: u32 = 1;
-pub const SCHEMA_VERSION: u32 = 3;
+pub const SCHEMA_VERSION: u32 = 4;
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -130,6 +130,7 @@ pub struct AgentRun {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Evaluator {
+    JsonOutput,
     OutputContains,
     OutputNotContains,
     ToolsCalled,

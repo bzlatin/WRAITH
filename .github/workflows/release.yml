@@ -52,6 +52,9 @@ jobs:
           python3 scripts/package-release.py \
             --binary "target/$WRAITH_RELEASE_TARGET/release/$WRAITH_RELEASE_BINARY" \
             --target "$WRAITH_RELEASE_TARGET" "${args[@]}"
+      - name: Include installer
+        shell: bash
+        run: cp scripts/install.py release/install.py
       - name: Smoke test extracted native archive
         shell: bash
         run: |
@@ -80,4 +83,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           WRAITH_RELEASE_TAG: ${{ github.ref_name }}
-        run: gh release create "$WRAITH_RELEASE_TAG" release/* --verify-tag --draft --generate-notes
+        run: |
+          # The native jobs include the installer in their uploaded release directory.
+          gh release create "$WRAITH_RELEASE_TAG" release/* --verify-tag --draft --generate-notes

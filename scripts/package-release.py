@@ -35,6 +35,12 @@ def package(binary, target, output, require_license=False, expected_version=None
              "RELEASE.json": (json.dumps({"version": version, "target": target,
                                           "binarySha256": hashlib.sha256(binary.read_bytes()).hexdigest()},
                                          indent=2) + "\n").encode()}
+    # Ship the onboarding kit and detailed guides alongside the binary.
+    for directory in ["adapters", "docs"]:
+        for path in sorted((ROOT / directory).rglob("*")):
+            if path.is_file() and path.suffix in (".py", ".mjs", ".mts", ".md"):
+                files[path.relative_to(ROOT).as_posix()] = path.read_bytes()
+    files["install.py"] = (ROOT / "scripts/install.py").read_bytes()
     if license_path.is_file():
         files["LICENSE"] = license_path.read_bytes()
     else:

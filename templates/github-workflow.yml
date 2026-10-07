@@ -1,0 +1,91 @@
+name: Wraith agent regression
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: _wraith_base
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Install pinned Wraith binary
+        env:
+          WRAITH_VERSION: __VERSION__
+        run: |
+          curl -fL --retry 2 "https://github.com/bzlatin/WRAITH/releases/download/v${WRAITH_VERSION}/install.py" -o /tmp/wraith-install.py
+          python3 /tmp/wraith-install.py --version "$WRAITH_VERSION" --directory /tmp/wraith-bin
+          echo /tmp/wraith-bin >> "$GITHUB_PATH"
+      - name: Install agent dependencies
+        env:
+          WRAITH_CONFIG: __CONFIG_JSON__
+        run: |
+          # Review this step for your project. No provider secrets are used.
+          python3 - <<'PY'
+          import os, pathlib, subprocess
+          config = pathlib.Path(os.environ['WRAITH_CONFIG'])
+          for root in (pathlib.Path('_wraith_base'), pathlib.Path('.')):
+              directory = root / config.parent
+              if (directory / 'package-lock.json').exists():
+                  subprocess.run(['npm', 'ci', '--ignore-scripts'], cwd=directory, check=True)
+              if (directory / 'requirements.txt').exists():
+                  subprocess.run(['python', '-m', 'venv', str(directory / '.wraith/venv')], check=True)
+                  subprocess.run([str(directory / '.wraith/venv/bin/python'), '-m', 'pip', 'install', '-r', str(directory / 'requirements.txt')], check=True)
+          PY
+      - name: Evaluate base and candidate
+        env:
+          WRAITH_CONFIG: __CONFIG_JSON__
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess, sys
+          config = pathlib.Path(os.environ['WRAITH_CONFIG'])
+          base = pathlib.Path('_wraith_base') / config
+          if not base.exists():
+              sys.exit('Baseline config is absent at the PR base. Bootstrap the suite on the default branch before enabling this check.')
+          # Pin expectations and adapter command to the trusted base config. This
+          # Export through Wraith so both YAML and JSON configs are supported.
+          suite = json.loads(subprocess.check_output(['wraith', '--config', str(base), 'config'], text=True))
+          if (base.parent / 'wraith.project.json').exists() and json.loads((base.parent / 'wraith.project.json').read_text())['mode'] != 'offline':
+              sys.exit('Live suites are not permitted in this offline workflow')
+          config.write_text(json.dumps(suite, indent=2))
+          def run(path, name):
+              env = dict(os.environ)
+              venv = path.parent / '.wraith/venv/bin'
+              if venv.exists(): env['PATH'] = str(venv.resolve()) + os.pathsep + env['PATH']
+              return subprocess.run(['wraith', '--config', str(path), 'run', '--save', name], env=env).returncode
+          before = run(base, 'ci-baseline')
+          after = run(config, 'ci-candidate')
+          if before not in (0, 1) or after not in (0, 1): sys.exit(2)
+          pathlib.Path('.wraith/ci').mkdir(parents=True, exist_ok=True)
+          with open('.wraith/ci/comparison.json', 'w') as output:
+              code = subprocess.run(['wraith', '--config', str(config), 'compare', str((base.parent / '.wraith/runs/ci-baseline.json').resolve()), 'ci-candidate', '--policy', str(base), '--html', '.wraith/ci/report.html', '--output', 'json'], stdout=output).returncode
+          report = json.loads(pathlib.Path('.wraith/ci/comparison.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+              summary.write('## Wraith evaluation\n\n' + ('Passed' if report['passed'] else 'Inconclusive' if report['inconclusive'] else 'Failed') + '\n\n')
+              for change in report['changes']:
+                  text = f"{change['scenarioId']}: {change['classification']} — {change['message']}"
+                  summary.write('- ' + text.replace('\n', ' ').replace('<', '&lt;') + '\n')
+              summary.write('\nDownload the wraith-evidence artifact for outputs and the HTML report.\n')
+          sys.exit(code)
+          PY
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: wraith-evidence
+          path: |
+            .wraith/ci/
+            **/.wraith/runs/ci-*.json
+          include-hidden-files: true
+          retention-days: 14

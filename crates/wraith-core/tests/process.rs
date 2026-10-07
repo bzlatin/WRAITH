@@ -141,6 +141,7 @@ async fn cooperative_and_task_cancellation_kill_descendants() {
         let options = runner::RunOptions {
             samples: 2,
             cancellation: cancellation.clone(),
+            request_budget: None,
         };
         let task = tokio::spawn(async move {
             runner::run_with_options(&config, &directory, None, &options).await

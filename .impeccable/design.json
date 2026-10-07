@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T01:21:42.415336+00:00",
+  "title": "Design System: Wraith local reports",
+  "extensions": {
+    "shadows": [],
+    "motion": [
+      {
+        "name": "disclosure-reveal",
+        "value": "160ms ease-out",
+        "purpose": "Native output disclosure; disabled under reduced motion"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "640px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Output disclosure",
+      "kind": "custom",
+      "description": "Native keyboard-accessible output details",
+      "html": "<details class=\"ds-details\"><summary>Final output</summary><pre>{\"text\":\"Recorded answer\"}</pre></details>",
+      "css": ".ds-details{font:16px/1.6 system-ui;color:#17212b}.ds-details summary{cursor:pointer;font-weight:550;padding:8px 0}.ds-details summary:hover{color:#175c98}.ds-details summary:focus-visible{outline:3px solid #175c98;outline-offset:4px}.ds-details pre{font:13px/1.55 monospace;background:#f5f7f9;padding:16px;border-radius:6px;white-space:pre-wrap;overflow-wrap:anywhere}"
+    },
+    {
+      "name": "Report navigation",
+      "kind": "nav",
+      "description": "Local history link",
+      "html": "<nav><a class=\"ds-link\" href=\"#\">Run history</a></nav>",
+      "css": ".ds-link{font:16px/1.6 system-ui;color:#175c98;text-underline-offset:3px}.ds-link:hover{text-decoration-thickness:2px}.ds-link:focus-visible{outline:3px solid #175c98;outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The code-review document",
+    "overview": "A local report reads as a continuous engineering document.",
+    "keyCharacteristics": [
+      "Failures first",
+      "Expandable evidence",
+      "Self-contained HTML"
+    ],
+    "rules": [],
+    "dos": [
+      "Lead with actionable failures and show expected/observed evidence"
+    ],
+    "donts": [
+      "Render agent strings as markup or load remote report resources"
+    ]
+  }
+}

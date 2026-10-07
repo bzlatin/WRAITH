@@ -392,7 +392,7 @@ fn sample_validation_and_schema_one_migration() {
     let path = dir.path().join("legacy.json");
     std::fs::write(&path, serde_json::to_vec(&legacy).unwrap()).unwrap();
     let loaded = wraith_core::snapshot::load(&path).unwrap();
-    assert_eq!(loaded.schema_version, 3);
+    assert_eq!(loaded.schema_version, 4);
     assert!(compare(&loaded, &original).unwrap().passed);
     legacy["scenarios"][0] = json!("invalid");
     std::fs::write(&path, serde_json::to_vec(&legacy).unwrap()).unwrap();
@@ -523,7 +523,7 @@ fn trusted_policy_overrides_statistical_relaxation_and_schema_two_stays_strict()
     let bytes = serde_json::to_vec(&legacy).unwrap();
     std::fs::write(&path, &bytes).unwrap();
     let loaded = wraith_core::snapshot::load(&path).unwrap();
-    assert_eq!(loaded.schema_version, 3);
+    assert_eq!(loaded.schema_version, 4);
     assert!(loaded.comparison.statistical.is_none());
     assert_eq!(bytes, std::fs::read(path).unwrap());
     policy.comparison.statistical = Some(config::StatisticalPolicy {
@@ -532,4 +532,54 @@ fn trusted_policy_overrides_statistical_relaxation_and_schema_two_stays_strict()
         max_failure_rate_increase_pp: 20.0,
     });
     assert!(wraith_core::comparison::compare_with_policy(&b, &c, Some(&policy)).is_err());
+}
+
+#[test]
+fn structured_output_regressions_keep_evidence_and_join_statistical_family() {
+    let mut b = snapshot("search_documents", "employee_handbook", "20 days", false);
+    b.scenarios[0].scenario.expect.json = vec![serde_json::from_value(json!({
+        "path":"/exercises", "each":"/sets", "check":{"op":"range","min":3,"max":3,"integer":true}
+    })).unwrap()];
+    b.scenarios[0].run.response.as_mut().unwrap().output = json!({"exercises":[{"sets":3}]});
+    rescore(&mut b);
+    let mut c = b.clone();
+    c.scenarios[0].run.response.as_mut().unwrap().output = json!({"exercises":[{"sets":5}]});
+    rescore(&mut c);
+    let report = compare(&b, &c).unwrap();
+    assert!(!report.passed);
+    let change = report
+        .changes
+        .iter()
+        .find(|c| c.classification == ChangeKind::StructuredOutputRegression)
+        .unwrap();
+    assert!(change.message.contains("/exercises/0/sets"));
+    assert_eq!(change.candidate[0]["value"], 5);
+    statistical(&mut c, 20, 10.0);
+    let report = compare(&b, &c).unwrap();
+    assert!(report.inconclusive);
+    assert_eq!(report.statistical_results.len(), 2);
+    assert_eq!(report.statistical_results[0].family_size, 2);
+}
+
+#[test]
+fn schema_three_migrates_without_rewriting_or_losing_statistical_policy() {
+    let mut run = sampled(&[true, true]);
+    statistical(&mut run, 20, 10.0);
+    let mut legacy = serde_json::to_value(&run).unwrap();
+    legacy["schemaVersion"] = json!(3);
+    for scenario in legacy["scenarios"].as_array_mut().unwrap() {
+        scenario["scenario"]["expect"]
+            .as_object_mut()
+            .unwrap()
+            .remove("json");
+    }
+    let bytes = serde_json::to_vec(&legacy).unwrap();
+    let dir = tempfile::tempdir().unwrap();
+    let path = dir.path().join("schema-three.json");
+    std::fs::write(&path, &bytes).unwrap();
+    let loaded = wraith_core::snapshot::load(&path).unwrap();
+    assert_eq!(loaded.schema_version, 4);
+    assert!(loaded.comparison.statistical.is_some());
+    assert_eq!(std::fs::read(&path).unwrap(), bytes);
+    assert!(compare(&loaded, &loaded).unwrap().inconclusive);
 }

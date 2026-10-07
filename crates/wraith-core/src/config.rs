@@ -9,7 +9,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Config {
     pub version: u32,
@@ -21,7 +21,7 @@ pub struct Config {
     pub comparison: ComparisonOptions,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct AgentConfig {
     pub command: String,
@@ -83,6 +83,8 @@ pub struct Scenario {
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Expectations {
+    #[serde(default)]
+    pub json: Vec<crate::json_checks::JsonAssertion>,
     #[serde(default)]
     pub output_contains: Vec<String>,
     #[serde(default)]
@@ -191,6 +193,11 @@ pub fn validate_scenarios(scenarios: &[Scenario]) -> Result<(), Error> {
             )));
         }
         let e = &scenario.expect;
+        for assertion in &e.json {
+            assertion
+                .validate()
+                .map_err(|message| Error::Config(format!("tests[{i}].expect.json: {message}")))?;
+        }
         for (name, list) in [
             ("output_contains", &e.output_contains),
             ("output_not_contains", &e.output_not_contains),

@@ -12,6 +12,7 @@ use std::collections::{BTreeMap, BTreeSet};
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum ChangeKind {
+    StructuredOutputRegression,
     PassToFail,
     FailToPass,
     ToolSelectionRegression,
@@ -271,7 +272,7 @@ pub fn compare_with_policy(
         && changes.iter().all(|c| c.severity != Severity::Failure)
         && thresholds.iter().all(|t| t.passed);
     Ok(ComparisonReport {
-        schema_version: 3,
+        schema_version: 4,
         policy_source: if policy.is_some() { "trusted_config" } else { "candidate_snapshot" }.into(),
         comparison: comparison.clone(),
         samples_per_scenario: candidate.samples_per_scenario,
@@ -376,6 +377,7 @@ fn compare_observations(
         );
         if failed_after > failed_before {
             let kind = match expected.evaluator {
+                Evaluator::JsonOutput => ChangeKind::StructuredOutputRegression,
                 Evaluator::OutputContains | Evaluator::OutputNotContains => {
                     ChangeKind::OutputRegression
                 }
@@ -406,7 +408,11 @@ fn compare_observations(
                 },
                 observations(before),
                 observations(after),
-                expected.message.clone(),
+                after
+                    .iter()
+                    .find(|s| !s.evaluations[index].passed)
+                    .map(|s| s.evaluations[index].message.clone())
+                    .unwrap_or_else(|| expected.message.clone()),
             );
         }
     }

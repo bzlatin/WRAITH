@@ -57,6 +57,7 @@ async fn invoke(
     scenario: &Scenario,
     directory: &Path,
     cancellation: &Cancellation,
+    request_budget: Option<&Path>,
 ) -> Result<AgentResponse, RunError> {
     let args =
         command_args(&agent.command).map_err(|e| failure(RunErrorKind::Spawn, e.to_string()))?;
@@ -67,6 +68,11 @@ async fn invoke(
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped());
+    // Only the explicit budget path is injected. Never capture the inherited environment.
+    command.env_remove("WRAITH_REQUEST_BUDGET");
+    if let Some(path) = request_budget {
+        command.env("WRAITH_REQUEST_BUDGET", path);
+    }
     let mut process = Process::spawn(command).map_err(|e| failure(RunErrorKind::Spawn, format!("Could not execute agent command {:?}: {e}\nWorking directory: {}\nCheck agent.command, the executable installation, and paths relative to the configuration.", agent.command, directory.display())))?;
     let (mut stdin, stdout, stderr) = process
         .take_pipes()
@@ -151,6 +157,7 @@ async fn invoke(
 pub struct RunOptions {
     pub samples: u32,
     pub cancellation: Cancellation,
+    pub request_budget: Option<std::path::PathBuf>,
 }
 
 impl Default for RunOptions {
@@ -158,6 +165,7 @@ impl Default for RunOptions {
         Self {
             samples: 1,
             cancellation: Cancellation::default(),
+            request_budget: None,
         }
     }
 }
@@ -167,7 +175,15 @@ pub async fn run_scenario(
     scenario: &Scenario,
     directory: &Path,
 ) -> ScenarioResult {
-    run_observation(agent, scenario, directory, 1, &Cancellation::default()).await
+    run_observation(
+        agent,
+        scenario,
+        directory,
+        1,
+        &Cancellation::default(),
+        None,
+    )
+    .await
 }
 
 async fn run_observation(
@@ -176,10 +192,11 @@ async fn run_observation(
     directory: &Path,
     sample_index: u32,
     cancellation: &Cancellation,
+    request_budget: Option<&Path>,
 ) -> ScenarioResult {
     let started_at_unix_ms = unix_ms();
     let clock = Instant::now();
-    let outcome = invoke(agent, scenario, directory, cancellation).await;
+    let outcome = invoke(agent, scenario, directory, cancellation, request_budget).await;
     let (response, error) = match outcome {
         Ok(response) => (Some(response), None),
         Err(error) => (None, Some(error)),
@@ -216,6 +233,7 @@ pub async fn run(
         &RunOptions {
             samples: 1,
             cancellation: Cancellation::default(),
+            request_budget: None,
         },
     )
     .await
@@ -253,6 +271,7 @@ pub async fn run_with_options(
                 directory,
                 sample_index,
                 &options.cancellation,
+                options.request_budget.as_deref(),
             )
             .await;
             if options.cancellation.is_cancelled()

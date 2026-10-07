@@ -34,6 +34,16 @@ pub fn evaluate(scenario: &Scenario, run: &AgentRun) -> Vec<EvaluationResult> {
         });
     };
     let e = &scenario.expect;
+    for assertion in &e.json {
+        let result = assertion.evaluate(response.map(|r| &r.output));
+        add(
+            Evaluator::JsonOutput,
+            json!(assertion),
+            result.observed,
+            result.passed,
+            result.message,
+        );
+    }
     for (kind, items, required) in [
         (Evaluator::OutputContains, &e.output_contains, true),
         (Evaluator::OutputNotContains, &e.output_not_contains, false),
