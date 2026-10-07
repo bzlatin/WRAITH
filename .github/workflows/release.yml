@@ -54,7 +54,9 @@ jobs:
             --target "$WRAITH_RELEASE_TARGET" "${args[@]}"
       - name: Include installer
         shell: bash
-        run: cp scripts/install.py release/install.py
+        run: |
+          # Upload identical bytes from every platform, including Windows checkouts.
+          python3 -c "from pathlib import Path; Path('release/install.py').write_text(Path('scripts/install.py').read_text(encoding='utf-8'), encoding='utf-8', newline='\n')"
       - name: Smoke test extracted native archive
         shell: bash
         run: |
