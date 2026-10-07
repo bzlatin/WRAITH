@@ -91,6 +91,24 @@ The owner authorized publication and selected a public source repository. Tag
   `~/.local/bin` passed on macOS arm64. The installed binary passed init, doctor,
   baseline, intentionally failing check, and passing check with no model calls.
 
+Generated published-binary PR CI was bootstrapped with the existing offline RAG
+suite. Both temporary PRs were tested without merging their agent modifications:
+
+- [Harmless wording PR](https://github.com/bzlatin/WRAITH/pull/1): the
+  [generated check](https://github.com/bzlatin/WRAITH/actions/runs/37559442806)
+  passed. Output changes were informational; all configured expectations passed.
+- [Controlled refund regression PR](https://github.com/bzlatin/WRAITH/pull/2): the
+  [generated check](https://github.com/bzlatin/WRAITH/actions/runs/37559459123)
+  failed with `OUTPUT_REGRESSION` and `PASS_TO_FAIL`. Neither version had execution
+  errors. JSON comparisons and self-contained HTML reports were retained for both.
+- The [bootstrap main build](https://github.com/bzlatin/WRAITH/actions/runs/37559351853)
+  passed. The PR check downloaded v0.5.0 without authentication and evaluated each
+  exact base/candidate pair with the base configuration and policy.
+
+Main requires the GitHub Actions `check` context with branches up to date before
+merging, including repository administrators. These fixtures validate distribution
+and gating; they do not establish live-model quality or natural bug discovery.
+
 ## v0.3 increment — October 6, 2026
 
 Package 0.3.0; protocol/config remain version 1; run/report schemas are 3. The
