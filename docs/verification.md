@@ -11,7 +11,7 @@ Verified locally on macOS arm64:
 
 - 32 Rust tests, including statistical bounds, minimum samples, allowances,
   inconclusive CLI exit 3, policy overrides, migration, and process cleanup.
-- Four packaging/CI script tests; license and dependency notices included.
+- Five packaging/CI script tests, including Windows path quoting; license and dependency notices included.
 - Formatting, Clippy warnings denied, Rust 1.87 all-target checks, release build,
   TypeScript compilation, and workflow linting.
 - RAG pilot: 21 comparisons, 0/213 false positives, 0/39 missed labeled regressions.
@@ -19,6 +19,14 @@ Verified locally on macOS arm64:
 - Manual statistical fixture: 20 samples yielded exit 3; 200-sample harmless change
   passed; 200-sample stale-policy defect failed.
 - Checksummed native macOS archive extracted and executed through init/run/compare.
+
+The first hosted native package run passed on Linux x86_64, macOS arm64/x86_64,
+and Windows x86_64 MSVC, including tests and extracted archive smoke checks:
+[release validation](https://github.com/bzlatin/WRAITH/actions/runs/37549126668).
+The initial Windows general-CI demo exposed a YAML/backslash quoting bug; the demo
+now JSON-encodes the command scalar separately from subprocess argument quoting,
+with a regression test covering spaces, quotes, and backslashes. The default-branch
+[baseline artifact](https://github.com/bzlatin/WRAITH/actions/runs/37549112672) succeeded.
 
 Reproduce with `scripts/pilot.py`, `scripts/smoke-package.py`, and
 [the manual dogfooding guide](dogfooding.md). Raw local reports are ignored under

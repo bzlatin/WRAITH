@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tarfile
 import tempfile
 import unittest
@@ -24,6 +25,7 @@ def load(name, filename):
 packager = load("packager", "package-release.py")
 ci = load("ci", "ci-check.py")
 lookup = load("lookup", "find-baseline.py")
+demo = load("demo", "demo.py")
 
 
 class Packaging(unittest.TestCase):
@@ -66,6 +68,19 @@ class Packaging(unittest.TestCase):
 
 
 class CiContract(unittest.TestCase):
+    def test_demo_command_preserves_paths_with_spaces_quotes_and_backslashes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            script = directory / "agent with space's.py"
+            script.write_text("import sys,json\nr=json.load(sys.stdin)\nprint(json.dumps({'protocolVersion':1,'scenarioId':r['scenarioId'],'output':sys.argv[1]}))\n")
+            marker = r"C:\Users\example\quoted path"
+            contents = 'version: 1\nagent:\n  command: "placeholder"\ntests:\n- id: quoting\n  input: hi\n'
+            config = directory / "wraith.yaml"
+            config.write_text(demo.config_with_command(contents, [sys.executable, str(script), marker]))
+            result = subprocess.run([str(BINARY), "--config", str(config), "run", "--output", "json"], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(json.loads(result.stdout)["scenarios"][0]["run"]["response"]["output"], marker)
+
     def test_exit_propagation_report_and_output_file(self):
         with tempfile.TemporaryDirectory() as directory:
             directory = Path(directory)

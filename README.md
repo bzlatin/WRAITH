@@ -178,7 +178,7 @@ wraith compare baseline candidate
 
 Each sample starts a fresh agent process with the same input and metadata. Counts
 must match. Comparison aggregates scenario and evaluator failures instead of pairing
-sample indices across independent runs. Any observed failure-rate increase gates
+sample indices across independent runs. By default, any observed failure-rate increase gates
 strictly; the report includes Wilson 95% pass-rate intervals as a description under
 binomial independence assumptions, not a significance test. Exact trace checks
 also gate distribution changes when explicitly enabled. Read the
