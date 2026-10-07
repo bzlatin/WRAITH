@@ -71,6 +71,26 @@ natural regression during a real change. No extra model requests, deployment,
 release publication, or push occurred after the eight-request experiment.
 
 
+## v0.5.0 release — October 6, 2026
+
+The owner authorized publication and selected a public source repository. Tag
+`v0.5.0` points to `90bd18db677db84b69253b0c56dcc93f8bf44e79`.
+
+- The [tagged native matrix](https://github.com/bzlatin/WRAITH/actions/runs/37558689791)
+  passed tests, builds, archive checksums, and extracted-binary smoke tests on Linux
+  x86_64 GNU, Apple Silicon/Intel macOS, and Windows x86_64 MSVC.
+- The [corrected general matrix](https://github.com/bzlatin/WRAITH/actions/runs/37558419597)
+  and [tagged general matrix](https://github.com/bzlatin/WRAITH/actions/runs/37558689781)
+  passed, including Windows workflow/tooling tests, MSRV, demos, and workflow lint.
+- All four downloaded draft archives matched their checksum sidecars and binary
+  metadata. The installer source matched after normalizing Windows line endings;
+  the standalone attachment was replaced with the canonical LF copy. Future release
+  jobs normalize this attachment before merging platform artifacts.
+- [v0.5.0](https://github.com/bzlatin/WRAITH/releases/tag/v0.5.0) is published in the
+  public repository. Anonymous installer download and checksummed installation to
+  `~/.local/bin` passed on macOS arm64. The installed binary passed init, doctor,
+  baseline, intentionally failing check, and passing check with no model calls.
+
 ## v0.3 increment — October 6, 2026
 
 Package 0.3.0; protocol/config remain version 1; run/report schemas are 3. The

@@ -100,8 +100,9 @@ Do not publish releases, push branches, or choose a distribution license unless 
 user requests it. Implement and validate packaging locally first. Record precisely
 which platforms ran, which merely type-checked, and what remains unverified.
 
-The owner selected Apache-2.0 and previously authorized the v0.3 push. That historical
-push does not authorize publication of later releases.
+The owner selected Apache-2.0 and authorized v0.5.0 publication and making WRAITH
+public. Later release publication still needs its own user request. The generated
+PR check uses the published v0.5.0 binary against the offline RAG example.
 Refresh `THIRD_PARTY_LICENSES.txt` with `scripts/license-notices.py` when dependencies
 change. Read `docs/statistical-gating.md` before changing rate decisions; never turn
 inconclusive evidence into a passing gate. Run `scripts/pilot.py` for RAG changes.

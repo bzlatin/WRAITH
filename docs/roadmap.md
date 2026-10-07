@@ -21,8 +21,9 @@ The v0.5 implementation reduces setup with Python/TypeScript function adapters,
 guided initialization, diagnostics, `baseline`/`check`, local HTML reports/history,
 reviewed case import, and generated offline PR CI. A native installer is verified
 locally. Pinned PydanticAI and LangGraph examples exercised real orchestration and
-caught six controlled regressions without live model calls. v0.5 remains unpublished;
-its native matrix and distribution availability still need validation.
+caught six controlled regressions without live model calls. v0.5.0 is published in
+[GitHub Releases](https://github.com/bzlatin/WRAITH/releases/tag/v0.5.0); native tests
+and extracted archive checks passed on all four packaged platforms.
 
 The remaining product priorities are:
 
