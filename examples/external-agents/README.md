@@ -13,7 +13,7 @@ import the cloned files; no upstream source is copied into Wraith or modified.
 Models/tool boundaries are hermetic; Pydantic model network requests and Logfire
 uploads are disabled. No model keys are needed or sent.
 
-Requires Python 3.11+, Git, and a built Wraith binary. The first run uses network for
+Run from a Wraith source checkout with Python 3.11+, Git, and a built Wraith binary. The first run uses network for
 Git and package installation, then evaluates offline:
 
 ```sh

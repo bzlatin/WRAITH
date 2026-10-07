@@ -64,6 +64,9 @@ and required/forbidden-tool checks remain available for less strict testing.
 
 ## Varying offline fixture
 
+From a source checkout, run `cargo build --locked` first. These commands use
+macOS/Linux shell syntax; on Windows set the variant in PowerShell and use `.exe`.
+
 ```sh
 ./target/debug/wraith --config examples/sampling-agent/wraith.yaml run --samples 4 --save baseline
 WRAITH_EXAMPLE_MODE=candidate ./target/debug/wraith --config examples/sampling-agent/wraith.yaml run --samples 4 --save candidate

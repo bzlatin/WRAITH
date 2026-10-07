@@ -41,6 +41,12 @@ even if reported unsuccessful; source checks inspect `retrievals[].source`.
 Missing usage fails token limits. Latency includes process startup and cleanup.
 Structured fields use [JSON pointer assertions](structured-output.md).
 
+Resource thresholds use suite means across all observations; success rate uses the
+proportion of passing observations. Supported thresholds
+are `success_rate.regression`, `latency.max_increase_percent`,
+`tokens.max_increase_percent`, and `cost.max_increase_percent`. Add resource gates
+only when measurements are available and stable enough for your workflow.
+
 Suite thresholds compare recorded means: success-rate decline is percentage points;
 latency/tokens/cost increases are relative percent. Missing metrics cannot pass a
 configured threshold. Exact traces and sampled comparisons are documented in

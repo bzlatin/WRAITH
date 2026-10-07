@@ -42,11 +42,10 @@ components:
 
 ## Overview
 
-**Creative North Star: "The code-review document"**
+**A code-review document**
 A local report reads as a continuous engineering document. The outcome leads,
 followed by failed expectations and inspectable outputs; recorded performance follows
-scenario evidence. The owner approved direct HTML implementation and this compact
-format. No remote fonts, assets, scripts, or services are required.
+scenario evidence. No remote fonts, assets, scripts, or services are required.
 
 ## Colors
 

@@ -1,60 +1,37 @@
-# Directional roadmap
+# Roadmap
 
-Priorities follow observed developer needs, not a fixed feature ladder or release
-calendar. See [product-direction.md](product-direction.md) for the validation goal.
+Priorities follow [product validation](product-direction.md), without a fixed release calendar.
 
-The v0.2 local implementation now includes cancellation, Windows Job Objects,
-release packaging, exact-commit baseline/PR workflows, trusted-policy comparison,
-exact argument/document gates, schema migration, and repeated-run aggregation.
-The v0.3 implementation adds the offline RAG pilot, configurable statistical gating,
-Apache-2.0 licensing with dependency notices, and native archive smoke tests.
-The owner has authorized bootstrapping these workflows on `main`; native results
-are available in GitHub Actions. Release publication remains a separate step.
+## Available in v0.5
 
-The v0.4 integration adds structured-output contracts and a live smoke comparison
-against Example application’s actual workout generation pipeline. Four baseline/candidate
-cases passed within eight provider calls; offline tests detected 50/50 injected
-failures. A useful natural regression and repeat adoption remain unproven. See
-[structured-output.md](structured-output.md).
+- Python/TypeScript function adapters, guided setup, and `doctor` diagnostics.
+- Fixed baselines, checks, local HTML reports, immutable history, and reviewed case import.
+- Text, structured JSON, tool, retrieval, resource, and optional exact-trace checks.
+- Repeated samples and statistical gates with explicit inconclusive decisions.
+- Opt-in live experiments with a shared budget for instrumented provider attempts.
+- Native installation and generated offline GitHub PR checks.
 
-The v0.5 implementation reduces setup with Python/TypeScript function adapters,
-guided initialization, diagnostics, `baseline`/`check`, local HTML reports/history,
-reviewed case import, and generated offline PR CI. A native installer is verified
-locally. Pinned PydanticAI and LangGraph examples exercised real orchestration and
-caught six controlled regressions without live model calls. v0.5.0 is published in
-[GitHub Releases](https://github.com/bzlatin/WRAITH/releases/tag/v0.5.0); native tests
-and extracted archive checks passed on all four packaged platforms.
+See [verification](verification.md) for native release and controlled-fixture results.
 
-The remaining product priorities are:
+## Next priorities
 
-1. **Dogfood the core loop.** Use a real, independently useful agent with a small
-   scenario suite. Change prompts, tools, or retrieval; capture a regression that
-   would be tedious to find manually. Fix installation, configuration, and report
-   friction found during this exercise. Synthetic demos remain test fixtures.
-2. **Validate distribution and CI.** Repeat the native matrix and packaged-binary
-   checks for new increments, then measure real project PR use. Default-branch CI
-   and Apache-2.0 licensing are in place. Inspect the draft release before any
-   owner-authorized publication. GitHub Actions is the first distribution integration.
-3. **Pilot and choose the next feature.** Have roughly 5–10 AI developers try Wraith
-   against their own agents. Record setup blockers, misleading gates, missing
-   diagnostics, and voluntary reports of repeat use. Prioritize the strongest
-   repeated problem rather than implementing every suggested extension.
+1. **Use a real agent during real changes.** Catch a useful natural regression and
+   fix integration or report friction revealed by the exercise.
+2. **Repeat the workflow on independent projects.** Learn which checks are useful,
+   where false alarms occur, and whether developers keep running them in CI.
+3. **Address the strongest recurring gap.** Select the next improvement from evidence
+   rather than adding integrations or evaluators for their own sake.
 
-Potential follow-on work is conditional:
+| Observed need | Possible response |
+| --- | --- |
+| Common framework activity is hard to record | Targeted adapter hooks |
+| Important output contracts cannot be expressed | Additional evaluators |
+| Sampling produces too many uncertain decisions | More efficient statistical methods, retaining honest uncertainty |
+| Production failures are difficult to reproduce | Trace import and replay experiments |
+| Creating useful cases takes too much effort | Better reviewed case authoring |
+| Reviewers miss findings in CI artifacts | Clearer PR reporting |
+| Teams repeatedly need shared history | Optional collaboration features |
 
-| Observed problem | Candidate response |
-|---|---|
-| Sample noise causes misleading or inconclusive gates | Statistical decision policy with minimum samples, effect sizes, explicit tests, and multiple-test handling |
-| Existing checks cannot express important regressions | Additional or custom evaluators |
-| Existing function adapters miss common framework hooks | Extend adapters from observed integration gaps |
-| Reviewed case import still leaves scenario authoring difficult | Scenario suggestion experiments with explicit review |
-| Production failures are hard to reproduce | Trace ingestion and replay experiments |
-| Teams miss useful findings during review | Richer PR reporting |
-| Repeated team use requires shared history or governance | Optional collaboration and enterprise features |
-
-Statistical gating was implemented at the owner's explicit request in v0.3. Further
-statistical methods should follow evidence from live agent use. The policy
-must preserve the strict observed-rate option and distinguish inconclusive evidence
-from a passing gate. Timelines, pricing, and monetization remain hypotheses.
-
-Keep provider integrations, hosted history, and replay at replaceable boundaries.
+Provider logic stays outside the core. New releases should repeat native tests and
+archive checks before publication. Live-model accuracy and repeat adoption remain
+unproven; neither is implied by the controlled demos.

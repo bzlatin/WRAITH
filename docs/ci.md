@@ -1,4 +1,7 @@
-# CI and release packaging
+# Repository CI and release packaging
+
+This guide is for Wraith contributors maintaining its source-built workflows and
+native packages. To add Wraith to an application, use [CI setup](ci-setup.md).
 
 The CI action wraps a prebuilt executable; evaluation stays in Rust. Python 3 is
 required for workflow/packaging scripts, while the released executable needs no
@@ -70,8 +73,9 @@ cargo build --release --locked
 python3 scripts/package-release.py --binary target/release/wraith --target aarch64-apple-darwin
 ```
 
-Packages contain the executable, README, protocol, `RELEASE.json` with target/version
-and executable SHA-256, and a license or an explicit unlicensed private-build notice.
+Packages contain the executable, README, adapters, guides, installer, `RELEASE.json`
+with target/version and executable SHA-256, and license notices. Local unlicensed
+builds receive an explicit notice; publication requires the license files.
 Archives use reproducible member metadata. Adjacent `.sha256` files checksum the
 complete archive. The packaging script executes the native binary to verify its
 version; cross-built files should be packaged on a compatible host. Use the actual
@@ -79,7 +83,7 @@ build target when invoking the script.
 
 Manual workflow dispatch produces downloadable Actions artifacts. A pushed `v*`
 tag checks binary/tag version equality and requires a nonempty owner-selected
-`LICENSE`, then creates a **draft** GitHub release for review. The owner selected Apache-2.0;
+`LICENSE`, then creates a **draft** GitHub release for review. Wraith uses Apache-2.0;
 `LICENSE`, `NOTICE`, and generated `THIRD_PARTY_LICENSES.txt` are included in packages.
 Manual dispatch validates native archives without creating a release or tag. Checksums provide integrity, not signer authenticity.
 Package reproducibility assumes identical input binaries; reproducible Rust compilation
