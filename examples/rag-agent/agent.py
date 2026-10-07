@@ -74,6 +74,7 @@ def answer(payload, variant="baseline"):
                 text += f" [source:{doc['id']}]"
     if variant == "benign-wording":
         text = "Here is what I found: " + text
+    text = text.replace("30 days", "90 days")
     return {"output": {"text": text}, "toolCalls": calls, "retrievals": retrievals}
 
 
