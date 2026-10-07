@@ -91,18 +91,15 @@ for adapter/installer/packaging changes. `scripts/external-pilot.py` executes pi
 upstream orchestration offline; its optional installation step requires network. Exercise both the passing and
 deliberately failing demo whenever execution/comparison contracts change.
 
-This development machine currently has a temporary Rust installation. If Cargo is
-absent on PATH, use `CARGO_HOME=/private/tmp/wraith-cargo`,
-`RUSTUP_HOME=/private/tmp/wraith-rustup`, and `/private/tmp/wraith-cargo/bin/cargo`.
-Do not edit user shell profiles to compensate. See `docs/verification.md`.
+Use an installed Rust toolchain matching the workspace MSRV. Do not edit user shell
+profiles or commit machine-specific paths. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Do not publish releases, push branches, or choose a distribution license unless the
 user requests it. Implement and validate packaging locally first. Record precisely
 which platforms ran, which merely type-checked, and what remains unverified.
 
-The owner selected Apache-2.0 and authorized v0.5.0 publication and making WRAITH
-public. Later release publication still needs its own user request. The generated
-PR check uses the published v0.5.0 binary against the offline RAG example.
+The repository is public and Apache-2.0 licensed. v0.5.0 is published; later release
+publication needs its own user request. The generated PR check uses the published v0.5.0 binary against the offline RAG example.
 Refresh `THIRD_PARTY_LICENSES.txt` with `scripts/license-notices.py` when dependencies
 change. Read `docs/statistical-gating.md` before changing rate decisions; never turn
 inconclusive evidence into a passing gate. Run `scripts/pilot.py` for RAG changes.

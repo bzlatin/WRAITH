@@ -3,7 +3,7 @@
 Use `expect.json` for deterministic contracts on the adapter's final `output`.
 This is useful for generated workouts, plans, and other structured responses where
 wording can vary but IDs, equipment, counts, and required fields must stay valid.
-Wraith v0.4+ supports these checks without provider dependencies or executable rules.
+Checks run locally without provider dependencies or executable rules.
 
 ```yaml
 version: 1
@@ -58,22 +58,6 @@ changes remain informational. Repeated samples and opt-in statistical gates coun
 failures per assertion, not per array member; the ordinary strict policy is default.
 Changing inputs or assertions requires rerunning the baseline, just like other checks.
 
-Run/report schemas are now **4**; protocol and configuration remain version **1**.
+Run/report schemas are **4**; protocol and configuration remain version **1**.
 Schemas 1–3 migrate in memory, preserving existing checks and schema 3 statistical
 policies. Original files stay untouched. Older Wraith versions reject schema 4.
-
-## Push / Pull pilot
-
-The first consumer is the separate `fitness-app` repository's
-`server/evals/wraith` integration. Its adapter invokes the same provider and workout
-postprocessing as the production route, using ten synthetic profiles and a fixed
-catalog without database access. Offline mutations prove the contracts can catch
-invalid IDs, equipment, duplicates, set counts, and missing fields.
-
-On October 6, 2026, all ten offline baselines passed, a harmless wording change
-triggered zero alarms in ten cases, and all 50 injected failures were detected.
-A capped live baseline/candidate experiment passed four cases in each version,
-using eight model requests. This small smoke check does not estimate live failure
-rates or establish statistical equivalence. No naturally occurring live regression
-was discovered. The app's integration README documents the edit/compare workflow;
-repeat use and a useful real regression remain the next product validation goals.

@@ -1,5 +1,8 @@
 # Architecture
 
+Contributor reference for the versioned execution and comparison contracts.
+For application setup, start with [connect an agent](getting-started.md).
+
 ```text
 YAML config -> scenario definitions -> subprocess adapter -> AgentRun
 AgentRun + expectations -> EvaluationResult[] -> ScenarioResult

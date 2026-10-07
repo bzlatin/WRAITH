@@ -4,6 +4,8 @@
 wraith ci init
 ```
 
+Run this from your project repository after an offline baseline/check works.
+For a config elsewhere, use `wraith --config path/to/wraith.yaml ci init`.
 This creates `.github/workflows/wraith.yml` in your Git repository. It never
 overwrites an existing workflow. Commit the scenario config, adapter, and project
 file on the default branch before enabling a required check. Review dependency
@@ -28,7 +30,7 @@ For each PR the generated workflow:
 It recomputes the base for the PR; it does not depend on an unrelated "latest"
 baseline or hide removed tests. A PR introducing the first suite needs a default-
 branch bootstrap. Expectation changes need deliberate review and baseline updates.
-No provider credentials are supplied; generated workflows reject declared live
+Generated workflows supply no provider credentials and reject declared live
 suites. Offline fixtures must not make live requests. This is not a network sandbox.
 Untrusted PR code runs with read-only repository permissions and no provider secrets.
 
@@ -40,7 +42,8 @@ workflow and protect it through branch/ruleset policy.
 Live CI is an explicit follow-on integration: choose a trusted execution context,
 credentials, cooperative model-call budget, representative sample counts, and a
 noise policy before enabling it. Do not convert inconclusive evidence into success.
-See [existing exact-commit artifact CI](ci.md) for the Wraith repository's own setup.
+See [repository CI](ci.md) for the separate source-built artifact workflow. Most
+application integrations can use the generated workflow above.
 
 
 ## Verified Wraith bootstrap

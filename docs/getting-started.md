@@ -6,11 +6,21 @@ expectations. Existing subprocess adapters remain supported.
 
 ## Python
 
+Save this working offline example as `agent.py`, or export a wrapper around your
+existing application function:
+
 ```python
 # agent.py
-async def evaluate(input, context):
-    answer = await your_agent(input["text"])
-    return {"text": answer}
+def search_documents(query):
+    # Offline example; replace this with your application's real lookup.
+    return {"text": "Employees receive 20 PTO days."}
+
+
+def evaluate(input, context):
+    query = input["text"]
+    result = search_documents(query)
+    context.tool("search_documents", {"query": query}, result)
+    return result
 ```
 
 ```sh
@@ -26,12 +36,21 @@ in an existing virtualenv. Activate that environment when using a plain `python3
 
 ## TypeScript
 
+In a separate directory, save this as `agent.ts`. Init generates the adapter and its
+type declarations alongside your function:
+
 ```typescript
 // agent.ts
 import type { Context } from './wraith-adapter.mjs';
-export async function evaluate(input: {text: string}, context: Context) {
-  const answer = await yourAgent(input.text);
-  return {text: answer};
+function searchDocuments(query: string) {
+  // Offline example; replace this with your application's real lookup.
+  return {text: "Employees receive 20 PTO days."};
+}
+
+export function evaluate(input: {text: string}, context: Context) {
+  const result = searchDocuments(input.text);
+  context.tool("search_documents", {query: input.text}, result);
+  return result;
 }
 ```
 
@@ -67,10 +86,16 @@ tests:
       tools_called: [search_documents]
 ```
 
-Record actual tool and retrieval activity using `context.tool(name, arguments,
-result, success)` and `context.retrieval(source, document_id)` in Python; TypeScript
-uses the same helpers with camelCase argument names. Call `context.usage(input,
-output)` with observed token counts; repeated calls accumulate. Do not invent trace
+The examples above record a lookup that actually ran. Record application activity
+at the point it occurs:
+
+| Activity | Python | TypeScript |
+| --- | --- | --- |
+| Tool call | `context.tool(name, arguments, result, success)` | `context.tool(name, arguments, result, success)` |
+| Retrieved document | `context.retrieval(source, document_id)` | `context.retrieval(source, documentId)` |
+| Observed token counts | `context.usage(input_tokens, output_tokens)` | `context.usage(inputTokens, outputTokens)` |
+
+Repeated usage calls accumulate. Do not invent trace
 or usage values. These helpers record claims; Wraith cannot independently observe
 uninstrumented application activity.
 
@@ -109,7 +134,8 @@ accepted. Existing behavioral failures can be baseline debt and remain visible.
 
 ## Live requests
 
-Set `mode` to `live` in `wraith.project.json`; declare `model` and `requiredEnv` names
+For a new integration, add `--mode live` to `wraith init`. For an existing one, set
+`mode` to `live` in `wraith.project.json`. Declare `model` and `requiredEnv` names
 if useful. Credentials belong in your environment or your app's existing loader,
 never in the project file. Wraith does not automatically read `.env`.
 
@@ -166,12 +192,31 @@ Observed output is never automatically treated as correct. Duplicate IDs and inv
 expectations fail before rewriting config. The command serializes config as JSON;
 YAML comments are not retained. Refresh the baseline after reviewing the new case.
 
-## Gate meaning
+## Exit codes
 
-Exit 0 passes configured comparison checks; 1 is a behavioral regression; 2 is an
-execution/setup error; 3 is inconclusive statistical evidence; 130 is interruption.
+| Code | Meaning |
+| --- | --- |
+| 0 | Configured checks passed |
+| 1 | Failed expectations, a regression, or a threshold failure |
+| 2 | Execution or setup error |
+| 3 | Inconclusive statistical comparison; blocks CI |
+| 130 | Interrupted; no partial run saved as complete |
+
 A baseline with behavioral debt may exit 1; that does not make its failures new.
 A check compares changes and can pass despite unchanged debt, which the report shows.
 One observation per version cannot establish statistical non-regression. Use
 `baseline --samples N` and [statistical gating](statistical-gating.md) when appropriate.
 Live repeated sampling still needs explicit budget authorization.
+
+## Troubleshooting
+
+- **Executable or import not found:** run `wraith doctor`, select your application's
+  runtime with `init --runtime`, and install its dependencies in that environment.
+- **Suite differs from baseline:** review changed inputs, expectations, metadata,
+  sample counts, or mode. Use `baseline --replace` only when that change is intended.
+- **No tool/source evidence:** add context recording where the real activity occurs;
+  Wraith cannot infer calls from the final answer.
+- **Unexpected failures:** inspect expected/observed values and both outputs in the
+  report before weakening checks. For variable behavior, read [sampling](sampling.md).
+
+Next: [add offline PR checks](ci-setup.md) or [review the configuration reference](configuration.md).

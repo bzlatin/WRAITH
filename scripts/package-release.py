@@ -40,6 +40,11 @@ def package(binary, target, output, require_license=False, expected_version=None
         for path in sorted((ROOT / directory).rglob("*")):
             if path.is_file() and path.suffix in (".py", ".mjs", ".mts", ".md"):
                 files[path.relative_to(ROOT).as_posix()] = path.read_bytes()
+    # Include guides referenced by the README and documentation index.
+    for name in ["CONTRIBUTING.md", "DESIGN.md", "examples/external-agents/README.md"]:
+        path = ROOT / name
+        if path.is_file():
+            files[name] = path.read_bytes()
     files["install.py"] = (ROOT / "scripts/install.py").read_bytes()
     if license_path.is_file():
         files["LICENSE"] = license_path.read_bytes()
