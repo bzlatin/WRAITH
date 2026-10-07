@@ -41,3 +41,12 @@ Live CI is an explicit follow-on integration: choose a trusted execution context
 credentials, cooperative model-call budget, representative sample counts, and a
 noise policy before enabling it. Do not convert inconclusive evidence into success.
 See [existing exact-commit artifact CI](ci.md) for the Wraith repository's own setup.
+
+
+## Verified Wraith bootstrap
+
+WRAITH's `main` includes the generated workflow for `examples/rag-agent/wraith.yaml`
+and pins published v0.5.0. A harmless wording PR passed; a controlled refund-answer
+regression failed. Both retained JSON/HTML evidence. See [verification.md](verification.md).
+The required GitHub Actions status context is `check`; main requires up-to-date
+branches and applies the requirement to administrators as well.
