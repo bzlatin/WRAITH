@@ -2,6 +2,7 @@
 """Exercise passing and regressing adapters offline on any supported host."""
 import json
 import os
+import re
 from pathlib import Path
 import shlex
 import shutil
@@ -25,6 +26,14 @@ def execute(config, args, expected, candidate=False):
     return result
 
 
+def config_with_command(contents, arguments):
+    # YAML quoting and subprocess argument quoting are separate layers. JSON
+    # strings are valid YAML scalars and preserve Windows backslashes correctly.
+    scalar = json.dumps(shlex.join(arguments))
+    return re.sub(r"^(\s+command:) .*?$", lambda match: match[1] + " " + scalar,
+                  contents, count=1, flags=re.MULTILINE)
+
+
 def main():
     node = os.environ.get("WRAITH_DEMO_NODE") or shutil.which("node")
     adapters = [[sys.executable, str(ROOT / "examples/python-agent/agent.py")]]
@@ -40,7 +49,7 @@ def main():
     for adapter in adapters:
         with tempfile.TemporaryDirectory(prefix="wraith-demo-") as directory:
             config = Path(directory) / "wraith.yaml"
-            config.write_text(contents.replace("python3 examples/python-agent/agent.py", " ".join(shlex.quote(part) for part in adapter)))
+            config.write_text(config_with_command(contents, adapter))
             for samples in [1, 4]:
                 execute(config, ["run", "--samples", str(samples), "--save", "baseline"], 0)
                 execute(config, ["run", "--samples", str(samples), "--save", "candidate"], 1, True)
@@ -59,8 +68,7 @@ def main():
         with tempfile.TemporaryDirectory(prefix="wraith-fixture-") as directory:
             config = Path(directory) / "wraith.yaml"
             source = ROOT / "examples" / fixture
-            command = " ".join(shlex.quote(part) for part in [sys.executable, str(source / "agent.py")])
-            config.write_text((source / "wraith.yaml").read_text().replace("python3 agent.py", command))
+            config.write_text(config_with_command((source / "wraith.yaml").read_text(), [sys.executable, str(source / "agent.py")]))
             execute(config, ["run", "--samples", str(samples), "--save", "baseline"], baseline_exit)
             execute(config, ["run", "--samples", str(samples), "--save", "candidate"], candidate_exit, True)
             report = json.loads(execute(config, ["compare", "baseline", "candidate", "--policy", str(config), "--output", "json"], 1).stdout)
