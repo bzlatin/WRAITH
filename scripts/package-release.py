@@ -41,7 +41,8 @@ def package(binary, target, output, require_license=False, expected_version=None
             if path.is_file() and path.suffix in (".py", ".mjs", ".mts", ".md"):
                 files[path.relative_to(ROOT).as_posix()] = path.read_bytes()
     # Include guides referenced by the README and documentation index.
-    for name in ["CONTRIBUTING.md", "DESIGN.md", "examples/external-agents/README.md"]:
+    for name in ["CONTRIBUTING.md", "DESIGN.md", "examples/external-agents/README.md",
+                 "examples/support-agent/README.md", "examples/support-agent/requirements.md"]:
         path = ROOT / name
         if path.is_file():
             files[name] = path.read_bytes()

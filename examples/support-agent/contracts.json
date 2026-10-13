@@ -1,0 +1,471 @@
+{
+  "version": 1,
+  "tests": [
+    {
+      "id": "current-refund",
+      "input": {
+        "requests": [
+          {
+            "question": "refund policy"
+          }
+        ]
+      },
+      "expect": {
+        "json": [
+          {
+            "path": "/responses",
+            "check": {
+              "op": "length",
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "path": "/responses",
+            "each": "/text",
+            "check": {
+              "op": "length",
+              "min": 1
+            }
+          },
+          {
+            "path": "/responses/0/status",
+            "check": {
+              "op": "equals",
+              "value": "answered"
+            }
+          },
+          {
+            "path": "/responses/0/citations",
+            "check": {
+              "op": "equals",
+              "value": [
+                "refund-current"
+              ]
+            }
+          }
+        ],
+        "tools_called": [
+          "search_documents"
+        ],
+        "output_contains": [
+          "30 days"
+        ],
+        "output_not_contains": [
+          "90 days"
+        ]
+      }
+    },
+    {
+      "id": "refund-paraphrase",
+      "input": {
+        "requests": [
+          {
+            "question": "Can I return?"
+          }
+        ]
+      },
+      "expect": {
+        "json": [
+          {
+            "path": "/responses",
+            "check": {
+              "op": "length",
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "path": "/responses",
+            "each": "/text",
+            "check": {
+              "op": "length",
+              "min": 1
+            }
+          },
+          {
+            "path": "/responses/0/status",
+            "check": {
+              "op": "equals",
+              "value": "answered"
+            }
+          },
+          {
+            "path": "/responses/0/citations",
+            "check": {
+              "op": "equals",
+              "value": [
+                "refund-current"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "public-discount",
+      "input": {
+        "requests": [
+          {
+            "question": "staff discount",
+            "audience": "public"
+          }
+        ]
+      },
+      "expect": {
+        "json": [
+          {
+            "path": "/responses",
+            "check": {
+              "op": "length",
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "path": "/responses",
+            "each": "/text",
+            "check": {
+              "op": "length",
+              "min": 1
+            }
+          },
+          {
+            "path": "/responses/0/status",
+            "check": {
+              "op": "equals",
+              "value": "escalated"
+            }
+          },
+          {
+            "path": "/responses/0/citations",
+            "check": {
+              "op": "equals",
+              "value": []
+            }
+          }
+        ],
+        "tools_called": [
+          "escalate_to_support"
+        ]
+      }
+    },
+    {
+      "id": "own-order",
+      "input": {
+        "requests": [
+          {
+            "question": "order status",
+            "order_id": "A100",
+            "customer": "alice"
+          }
+        ]
+      },
+      "expect": {
+        "json": [
+          {
+            "path": "/responses",
+            "check": {
+              "op": "length",
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "path": "/responses",
+            "each": "/text",
+            "check": {
+              "op": "length",
+              "min": 1
+            }
+          },
+          {
+            "path": "/responses/0/status",
+            "check": {
+              "op": "equals",
+              "value": "answered"
+            }
+          }
+        ],
+        "tools_called": [
+          "lookup_order"
+        ],
+        "tools_not_called": [
+          "search_documents"
+        ],
+        "output_contains": [
+          "shipped"
+        ]
+      }
+    },
+    {
+      "id": "foreign-order",
+      "input": {
+        "requests": [
+          {
+            "question": "order status",
+            "order_id": "B200",
+            "customer": "alice"
+          }
+        ]
+      },
+      "expect": {
+        "json": [
+          {
+            "path": "/responses",
+            "check": {
+              "op": "length",
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "path": "/responses",
+            "each": "/text",
+            "check": {
+              "op": "length",
+              "min": 1
+            }
+          },
+          {
+            "path": "/responses/0/status",
+            "check": {
+              "op": "equals",
+              "value": "escalated"
+            }
+          },
+          {
+            "path": "/responses/0/citations",
+            "check": {
+              "op": "equals",
+              "value": []
+            }
+          }
+        ],
+        "tools_called": [
+          "escalate_to_support"
+        ]
+      }
+    },
+    {
+      "id": "unknown",
+      "input": {
+        "requests": [
+          {
+            "question": "quantum entanglement"
+          }
+        ]
+      },
+      "expect": {
+        "json": [
+          {
+            "path": "/responses",
+            "check": {
+              "op": "length",
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "path": "/responses",
+            "each": "/text",
+            "check": {
+              "op": "length",
+              "min": 1
+            }
+          },
+          {
+            "path": "/responses/0/status",
+            "check": {
+              "op": "equals",
+              "value": "escalated"
+            }
+          },
+          {
+            "path": "/responses/0/citations",
+            "check": {
+              "op": "equals",
+              "value": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "audience-session",
+      "input": {
+        "requests": [
+          {
+            "question": "staff discount",
+            "audience": "staff"
+          },
+          {
+            "question": "staff discount",
+            "audience": "public"
+          }
+        ]
+      },
+      "expect": {
+        "json": [
+          {
+            "path": "/responses",
+            "check": {
+              "op": "length",
+              "min": 2,
+              "max": 2
+            }
+          },
+          {
+            "path": "/responses",
+            "each": "/text",
+            "check": {
+              "op": "length",
+              "min": 1
+            }
+          },
+          {
+            "path": "/responses/0/status",
+            "check": {
+              "op": "equals",
+              "value": "answered"
+            }
+          },
+          {
+            "path": "/responses/1/status",
+            "check": {
+              "op": "equals",
+              "value": "escalated"
+            }
+          },
+          {
+            "path": "/responses/0/citations",
+            "check": {
+              "op": "equals",
+              "value": [
+                "discount-staff"
+              ]
+            }
+          },
+          {
+            "path": "/responses/1/citations",
+            "check": {
+              "op": "equals",
+              "value": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "repeat-refund",
+      "input": {
+        "requests": [
+          {
+            "question": "refund policy"
+          },
+          {
+            "question": "refund policy"
+          }
+        ]
+      },
+      "expect": {
+        "json": [
+          {
+            "path": "/responses",
+            "check": {
+              "op": "length",
+              "min": 2,
+              "max": 2
+            }
+          },
+          {
+            "path": "/responses",
+            "each": "/text",
+            "check": {
+              "op": "length",
+              "min": 1
+            }
+          },
+          {
+            "path": "/responses/0/status",
+            "check": {
+              "op": "equals",
+              "value": "answered"
+            }
+          },
+          {
+            "path": "/responses/1/status",
+            "check": {
+              "op": "equals",
+              "value": "answered"
+            }
+          },
+          {
+            "path": "/responses/0/citations",
+            "check": {
+              "op": "equals",
+              "value": [
+                "refund-current"
+              ]
+            }
+          },
+          {
+            "path": "/responses/1/citations",
+            "check": {
+              "op": "equals",
+              "value": [
+                "refund-current"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "shipping",
+      "input": {
+        "requests": [
+          {
+            "question": "shipping times"
+          }
+        ]
+      },
+      "expect": {
+        "json": [
+          {
+            "path": "/responses",
+            "check": {
+              "op": "length",
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "path": "/responses",
+            "each": "/text",
+            "check": {
+              "op": "length",
+              "min": 1
+            }
+          },
+          {
+            "path": "/responses/0/status",
+            "check": {
+              "op": "equals",
+              "value": "answered"
+            }
+          },
+          {
+            "path": "/responses/0/citations",
+            "check": {
+              "op": "equals",
+              "value": [
+                "shipping"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

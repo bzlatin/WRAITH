@@ -103,3 +103,12 @@ publication needs its own user request. The generated PR check uses the publishe
 Refresh `THIRD_PARTY_LICENSES.txt` with `scripts/license-notices.py` when dependencies
 change. Read `docs/statistical-gating.md` before changing rate decisions; never turn
 inconclusive evidence into a passing gate. Run `scripts/pilot.py` for RAG changes.
+
+## Automated mock-agent trial
+
+Read `docs/automated-trial.md` before operating `scripts/trial.py`. The standalone
+support application is an offline mock. Keep calibration faults, Codex development
+regressions, and independent product evidence separate. Candidate changes belong
+only in the directory returned by `next`; never edit frozen tests, policy, baseline,
+or old results. Task acceptance is separate from the regression gate. A passing
+queue is insufficient evidence of incremental value without reviewed useful catches.

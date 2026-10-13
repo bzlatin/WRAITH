@@ -32,6 +32,9 @@ jobs:
       - run: cargo build --workspace --locked
       - name: Package and CI script tests
         run: python3 -m unittest discover -s scripts/tests -v
+      - name: Support application component tests
+        working-directory: examples/support-agent
+        run: python3 -m unittest discover -s tests -v
       - name: Offline RAG pilot
         run: python3 scripts/pilot.py --repeats 1
       - name: TypeScript compilation

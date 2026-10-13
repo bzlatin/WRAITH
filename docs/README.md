@@ -21,6 +21,8 @@ the same suite when reviewing changes.
 
 ## Development
 
+- [Automated mock-agent trial](automated-trial.md): Codex-operated changes, test overlap, and a bounded evidence report.
+
 - [Contributing](../CONTRIBUTING.md): build, test, and documentation conventions.
 - [Architecture](architecture.md): execution, evaluation, storage, and versioned contracts.
 - [Repository CI and packaging](ci.md): baseline artifacts, native builds, and release archives.

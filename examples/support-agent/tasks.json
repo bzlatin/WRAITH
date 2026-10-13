@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "order-paraphrase",
+      "title": "Recognize where is my order and where's my order as order lookups",
+      "acceptance": {
+        "input": {
+          "question": "Where is my order?",
+          "order_id": "A100",
+          "customer": "alice"
+        },
+        "status": "answered",
+        "text": "shipped"
+      }
+    },
+    {
+      "id": "retrieval-cache",
+      "title": "Cache repeated retrievals within a session while preserving audience isolation",
+      "acceptance": {
+        "input": {
+          "requests": [
+            {
+              "question": "refund policy"
+            },
+            {
+              "question": "refund policy"
+            }
+          ]
+        },
+        "status": "answered",
+        "maxSearches": 1
+      }
+    },
+    {
+      "id": "retrieval-ranking",
+      "title": "Use distinct matched query terms for ranking, preserving current-only filtering and deterministic ties",
+      "acceptance": {
+        "rankingProbe": true
+      }
+    },
+    {
+      "id": "response-refactor",
+      "title": "Extract make_response(status, text, citations=None) and use it for answered and escalated responses; preserve behavior",
+      "acceptance": {
+        "responseHelper": true
+      }
+    }
+  ]
+}
