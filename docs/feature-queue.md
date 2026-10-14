@@ -79,5 +79,27 @@ regression. The corrected harness checks reconstructed tool return envelopes
 against the frozen implementation and observed trace. Automated fault tests
 exercise evidence tampering and budget/baseline stops without provider requests.
 
-The live queue is implemented but has not run. It requires separate authorization;
-the previous completed experiment's remaining requests are not automatically reused.
+## Recorded live result
+
+The separately authorized live queue used **84/120 requests**, with no retries or
+execution errors. The fresh baseline and all three candidates passed **10/10**
+fixed cases each. Each candidate also passed the ten frozen component tests and
+its feature acceptance test. Both systems passed all three changes; **zero new
+useful catches** were observed. The remaining 36 requests were not spent.
+
+The same prompt and model were used for every version. The baseline is shared by
+three comparisons, not three independent baseline reruns. There is one observation
+per case per version; model variability and statistical equivalence remain
+unresolved. New feature inputs were checked by offline acceptance tests; the live
+suite checked that existing behavior stayed within its reviewed contracts.
+
+[Sanitized live results](evidence/feature-queue.json) include per-case decisions,
+public answers, actual executed tools, receipts, request counts, and source hashes.
+Full JSON/HTML and the preserved budget are under
+`.wraith/feature-queue-validated/live/`. Candidate hashes in the campaign index
+identify the selected application files; native Git metadata alone does not
+identify the variant selected by the runner. No environment dump is stored.
+
+This demonstrates repeatable checks during three local feature changes. It does
+not establish incremental detection over the component tests, independent use,
+human diagnosis time saved, or paid demand.

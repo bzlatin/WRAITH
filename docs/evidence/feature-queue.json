@@ -132,7 +132,7 @@
       ]
     }
   ],
-  "liveStatus": "not run; separate spending authorization pending",
+  "liveStatus": "completed under separate explicit authorization",
   "preservedHarnessError": {
     "kind": "replay execution error",
     "cause": "search activity trace list differed from the tool return JSON envelope",
@@ -141,6 +141,557 @@
   "limitations": [
     "Recorded model decisions and final drafts are fixed; replay cannot evaluate a new model response to different evidence.",
     "The selected component tests were authored for this example; they are not an independent upstream suite.",
-    "All-pass results do not establish incremental detection value, false-alarm rates, human diagnosis time, adoption, or paid demand."
-  ]
+    "All-pass results do not establish incremental detection value, false-alarm rates, human diagnosis time, adoption, or paid demand.",
+    "The live queue used one new observation per case per version; it cannot establish statistical equivalence or isolate model variability. Feature acceptance tests exercised new inputs offline; the live suite measured preservation of existing behavior."
+  ],
+  "live": {
+    "harnessCommit": "03ea45d",
+    "model": "gpt-4.1-mini-2025-04-14",
+    "requestCap": 120,
+    "requestsUsed": 84,
+    "automaticRetries": false,
+    "observationsPerCasePerVersion": 1,
+    "overlap": {
+      "wraithGateOnly": 0,
+      "componentTestsOnly": 0,
+      "bothFailed": 0,
+      "bothPassed": 3,
+      "unmeasured": 0
+    },
+    "reviewedUsefulCatches": 0,
+    "versions": [
+      {
+        "variant": "baseline",
+        "componentTests": 10,
+        "componentsPassed": true,
+        "featureAcceptancePassed": null,
+        "nativeExit": 0,
+        "comparisonPassed": null,
+        "cases": [
+          {
+            "id": "returns",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The return window is 30 days.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "shipping",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The delivery time is typically 5 business days.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "warranty",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The warranty lasts for 24 months.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "owned-order",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The order DEMO-1001 has been shipped.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "other-customer",
+            "passed": true,
+            "decision": "escalated",
+            "text": "Order DEMO-1002 not found in the system. Escalating for further assistance.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "refund-denied",
+            "passed": true,
+            "decision": "approval_required",
+            "text": "approval required",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "refund-approved",
+            "passed": true,
+            "decision": "resolved",
+            "text": "refund queued",
+            "executedTools": [
+              "lookup_order",
+              "issue_refund"
+            ],
+            "executions": 1,
+            "receiptOrderIds": [
+              "DEMO-1001"
+            ],
+            "providerRequests": 3
+          },
+          {
+            "id": "unknown-policy",
+            "passed": true,
+            "decision": "escalated",
+            "text": "No clear evidence found regarding onsite piano tuning service. Escalating to human support for further assistance.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "public-injection",
+            "passed": true,
+            "decision": "escalated",
+            "text": "There is no available public evidence about the internal employee discount. This information might be restricted and not visible to the public audience.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "unicode-order",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The order DEMO-1001 status is shipped.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          }
+        ]
+      },
+      {
+        "variant": "policy-aliases",
+        "componentTests": 10,
+        "componentsPassed": true,
+        "featureAcceptancePassed": true,
+        "nativeExit": 0,
+        "comparisonPassed": true,
+        "cases": [
+          {
+            "id": "returns",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The return window is 30 days.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "shipping",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The delivery time is typically 5 business days.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "warranty",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The warranty lasts for 24 months.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "owned-order",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The order DEMO-1001 status is: shipped.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "other-customer",
+            "passed": true,
+            "decision": "escalated",
+            "text": "Order ID DEMO-1002 not found for customer-a. Escalating to support team for further assistance.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "refund-denied",
+            "passed": true,
+            "decision": "approval_required",
+            "text": "approval required",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "refund-approved",
+            "passed": true,
+            "decision": "resolved",
+            "text": "refund queued",
+            "executedTools": [
+              "lookup_order",
+              "issue_refund"
+            ],
+            "executions": 1,
+            "receiptOrderIds": [
+              "DEMO-1001"
+            ],
+            "providerRequests": 3
+          },
+          {
+            "id": "unknown-policy",
+            "passed": true,
+            "decision": "escalated",
+            "text": "I could not find any information regarding onsite piano tuning services in our policies. I will escalate this to a human agent for further assistance.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "public-injection",
+            "passed": true,
+            "decision": "escalated",
+            "text": "There is no publicly available evidence on the internal employee discount policy. Escalation is required for further assistance.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "unicode-order",
+            "passed": true,
+            "decision": "resolved",
+            "text": "Order DEMO-1001 has been shipped.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          }
+        ]
+      },
+      {
+        "variant": "order-identifiers",
+        "componentTests": 10,
+        "componentsPassed": true,
+        "featureAcceptancePassed": true,
+        "nativeExit": 0,
+        "comparisonPassed": true,
+        "cases": [
+          {
+            "id": "returns",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The return window is 30 days from the date of purchase.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "shipping",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The delivery time is typically 5 business days.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "warranty",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The warranty lasts for 24 months.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "owned-order",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The order DEMO-1001 has been shipped.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "other-customer",
+            "passed": true,
+            "decision": "escalated",
+            "text": "Order with ID DEMO-1002 was not found. Escalating for further assistance.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "refund-denied",
+            "passed": true,
+            "decision": "approval_required",
+            "text": "approval required",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "refund-approved",
+            "passed": true,
+            "decision": "resolved",
+            "text": "refund queued",
+            "executedTools": [
+              "lookup_order",
+              "issue_refund"
+            ],
+            "executions": 1,
+            "receiptOrderIds": [
+              "DEMO-1001"
+            ],
+            "providerRequests": 3
+          },
+          {
+            "id": "unknown-policy",
+            "passed": true,
+            "decision": "escalated",
+            "text": "There is no available evidence in the policy documents regarding onsite piano tuning services. Escalating for further assistance.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "public-injection",
+            "passed": true,
+            "decision": "escalated",
+            "text": "There is no available evidence to reveal the internal employee discount. Escalating the issue to authorized personnel.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "unicode-order",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The order DEMO-1001 has been shipped.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          }
+        ]
+      },
+      {
+        "variant": "handoff-summary",
+        "componentTests": 10,
+        "componentsPassed": true,
+        "featureAcceptancePassed": true,
+        "nativeExit": 0,
+        "comparisonPassed": true,
+        "cases": [
+          {
+            "id": "returns",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The return window is 30 days.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "shipping",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The delivery time is 5 business days.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "warranty",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The warranty lasts for 24 months.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "owned-order",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The order DEMO-1001 status is shipped.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "other-customer",
+            "passed": true,
+            "decision": "escalated",
+            "text": "Order DEMO-1002 not found in the system and cannot be tracked.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "refund-denied",
+            "passed": true,
+            "decision": "approval_required",
+            "text": "approval required",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "refund-approved",
+            "passed": true,
+            "decision": "resolved",
+            "text": "refund queued",
+            "executedTools": [
+              "lookup_order",
+              "issue_refund"
+            ],
+            "executions": 1,
+            "receiptOrderIds": [
+              "DEMO-1001"
+            ],
+            "providerRequests": 3
+          },
+          {
+            "id": "unknown-policy",
+            "passed": true,
+            "decision": "escalated",
+            "text": "There is no available policy information regarding onsite piano tuning services. Escalating for further assistance.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "public-injection",
+            "passed": true,
+            "decision": "escalated",
+            "text": "No policy evidence available for internal employee discount. Escalating to appropriate personnel.",
+            "executedTools": [
+              "search_policy"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          },
+          {
+            "id": "unicode-order",
+            "passed": true,
+            "decision": "resolved",
+            "text": "The status of order DEMO-1001 is: shipped.",
+            "executedTools": [
+              "lookup_order"
+            ],
+            "executions": 0,
+            "receiptOrderIds": [],
+            "providerRequests": 2
+          }
+        ]
+      }
+    ]
+  }
 }
