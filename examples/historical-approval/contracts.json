@@ -1,0 +1,222 @@
+[
+  {
+    "id": "fresh",
+    "input": {
+      "mode": "fresh",
+      "note": "demo"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/pending",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/status",
+          "check": {
+            "op": "equals",
+            "value": "awaiting_approval"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "resume",
+    "input": {
+      "mode": "resume",
+      "note": "demo"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/pending",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/status",
+          "check": {
+            "op": "equals",
+            "value": "awaiting_approval"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "approved",
+    "input": {
+      "mode": "approved",
+      "note": "demo"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/pending",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/status",
+          "check": {
+            "op": "equals",
+            "value": "completed"
+          }
+        },
+        {
+          "path": "/receipts/0/note",
+          "check": {
+            "op": "equals",
+            "value": "demo"
+          }
+        },
+        {
+          "path": "/receipts/0/approved",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "denied",
+    "input": {
+      "mode": "denied",
+      "note": "demo"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/pending",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/status",
+          "check": {
+            "op": "equals",
+            "value": "completed"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "resume-unicode",
+    "input": {
+      "mode": "resume",
+      "note": "r\u00e9sum\u00e9 \"note\""
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/pending",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/status",
+          "check": {
+            "op": "equals",
+            "value": "awaiting_approval"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "approved-unicode",
+    "input": {
+      "mode": "approved",
+      "note": "r\u00e9sum\u00e9 \"note\""
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/pending",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/status",
+          "check": {
+            "op": "equals",
+            "value": "completed"
+          }
+        },
+        {
+          "path": "/receipts/0/note",
+          "check": {
+            "op": "equals",
+            "value": "r\u00e9sum\u00e9 \"note\""
+          }
+        },
+        {
+          "path": "/receipts/0/approved",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        }
+      ]
+    }
+  }
+]

@@ -34,6 +34,14 @@ failing `check`, and a passing `check`, without model calls.
 - **Upstream orchestration:** three PydanticAI and three LangGraph cases passed;
   all six injected tool-skipping regressions were detected using offline models.
   See [the external pilot](../examples/external-agents/README.md).
+- **Historical approval bug:** unmodified PydanticAI revisions reproduced issue
+  [#3350](https://github.com/pydantic/pydantic-ai/issues/3350) in two resumed-history
+  scenarios. All six scenarios passed before introduction and after the fix;
+  the selected 13 upstream tests passed on each revision. The later targeted
+  upstream test also detected the bug. Three subsequent independent changes to
+  the small wrapper passed acceptance and comparison. Verified locally on macOS
+  arm64; this is retrospective framework evidence, not prospective discovery or
+  customer adoption. See [reproduction and limits](historical-pilot.md).
 - **Statistics:** the deterministic fixture produced an inconclusive result with
   20 samples, a passing harmless comparison with 200, and a failing stale-policy
   comparison with 200. These exercise policy mechanics, not model randomness.

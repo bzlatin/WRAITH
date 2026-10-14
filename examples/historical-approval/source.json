@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/pydantic/pydantic-ai.git",
+  "license": "MIT",
+  "issue": "https://github.com/pydantic/pydantic-ai/issues/3350",
+  "introduction": "https://github.com/pydantic/pydantic-ai/pull/2913",
+  "fix": "https://github.com/pydantic/pydantic-ai/pull/3355",
+  "revisions": {
+    "before": "9b7c429a683930ed63fa2b67bb41a0fa6dd454ee",
+    "buggy": "ccd5e6ab770adc054863e79505ef60ac93bb48cf",
+    "fixed": "930d74c802f07974382366f2111d25d4954e7454"
+  },
+  "testSelection": "approval or deferred",
+  "testFiles": ["tests/test_agent.py", "tests/test_tools.py"],
+  "newRegressionTest": "test_run_with_unapproved_tool_call_in_history"
+}

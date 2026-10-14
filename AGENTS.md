@@ -112,3 +112,8 @@ regressions, and independent product evidence separate. Candidate changes belong
 only in the directory returned by `next`; never edit frozen tests, policy, baseline,
 or old results. Task acceptance is separate from the regression gate. A passing
 queue is insufficient evidence of incremental value without reviewed useful catches.
+
+Read `docs/historical-pilot.md` before operating `scripts/historical-pilot.py`.
+Keep historical reproductions distinct from prospective findings. Run upstream
+tests unchanged and report the selected subset; a later targeted unit test can
+detect the same defect. Preserve incomplete experiments and completed evidence.

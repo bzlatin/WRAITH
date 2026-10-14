@@ -34,6 +34,10 @@ stderr. Return JSON-compatible values; convert Pydantic models explicitly with
 `model_dump(mode="json")`. Use `--runtime /path/to/venv/bin/python` for dependencies
 in an existing virtualenv. Activate that environment when using a plain `python3`.
 
+For async agent frameworks, export `async def evaluate(...)` and await the agent's
+async API. The adapter invokes functions inside an event loop; calling an API such
+as PydanticAI's `run_sync()` there raises “event loop is already running.”
+
 ## TypeScript
 
 In a separate directory, save this as `agent.ts`. Init generates the adapter and its
