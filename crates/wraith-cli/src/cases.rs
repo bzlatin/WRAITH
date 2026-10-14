@@ -1,5 +1,5 @@
 use crate::workflow;
-use clap::Subcommand;
+use clap::{Args, Subcommand};
 use serde_json::Value;
 use std::{
     fs,
@@ -19,33 +19,36 @@ pub enum Commands {
         file: PathBuf,
     },
     /// Add a reviewed regression case from JSON input or a saved run.
-    Add {
-        #[arg(long)]
-        id: String,
-        #[arg(
-            long,
-            conflicts_with = "from_run",
-            required_unless_present = "from_run"
-        )]
-        input: Option<PathBuf>,
-        #[arg(long, conflicts_with = "input")]
-        from_run: Option<PathBuf>,
-        /// Scenario to copy from a saved run (first observation is used).
-        #[arg(long, requires = "from_run")]
-        scenario: Option<String>,
-        /// JSON expectation object. Required: observed output is never assumed correct.
-        #[arg(long, required_unless_present_any=["json_equals", "require_tool", "forbid_tool", "contains"], conflicts_with_all=["json_equals", "require_tool", "forbid_tool", "contains"])]
-        expect: Option<PathBuf>,
-        /// Require exact JSON equality at a pointer; repeat for additional fields.
-        #[arg(long, num_args=2, value_names=["POINTER", "JSON"], allow_hyphen_values=true)]
-        json_equals: Vec<String>,
-        #[arg(long)]
-        require_tool: Vec<String>,
-        #[arg(long)]
-        forbid_tool: Vec<String>,
-        #[arg(long)]
-        contains: Vec<String>,
-    },
+    Add(Box<AddArgs>),
+}
+
+#[derive(Args)]
+pub struct AddArgs {
+    #[arg(long)]
+    id: String,
+    #[arg(
+        long,
+        conflicts_with = "from_run",
+        required_unless_present = "from_run"
+    )]
+    input: Option<PathBuf>,
+    #[arg(long, conflicts_with = "input")]
+    from_run: Option<PathBuf>,
+    /// Scenario to copy from a saved run (first observation is used).
+    #[arg(long, requires = "from_run")]
+    scenario: Option<String>,
+    /// JSON expectation object. Required: observed output is never assumed correct.
+    #[arg(long, required_unless_present_any=["json_equals", "require_tool", "forbid_tool", "contains"], conflicts_with_all=["json_equals", "require_tool", "forbid_tool", "contains"])]
+    expect: Option<PathBuf>,
+    /// Require exact JSON equality at a pointer; repeat for additional fields.
+    #[arg(long, num_args=2, value_names=["POINTER", "JSON"], allow_hyphen_values=true)]
+    json_equals: Vec<String>,
+    #[arg(long)]
+    require_tool: Vec<String>,
+    #[arg(long)]
+    forbid_tool: Vec<String>,
+    #[arg(long)]
+    contains: Vec<String>,
 }
 
 fn read(path: &Path) -> Result<Value, Error> {
@@ -83,7 +86,10 @@ pub fn execute(path: &Path, command: Commands) -> Result<(), Error> {
         );
         return Ok(());
     }
-    let Commands::Add {
+    let Commands::Add(args) = command else {
+        unreachable!()
+    };
+    let AddArgs {
         id,
         input,
         from_run,
@@ -93,10 +99,7 @@ pub fn execute(path: &Path, command: Commands) -> Result<(), Error> {
         require_tool,
         forbid_tool,
         contains,
-    } = command
-    else {
-        unreachable!()
-    };
+    } = *args;
     let (mut cfg, _) = config::load(path)?;
     let expectations: Expectations = if let Some(file) = expect {
         serde_json::from_value(read(&file)?)
