@@ -60,8 +60,13 @@ failing `check`, and a passing `check`, without model calls.
   version passed 3/10 original contracts; review found six wording-related checks
   and a missing approved-refund action. The candidate claimed completion without
   executing the action. No new configured regression appeared over baseline debt.
-  Original results remain preserved; confirmation guards and revised case rules
-  were subsequently tested offline only. See [observations and limits](live-pilot.md).
+  Original results remain preserved separately from the follow-up suite and fixes.
+  See [observations and limits](live-pilot.md).
+- **Multi-step live follow-up:** a separate 60-request budget used 42 attempts,
+  no retries, and passed 10/10 reviewed cases in each prompt version. Approved
+  refunds executed once and produced the requested order's receipt. The revised
+  suite and application differ from the original run; this is a functional check,
+  not a production accuracy or demand estimate. See [results](live-pilot.md#recorded-follow-up-results).
 - **Statistics:** the deterministic fixture produced an inconclusive result with
   20 samples, a passing harmless comparison with 200, and a failing stale-policy
   comparison with 200. These exercise policy mechanics, not model randomness.

@@ -33,7 +33,9 @@ your expectations; it does not automatically judge answer quality.
   [Coverage challenge](docs/coverage-challenge.md).
 - **A live action mismatch:** a model said a refund was processed, but no refund
   action ran. Required-tool and receipt checks failed. This was an existing
-  baseline failure in a small synthetic application. [Live observations](docs/live-pilot.md#observed-results).
+  baseline failure in a small synthetic application. The corrected workflow passed
+  10/10 reviewed cases in each of two prompt versions, using 42 requests total.
+  [Live observations and limits](docs/live-pilot.md).
 
 These are scoped engineering results, not production accuracy or measured customer ROI.
 

@@ -46,7 +46,7 @@ def package(binary, target, output, require_license=False, expected_version=None
                  "examples/historical-approval/README.md", "examples/historical-approval/source.json",
                  "examples/application-pilot/README.md", "examples/application-pilot/source.json",
                  "examples/application-challenge/README.md", "examples/live-agent/README.md",
-                 "docs/evidence/live-support.json"]:
+                 "docs/evidence/live-support.json", "docs/evidence/live-support-multistep.json"]:
         path = ROOT / name
         if path.is_file():
             files[name] = path.read_bytes()

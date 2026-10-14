@@ -104,7 +104,7 @@ paths. One observation per case does not support a production accuracy estimate.
 
 The recorded live run used the example at commit `7ebe0cc`. Its original ten cases,
 agent source, binary, native history, and 40-request budget remain preserved locally;
-the sanitized evidence retains the original outcomes. No more provider calls ran.
+the sanitized evidence retains the original outcomes. That budget was not reused.
 
 The first follow-up added an explicit trusted `requested_action` and
 `requested_order_id` for refund workflows. Its public confirmation now depends on
@@ -145,3 +145,24 @@ provider-error stops, budget exhaustion, and skipping a failed baseline.
 The runner's experiment record is schema 2 with a 60-request cap. Schema 1's
 original 40-request evidence remains verifiable and read-only. This operator
 schema does not change Wraith's run or comparison artifact contracts.
+
+### Recorded follow-up results
+
+The separately authorized experiment used source commit `300d2fe` and consumed
+**42/60 requests**, 21 per version, with no retries or execution errors. Baseline
+and candidate each passed **10/10 reviewed cases**. Both approved-refund paths
+performed lookup → refund, recorded exactly one execution for the requested order,
+and returned a matching receipt. Denied refunds executed no action. Wraith's strict
+comparison passed; changed wording remained informational.
+
+[Sanitized follow-up observations](evidence/live-support-multistep.json) retain
+per-case outputs, executed tools, request counts, source/binary hashes, and the
+comparison decision. The frozen source, suite, native history, runner, and shared
+budget remain under `.wraith/live-support-multistep/`. The unused 18 requests are
+not spent automatically, and the completed experiment cannot be rerun.
+
+This verifies the multi-step fix against these live observations. The suite and
+application changed since the original 3/10 run, so the scores are not an
+apples-to-apples quality improvement estimate. No new natural regression was
+observed in this follow-up. Production accuracy, repeat use on independent
+applications, incremental value over existing tests, and paid demand remain open.
