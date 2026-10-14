@@ -1,0 +1,30 @@
+[
+  {
+    "id": "optimized-checks",
+    "request": "Execute final-answer check callbacks even when Python runs with -O; keep rejection/retry behavior unchanged.",
+    "files": [
+      "src/smolagents/agents.py"
+    ]
+  },
+  {
+    "id": "callable-diagnostics",
+    "request": "Recover from a failed callable object or functools.partial check with an AgentError diagnostic instead of crashing while reading __name__.",
+    "files": [
+      "src/smolagents/agents.py"
+    ]
+  },
+  {
+    "id": "stream-close",
+    "request": "Allow a consumer to close a streamed run before tool execution without yielding during GeneratorExit; preserve normal exception and callback behavior.",
+    "files": [
+      "src/smolagents/agents.py"
+    ]
+  },
+  {
+    "id": "combined",
+    "request": "Combine the three reviewed fixes, retaining the same tests and contracts.",
+    "files": [
+      "src/smolagents/agents.py"
+    ]
+  }
+]

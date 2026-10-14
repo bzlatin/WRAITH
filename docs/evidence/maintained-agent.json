@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "upstream": "https://github.com/huggingface/smolagents.git",
+  "revision": "96f33faaf028479119ec8d34507b47694cf14e34",
+  "category": "source_inspection_targeted_existing_defects_and_local_fix_interaction",
+  "completed": true,
+  "providerRequests": 0,
+  "existingRootCauses": 3,
+  "contractsSha256": "f3449a8fbfe9e234540c4963aba597148e42ce5fb784cf64d05670f7e12d9343",
+  "results": [
+    {
+      "version": "unmodified",
+      "scenariosPassed": 2,
+      "scenariosTotal": 9,
+      "wraithExit": 1,
+      "upstream": {
+        "tests": 26,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 25
+      },
+      "optimizedControl": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "strictWarningControl": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "newFailedAssertions": [],
+      "sourceModuleSha256": "da0da2e258c346e28d97b3584dfe58dcd203fc20fbde6c6533e333f9b1a06352"
+    },
+    {
+      "version": "optimized-checks",
+      "scenariosPassed": 4,
+      "scenariosTotal": 9,
+      "wraithExit": 1,
+      "upstream": {
+        "tests": 26,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 25
+      },
+      "optimizedControl": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2
+      },
+      "strictWarningControl": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "newFailedAssertions": [
+        {
+          "scenarioId": "optimized-callable-retry",
+          "classification": "STRUCTURED_OUTPUT_REGRESSION",
+          "message": "JSON assertion {\"op\":\"equals\",\"value\":null} failed at [\"/errorType\"] (missing values and wrong types fail)"
+        },
+        {
+          "scenarioId": "optimized-partial-retry",
+          "classification": "STRUCTURED_OUTPUT_REGRESSION",
+          "message": "JSON assertion {\"op\":\"equals\",\"value\":null} failed at [\"/errorType\"] (missing values and wrong types fail)"
+        }
+      ],
+      "sourceModuleSha256": "863a5ca088799ebc29301181f5514fd25af00dc6cb31f2e8582e96726c123780"
+    },
+    {
+      "version": "callable-diagnostics",
+      "scenariosPassed": 4,
+      "scenariosTotal": 9,
+      "wraithExit": 0,
+      "upstream": {
+        "tests": 26,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 25
+      },
+      "optimizedControl": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "strictWarningControl": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "newFailedAssertions": [],
+      "sourceModuleSha256": "161a7d755f0599950bc9f6dd8713ea75d9c963933e7da8e0ef9373737e4f6b1c"
+    },
+    {
+      "version": "stream-close",
+      "scenariosPassed": 3,
+      "scenariosTotal": 9,
+      "wraithExit": 0,
+      "upstream": {
+        "tests": 26,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 25
+      },
+      "optimizedControl": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "strictWarningControl": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1
+      },
+      "newFailedAssertions": [],
+      "sourceModuleSha256": "c66ea0e4038d11b976848c09602eb5519bf8e635a8584e1986ed0f5a9ccff2ad"
+    },
+    {
+      "version": "combined",
+      "scenariosPassed": 9,
+      "scenariosTotal": 9,
+      "wraithExit": 0,
+      "upstream": {
+        "tests": 26,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 25
+      },
+      "optimizedControl": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2
+      },
+      "strictWarningControl": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1
+      },
+      "newFailedAssertions": [],
+      "sourceModuleSha256": "a77faff7ab6041e2f0265f555aafb5bf32428fd49ad3f886ac74b26e0f524a6a"
+    }
+  ],
+  "limits": [
+    "Contracts were selected after source inspection; not blind or prospective defect discovery.",
+    "Two newly failing errorType assertions expose one latent callable crash in already-failing optimized scenarios.",
+    "Existing tests also detect optimization defects under -O and the stream issue with strict warnings; new targeted unit tests cover callables.",
+    "Passing comparisons can retain existing failed contracts; only the combined fix passes all nine scenarios.",
+    "No production model quality, complete upstream-suite coverage, maintainer adoption, buyer demand, or human review time measured."
+  ],
+  "localPlatform": "macOS arm64",
+  "verificationScope": "Three separate offline experiments on pinned source, including fresh source/dependency installation; no full upstream-suite run. Python 3.13."
+}

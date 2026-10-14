@@ -22,6 +22,11 @@ binary. See [faster setup](first-use.md) and [coverage results](coverage-challen
 
 ## Next priorities
 
+The [maintained-agent fix study](maintained-agent.md) reproduced existing smolagents
+defects and caught a partial fix exposing a latent crash. It used source-guided
+contracts; a suite frozen before inspecting the next change would provide stronger
+evidence of regression prevention. Repeat use and customer value remain unmeasured.
+
 1. **Use a real agent during real changes.** Catch a useful natural regression and
    fix integration or report friction revealed by the exercise.
 2. **Repeat the workflow on independent projects.** Learn which checks are useful,

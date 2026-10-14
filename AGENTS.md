@@ -140,3 +140,10 @@ Read `docs/feature-queue.md` before operating `scripts/change-pilot.py`. Keep th
 frozen suite and component tests unchanged. Candidate patches implement features,
 not seeded faults; report recorded-model replay separately from new live calls.
 Keep acceptance, test overlap, execution errors, and reviewed useful catches separate.
+
+Read `docs/maintained-agent.md` before operating `scripts/maintained-pilot.py`.
+Keep source-guided existing-defect reproductions separate from blind discoveries.
+The deliberately failing diagnostic baseline is not an approved CI baseline.
+Partial comparisons can pass while retaining debt; require all fixed contracts
+for the combined fix. Edit only returned candidate modules, preserve upstream
+tests, and report optimized/strict-warning controls alongside ordinary tests.

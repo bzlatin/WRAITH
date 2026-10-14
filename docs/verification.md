@@ -85,6 +85,14 @@ failing `check`, and a passing `check`, without model calls.
   check was rejected by the project lock and passed on a serial retry; it remains
   a setup failure in the evidence. Verified offline on macOS arm64; see the
   [operator guide and limits](coverage-challenge.md).
+- **Maintained-agent fixes:** pinned smolagents source passed 2/9 fixed application
+  contracts before local changes and 9/9 with three combined fixes. A partial fix
+  exposed one existing callable crash in two already-failing scenarios; Wraith
+  blocked its new error assertions while 25 selected upstream tests passed (one
+  skipped). Existing tests under optimization or strict warnings also detect two
+  original defects; a new unit test detects the third. Source inspection guided
+  case selection, so this is targeted reproduction and local fix interaction,
+  not blind discovery. Verified offline on macOS arm64; see [study](maintained-agent.md).
 - **Process and artifacts:** fault tests cover bounded pipes, timeouts, descendants,
   cancellation, protocol errors, schema migration, incompatible suites, fixed
   baselines, immutable history, and live-budget exhaustion/failure preservation.

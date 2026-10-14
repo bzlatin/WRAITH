@@ -47,7 +47,9 @@ def package(binary, target, output, require_license=False, expected_version=None
                  "examples/application-pilot/README.md", "examples/application-pilot/source.json",
                  "examples/application-challenge/README.md", "examples/live-agent/README.md",
                  "docs/evidence/live-support.json", "docs/evidence/live-support-multistep.json",
-                 "examples/feature-queue/README.md", "docs/evidence/feature-queue.json"]:
+                 "examples/feature-queue/README.md", "docs/evidence/feature-queue.json",
+                 "examples/maintained-agent/README.md", "examples/maintained-agent/source.json",
+                 "examples/maintained-agent/UPSTREAM_LICENSE.txt", "docs/evidence/maintained-agent.json"]:
         path = ROOT / name
         if path.is_file():
             files[name] = path.read_bytes()

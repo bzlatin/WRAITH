@@ -28,9 +28,10 @@ your expectations; it does not automatically judge answer quality.
 - **A real approval regression:** reproduced a historical upstream bug where an
   unapproved action ran after resuming saved history. Wraith failed the buggy
   revision and passed the fix. [Reproduction](docs/historical-pilot.md).
-- **12/12 seeded defects detected, 4/4 harmless controls passed** with a reviewed
-  17-scenario suite. Existing upstream tests also caught all 12 defects.
-  [Coverage challenge](docs/coverage-challenge.md).
+- **A partial fix exposed another failure:** in pinned smolagents source, Wraith
+  flagged new crashes in two scenarios while the selected upstream tests passed.
+  Those scenarios already failed other requirements. Combined local fixes
+  passed 9/9 contracts. [Reproduction and test overlap](docs/maintained-agent.md).
 - **A live action mismatch:** a model said a refund was processed, but no refund
   action ran. Required-tool and receipt checks failed. This was an existing
   baseline failure in a small synthetic application. The corrected workflow passed

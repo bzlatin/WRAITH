@@ -1,0 +1,44 @@
+--- a/src/smolagents/agents.py
++++ b/src/smolagents/agents.py
+@@ -574,6 +574,7 @@
+                 observations_images=images,
+             )
+             self.logger.log_rule(f"Step {self.step_number}", level=LogLevel.INFO)
++            closing = False
+             try:
+                 for output in self._step_stream(action_step):
+                     # Yield all
+@@ -591,6 +592,9 @@
+                         returned_final_answer = True
+                         action_step.is_final_answer = True
+ 
++            except GeneratorExit:
++                closing = True
++                raise
+             except AgentGenerationError as e:
+                 # Agent generation errors are not caused by a Model error but an implementation error: so we should raise them and exit.
+                 raise e
+@@ -600,7 +604,8 @@
+             finally:
+                 self._finalize_step(action_step)
+                 self.memory.steps.append(action_step)
+-                yield action_step
++                if not closing:
++                    yield action_step
+                 self.step_number += 1
+ 
+         if not returned_final_answer and self.step_number == max_steps + 1:
+@@ -613,9 +618,11 @@
+     def _validate_final_answer(self, final_answer: Any):
+         for check_function in self.final_answer_checks:
+             try:
+-                assert check_function(final_answer, self.memory, agent=self)
++                if not check_function(final_answer, self.memory, agent=self):
++                    raise AssertionError()
+             except Exception as e:
+-                raise AgentError(f"Check {check_function.__name__} failed with error: {e}", self.logger)
++                check_name = getattr(check_function, "__name__", type(check_function).__name__)
++                raise AgentError(f"Check {check_name} failed with error: {e}", self.logger) from e
+ 
+     def _finalize_step(self, memory_step: ActionStep | PlanningStep | FinalAnswerStep):
+         if not isinstance(memory_step, FinalAnswerStep):

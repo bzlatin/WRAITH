@@ -1,0 +1,543 @@
+[
+  {
+    "id": "normal-function-retry",
+    "input": {
+      "optimized": false,
+      "checker": "function",
+      "firstValid": false
+    },
+    "metadata": {
+      "scope": "current upstream final-answer validation; deterministic offline model"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/answer",
+          "check": {
+            "op": "equals",
+            "value": "APPROVED"
+          }
+        },
+        {
+          "path": "/errorType",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/checkCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/modelFixtureCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/optimized",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "final_answer"
+      ]
+    }
+  },
+  {
+    "id": "normal-partial-retry",
+    "input": {
+      "optimized": false,
+      "checker": "partial",
+      "firstValid": false
+    },
+    "metadata": {
+      "scope": "current upstream final-answer validation; deterministic offline model"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/answer",
+          "check": {
+            "op": "equals",
+            "value": "APPROVED"
+          }
+        },
+        {
+          "path": "/errorType",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/checkCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/modelFixtureCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/optimized",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "final_answer"
+      ]
+    }
+  },
+  {
+    "id": "normal-callable-retry",
+    "input": {
+      "optimized": false,
+      "checker": "callable",
+      "firstValid": false
+    },
+    "metadata": {
+      "scope": "current upstream final-answer validation; deterministic offline model"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/answer",
+          "check": {
+            "op": "equals",
+            "value": "APPROVED"
+          }
+        },
+        {
+          "path": "/errorType",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/checkCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/modelFixtureCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/optimized",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "final_answer"
+      ]
+    }
+  },
+  {
+    "id": "normal-function-valid",
+    "input": {
+      "optimized": false,
+      "checker": "function",
+      "firstValid": true
+    },
+    "metadata": {
+      "scope": "current upstream final-answer validation; deterministic offline model"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/answer",
+          "check": {
+            "op": "equals",
+            "value": "APPROVED"
+          }
+        },
+        {
+          "path": "/errorType",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/checkCalls",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/modelFixtureCalls",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/optimized",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "final_answer"
+      ]
+    }
+  },
+  {
+    "id": "optimized-function-retry",
+    "input": {
+      "optimized": true,
+      "checker": "function",
+      "firstValid": false
+    },
+    "metadata": {
+      "scope": "current upstream final-answer validation; deterministic offline model"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/answer",
+          "check": {
+            "op": "equals",
+            "value": "APPROVED"
+          }
+        },
+        {
+          "path": "/errorType",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/checkCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/modelFixtureCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/optimized",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "final_answer"
+      ]
+    }
+  },
+  {
+    "id": "optimized-partial-retry",
+    "input": {
+      "optimized": true,
+      "checker": "partial",
+      "firstValid": false
+    },
+    "metadata": {
+      "scope": "current upstream final-answer validation; deterministic offline model"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/answer",
+          "check": {
+            "op": "equals",
+            "value": "APPROVED"
+          }
+        },
+        {
+          "path": "/errorType",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/checkCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/modelFixtureCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/optimized",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "final_answer"
+      ]
+    }
+  },
+  {
+    "id": "optimized-callable-retry",
+    "input": {
+      "optimized": true,
+      "checker": "callable",
+      "firstValid": false
+    },
+    "metadata": {
+      "scope": "current upstream final-answer validation; deterministic offline model"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/answer",
+          "check": {
+            "op": "equals",
+            "value": "APPROVED"
+          }
+        },
+        {
+          "path": "/errorType",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/checkCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/modelFixtureCalls",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/optimized",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "final_answer"
+      ]
+    }
+  },
+  {
+    "id": "optimized-function-valid",
+    "input": {
+      "optimized": true,
+      "checker": "function",
+      "firstValid": true
+    },
+    "metadata": {
+      "scope": "current upstream final-answer validation; deterministic offline model"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/answer",
+          "check": {
+            "op": "equals",
+            "value": "APPROVED"
+          }
+        },
+        {
+          "path": "/errorType",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/checkCalls",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/modelFixtureCalls",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/optimized",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "final_answer"
+      ]
+    }
+  },
+  {
+    "id": "close-stream-before-execution",
+    "input": {
+      "operation": "close_stream",
+      "optimized": false,
+      "checker": "function",
+      "firstValid": true
+    },
+    "metadata": {
+      "scope": "closing a real upstream streamed agent before the first tool executes"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/answer",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/errorType",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/checkCalls",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/modelFixtureCalls",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/optimized",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_not_called": [
+        "final_answer"
+      ]
+    }
+  }
+]
