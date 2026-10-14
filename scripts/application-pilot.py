@@ -111,15 +111,20 @@ def verify(root):
             != saved["nativeHistory"]
         ):
             raise ValueError("Completed native history changed")
+        if (
+            "changeEvidence" in saved
+            and artifacts.manifest(root / "changes") != saved["changeEvidence"]
+        ):
+            raise ValueError("Completed calibration evidence changed or disappeared")
     return state
 
 
-def prepare(root, binary, install):
+def prepare(root, binary, install, fixture=FIXTURE, reviewed_cases=None):
     if (root / "campaign.json").exists():
         verify(root)
         return
     start = time.monotonic()
-    source = artifacts.read(FIXTURE / "source.json")
+    source = artifacts.read(fixture / "source.json")
     root.mkdir(parents=True, exist_ok=True)
     upstream = root / "upstream"
     python = root / "venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
@@ -152,7 +157,7 @@ def prepare(root, binary, install):
                 "install",
                 "--no-deps",
                 "-r",
-                str(FIXTURE / "requirements.txt"),
+                str(fixture / "requirements.txt"),
             ],
             check=True,
         )
@@ -190,7 +195,7 @@ def prepare(root, binary, install):
     with tarfile.open(archive) as stream:
         stream.extractall(base, filter="data")
     shutil.copytree(
-        FIXTURE, root / "frozen", ignore=shutil.ignore_patterns("__pycache__")
+        fixture, root / "frozen", ignore=shutil.ignore_patterns("__pycache__")
     )
     project = root / "project"
     project.mkdir(exist_ok=False)
@@ -225,6 +230,10 @@ def prepare(root, binary, install):
     config = artifacts.read(project / "wraith.yaml")
     config["tests"] = artifacts.read(root / "frozen/contracts.json")
     artifacts.save(project / "wraith.yaml", config)
+    if reviewed_cases is not None:
+        phases["import"] = artifacts.execute(
+            [binary, "cases", "import", "--file", reviewed_cases], project, "import"
+        )
     env = environment(root, base)
     phases["doctor"] = artifacts.execute([binary, "doctor"], project, "doctor", env)
     phases["upstreamTests"] = upstream_tests(root, state, base, project)

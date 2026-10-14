@@ -7,7 +7,10 @@ evidence. It is a standalone engineering document, generated from saved results.
 
 1. Outcome, scenario/sample scope, and provenance.
 2. Failed expectations with expected and observed values.
-3. Baseline/candidate outputs and recorded activity, in native expandable disclosures.
+3. Request input/metadata, baseline/candidate outputs, and recorded activity, in
+   native expandable disclosures. Comparison failures take priority even when
+   individual observation checks pass; those failures expose their stored
+   before/after comparison values.
 4. Passing scenarios, measured performance, and local history links.
 
 Use explicit status words alongside color. Display missing metrics and inconclusive

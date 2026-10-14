@@ -469,6 +469,12 @@ fn generated_adapter_handles_async_logs_and_escapes_html() {
         .status
         .success()
     );
+    let config_path = dir.path().join("wraith.yaml");
+    let mut config: serde_json::Value =
+        serde_json::from_slice(&std::fs::read(&config_path).unwrap()).unwrap();
+    config["tests"][0]["input"] = serde_json::json!({"text":"<img src=x onerror=alert(1)>"});
+    config["tests"][0]["metadata"] = serde_json::json!({"audience":"<private>"});
+    std::fs::write(config_path, config.to_string()).unwrap();
     let baseline = cli(dir.path(), &["baseline", "--output", "json"], false);
     assert!(
         baseline.status.success(),
@@ -479,6 +485,10 @@ fn generated_adapter_handles_async_logs_and_escapes_html() {
     let html = std::fs::read_to_string(result["report"].as_str().unwrap()).unwrap();
     assert!(!html.contains("<script>"));
     assert!(html.contains("&lt;script&gt;"));
+    assert!(html.contains("Request input and metadata"));
+    assert!(html.contains("&lt;img src=x onerror=alert(1)&gt;"));
+    assert!(html.contains("&lt;private&gt;"));
+    assert!(!html.contains("<img src=x"));
     assert_eq!(
         result["run"]["scenarios"][0]["run"]["response"]["toolCalls"][0]["name"],
         "lookup"
@@ -546,4 +556,234 @@ fn import_reviewed_case_and_ci_bootstrap_are_reviewable() {
         Some(2)
     );
     assert_eq!(std::fs::read(workflow).unwrap(), original);
+}
+
+#[test]
+fn batch_import_is_atomic_requires_review_and_preserves_baseline() {
+    let dir = tempfile::tempdir().unwrap();
+    assert!(cli(dir.path(), &["init", "--demo"], false).status.success());
+    assert!(cli(dir.path(), &["baseline"], false).status.success());
+    let pointer = dir.path().join(".wraith/baseline.json");
+    let baseline = std::fs::read(&pointer).unwrap();
+    let file = dir.path().join("cases.json");
+    let config = dir.path().join("wraith.yaml");
+    let original = std::fs::read(&config).unwrap();
+    for invalid in [
+        r#"[]"#,
+        r#"[{"id":"missing-review","input":{}}]"#,
+        r#"[{"id":"fresh","input":{},"expect":{}},{"id":"fresh","input":{},"expect":{}}]"#,
+        r#"[{"id":"fresh","input":{},"expect":{}},{"id":"invalid","input":{},"expect":{"json":[{"path":"bad-pointer","check":{"op":"exists"}}]}}]"#,
+    ] {
+        std::fs::write(&file, invalid).unwrap();
+        assert_eq!(
+            cli(
+                dir.path(),
+                &["cases", "import", "--file", "cases.json"],
+                false
+            )
+            .status
+            .code(),
+            Some(2)
+        );
+        assert_eq!(std::fs::read(&config).unwrap(), original);
+        assert_eq!(std::fs::read(&pointer).unwrap(), baseline);
+    }
+    std::fs::write(&file, r#"[{"id":"deny","input":{"approve":false},"metadata":{"reason":"reviewed"},"expect":{"tools_not_called":["delete"]}},{"id":"count","input":{},"expect":{"json":[{"path":"/count","check":{"op":"equals","value":2}}]}}]"#).unwrap();
+    let added = cli(
+        dir.path(),
+        &["cases", "import", "--file", "cases.json"],
+        false,
+    );
+    assert!(
+        added.status.success(),
+        "{}",
+        String::from_utf8_lossy(&added.stderr)
+    );
+    let suite: serde_json::Value =
+        serde_json::from_slice(&std::fs::read(&config).unwrap()).unwrap();
+    assert_eq!(suite["tests"].as_array().unwrap().len(), 5);
+    assert_eq!(suite["tests"][3]["metadata"]["reason"], "reviewed");
+    assert_eq!(std::fs::read(&pointer).unwrap(), baseline);
+    // The accepted baseline cannot silently cover a changed suite.
+    assert_eq!(cli(dir.path(), &["check"], false).status.code(), Some(2));
+}
+
+#[test]
+fn doctor_flags_weak_cases_in_mixed_suites_without_running_agent() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(dir.path().join("wraith.yaml"), r#"{"version":1,"agent":{"command":"python3 -c 'raise Exception()'"},"tests":[{"id":"empty","input":{}},{"id":"presence","input":{},"expect":{"json":[{"path":"/answer","check":{"op":"exists"}}]}},{"id":"negative-tool","input":{},"expect":{"tools_not_called":["delete"]}},{"id":"equals","input":{},"expect":{"json":[{"path":"/count","check":{"op":"equals","value":2}}]}}]}"#.replace("python3", if cfg!(windows) { "python" } else { "python3" })).unwrap();
+    let result = cli(dir.path(), &["doctor", "--output", "json"], false);
+    assert!(result.status.success());
+    let output: serde_json::Value = serde_json::from_slice(&result.stdout).unwrap();
+    let warnings: Vec<_> = output["checks"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| c["status"] == "warning")
+        .map(|c| c["scenarioId"].as_str().unwrap())
+        .collect();
+    assert_eq!(warnings, ["empty", "presence"]);
+    assert!(output["passed"].as_bool().unwrap());
+}
+
+#[test]
+fn reviewed_init_and_typed_case_flags_preserve_fixed_baselines() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(
+        dir.path().join("agent.py"),
+        "def evaluate(input):\n    return {'a/b': False, 'count': -2, 'text': input['text']}\n",
+    )
+    .unwrap();
+    let cases = dir.path().join("cases.json");
+    std::fs::write(&cases, r#"[{"id":"missing-review","input":{}}]"#).unwrap();
+    let init = [
+        "init",
+        "--entrypoint",
+        "agent.py:evaluate",
+        "--input-only",
+        "--cases",
+        "cases.json",
+    ];
+    assert_eq!(cli(dir.path(), &init, false).status.code(), Some(2));
+    assert!(!dir.path().join("wraith_adapter.py").exists());
+    assert!(!dir.path().join("wraith.project.json").exists());
+    assert!(!dir.path().join("wraith.yaml").exists());
+    std::fs::write(&cases, r#"[{"id":"reviewed","input":{"text":"ready"},"expect":{"json":[{"path":"/a~1b","check":{"op":"equals","value":false}}]}}]"#).unwrap();
+    let result = cli(dir.path(), &init, false);
+    assert!(
+        result.status.success(),
+        "{}",
+        String::from_utf8_lossy(&result.stderr)
+    );
+    assert!(cli(dir.path(), &["baseline"], false).status.success());
+    let config = dir.path().join("wraith.yaml");
+    let pointer = dir.path().join(".wraith/baseline.json");
+    let baseline = std::fs::read(&pointer).unwrap();
+    let original = std::fs::read(&config).unwrap();
+    let source: serde_json::Value = serde_json::from_slice(&original).unwrap();
+    let native: serde_json::Value =
+        serde_json::from_slice(&cli(dir.path(), &["history", "--output", "json"], false).stdout)
+            .unwrap();
+    let run = format!(
+        ".wraith/history/{}/run.json",
+        native[0]["id"].as_str().unwrap()
+    );
+    for args in [
+        vec![
+            "cases",
+            "add",
+            "--id",
+            "bad-json",
+            "--from-run",
+            &run,
+            "--json-equals",
+            "/count",
+            "invalid-json",
+        ],
+        vec![
+            "cases",
+            "add",
+            "--id",
+            "bad-pointer",
+            "--from-run",
+            &run,
+            "--json-equals",
+            "invalid",
+            "0",
+        ],
+    ] {
+        assert_eq!(cli(dir.path(), &args, false).status.code(), Some(2));
+        assert_eq!(std::fs::read(&config).unwrap(), original);
+    }
+    let added = cli(
+        dir.path(),
+        &[
+            "cases",
+            "add",
+            "--id",
+            "typed",
+            "--from-run",
+            &run,
+            "--json-equals",
+            "/a~1b",
+            "false",
+            "--json-equals",
+            "/count",
+            "-2",
+            "--contains",
+            "ready",
+            "--forbid-tool",
+            "delete",
+        ],
+        false,
+    );
+    assert!(
+        added.status.success(),
+        "{}",
+        String::from_utf8_lossy(&added.stderr)
+    );
+    let changed: serde_json::Value =
+        serde_json::from_slice(&std::fs::read(&config).unwrap()).unwrap();
+    assert_eq!(
+        changed["tests"][1]["expect"]["json"][0]["check"]["value"],
+        false
+    );
+    assert_eq!(
+        changed["tests"][1]["expect"]["json"][1]["check"]["value"],
+        -2
+    );
+    assert_eq!(changed["tests"][1]["input"], source["tests"][0]["input"]);
+    assert_eq!(std::fs::read(&pointer).unwrap(), baseline);
+    assert_eq!(cli(dir.path(), &["check"], false).status.code(), Some(2));
+    assert!(
+        cli(dir.path(), &["baseline", "--replace"], false)
+            .status
+            .success()
+    );
+    assert!(cli(dir.path(), &["check"], false).status.success());
+}
+
+#[test]
+fn report_prioritizes_trace_regression_when_observations_pass() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(dir.path().join("agent.py"), "import os\ndef evaluate(input, context):\n    value = 2 if input['changed'] and os.getenv('WRAITH_EXAMPLE_MODE') == 'candidate' else 1\n    context.tool('lookup', {'id': value}, 'ok')\n    return {'text': 'ok'}\n").unwrap();
+    std::fs::write(dir.path().join("cases.json"), r#"[{"id":"a-pass","input":{"changed":false},"expect":{"tools_called":["lookup"]}},{"id":"z-trace","input":{"changed":true},"expect":{"tools_called":["lookup"]}}]"#).unwrap();
+    assert!(
+        cli(
+            dir.path(),
+            &[
+                "init",
+                "--entrypoint",
+                "agent.py:evaluate",
+                "--cases",
+                "cases.json"
+            ],
+            false
+        )
+        .status
+        .success()
+    );
+    let path = dir.path().join("wraith.yaml");
+    let mut cfg: serde_json::Value =
+        serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+    cfg["comparison"] = serde_json::json!({"tool_arguments":true});
+    std::fs::write(path, cfg.to_string()).unwrap();
+    assert!(cli(dir.path(), &["baseline"], false).status.success());
+    let candidate = cli(dir.path(), &["check", "--output", "json"], true);
+    assert_eq!(candidate.status.code(), Some(1));
+    let result: serde_json::Value = serde_json::from_slice(&candidate.stdout).unwrap();
+    assert!(
+        result["run"]["scenarios"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .all(|s| s["passed"] == true)
+    );
+    let html = std::fs::read_to_string(result["report"].as_str().unwrap()).unwrap();
+    assert!(html.find("<h3>z-trace</h3>").unwrap() < html.find("<h3>a-pass</h3>").unwrap());
+    assert!(html.contains("Comparison failed · 1/1 observations passed"));
+    assert!(html.contains("TOOL_ARGUMENTS_REGRESSION"));
+    assert!(html.contains("Comparison evidence"));
+    assert!(html.contains("&quot;id&quot;: 1"));
+    assert!(html.contains("&quot;id&quot;: 2"));
 }

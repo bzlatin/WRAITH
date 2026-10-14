@@ -28,7 +28,9 @@ wraith init --entrypoint agent.py:evaluate --language python
 wraith doctor
 ```
 
-The function can be synchronous or asynchronous. `module:function` and
+The function can be synchronous or asynchronous. A current source build also
+supports `init --input-only` for an existing single-argument function and `--cases`
+for reviewed initial scenarios; see [faster setup](first-use.md). `module:function` and
 `path.py:function` are supported. Logs printed during import or invocation go to
 stderr. Return JSON-compatible values; convert Pydantic models explicitly with
 `model_dump(mode="json")`. Use `--runtime /path/to/venv/bin/python` for dependencies
@@ -108,7 +110,9 @@ uninstrumented application activity.
 `wraith doctor` validates config, runtime/script/entrypoint paths, and declared
 credential presence without importing your agent. It hides credential values. It
 cannot discover every runtime dependency or validate a function without execution;
-baseline errors retain actionable diagnostics. It flags minimal starter checks.
+baseline errors retain actionable diagnostics. It flags individual scenarios with
+no behavioral constraints beyond presence checks, even within a stronger suite.
+This review does not measure source coverage or discover unrecorded tool calls.
 
 ## Save, change, check
 
@@ -180,6 +184,8 @@ Routine tests and generated CI should use explicitly offline fixtures.
 
 ## Add a regression case
 
+A current source build can also [add typed expectations from CLI flags](first-use.md#add-expectations-without-a-separate-json-file).
+
 Prepare `input.json` with the request input and `expect.json` with reviewed Wraith
 expectations, then:
 
@@ -193,6 +199,33 @@ Or copy a scenario's input/metadata from a saved run:
 wraith cases add --id reported-bug --from-run saved-run.json \
   --scenario original-case --expect expect.json
 ```
+
+For a reviewed batch, save a JSON array in `cases.json`:
+
+```json
+[
+  {
+    "id": "approval-denied",
+    "input": {"approve": false},
+    "expect": {"tools_not_called": ["delete_record"]}
+  },
+  {
+    "id": "result-count",
+    "input": {"text": "Find two records"},
+    "expect": {"json": [{"path": "/records", "check": {"op": "length", "min": 2, "max": 2}}]}
+  }
+]
+```
+
+```sh
+wraith cases import --file cases.json
+```
+
+Batch import requires a nonempty array and an explicit `expect` object per case.
+It validates the entire merged suite before writing; one invalid case leaves
+configuration and the accepted baseline untouched. Empty expectations remain
+possible but receive a `doctor` warning. **Batch import and per-case expectation
+warnings require a current source build; they are not in published v0.5.0.**
 
 Observed output is never automatically treated as correct. Duplicate IDs and invalid
 expectations fail before rewriting config. The command serializes config as JSON;

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "sync-approval-bypass",
+    "scope": "    def execute_tool_calls(",
+    "old": "            if before_call:\n",
+    "new": "            if False and before_call:\n",
+    "witness": "sync-cancel",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "sync-after-hook",
+    "scope": "    def execute_tool_calls(",
+    "old": "            if after_call:\n",
+    "new": "            if False and after_call:\n",
+    "witness": "sync-hooks",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "sync-duplicate",
+    "scope": "    def execute_tool_calls(",
+    "old": "                    result = tool.implementation(**implementation_arguments)",
+    "new": "                    tool.implementation(**implementation_arguments)\n                    result = tool.implementation(**implementation_arguments)",
+    "witness": "sync-hooks",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "sync-arguments",
+    "scope": "    def execute_tool_calls(",
+    "old": "                implementation_arguments = _implementation_arguments(tool, tool_call)",
+    "new": "                implementation_arguments = {}",
+    "witness": "sync-hooks",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "sync-error-result",
+    "scope": "    def execute_tool_calls(",
+    "old": "                result = f\"Error: {ex}\"",
+    "new": "                result = \"\"",
+    "witness": "sync-error",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "async-approval-bypass",
+    "scope": "    async def execute_tool_calls(",
+    "old": "                    if before_call:\n",
+    "new": "                    if False and before_call:\n",
+    "witness": "async-cancel",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "async-result-order",
+    "scope": "    async def execute_tool_calls(",
+    "old": "        indexed_results.sort(key=lambda x: x[0])",
+    "new": "        indexed_results.sort(key=lambda x: x[0], reverse=True)",
+    "witness": "async-hooks",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "async-after-hook",
+    "scope": "    async def execute_tool_calls(",
+    "old": "                    if tool is not None and after_call:\n",
+    "new": "                    if False and tool is not None and after_call:\n",
+    "witness": "async-hooks",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "pause-lost-sibling",
+    "scope": "    async def execute_tool_calls(",
+    "old": "            pause.tool_results = results",
+    "new": "            pause.tool_results = []",
+    "witness": "async-pause",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "resume-duplicate",
+    "scope": "def _trailing_pending_tool_calls(",
+    "old": "    matched_ids = {r.tool_call_id for r in results if r.tool_call_id}",
+    "new": "    matched_ids = set()",
+    "witness": "resume-partial",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "resume-stale",
+    "scope": "def _trailing_pending_tool_calls(",
+    "old": "            # Conversation moved on past these calls\n            return []",
+    "new": "            # Incorrectly keep searching old history\n            continue",
+    "witness": "resume-stale",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "tool-call-context",
+    "scope": "def _implementation_arguments(",
+    "old": "    if _accepts_llm_tool_call(tool.implementation):",
+    "new": "    if False and _accepts_llm_tool_call(tool.implementation):",
+    "witness": "sync-hooks",
+    "category": "seeded_fault",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "copy-arguments",
+    "scope": "def _implementation_arguments(",
+    "old": "    arguments = dict(tool_call.arguments)",
+    "new": "    arguments = {**tool_call.arguments}",
+    "category": "benign_control",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "copy-pause-results",
+    "scope": "    def execute_tool_calls(",
+    "old": "                ex.tool_results = list(tool_results)",
+    "new": "                ex.tool_results = tool_results.copy()",
+    "category": "benign_control",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "schema-comment",
+    "scope": "def _get_arguments_input_schema(",
+    "old": "    fields = {}",
+    "new": "    # Collect the reviewed input fields.\n    fields = {}",
+    "category": "benign_control",
+    "file": "llm/models.py"
+  },
+  {
+    "id": "sort-key",
+    "scope": "    async def execute_tool_calls(",
+    "old": "        indexed_results.sort(key=lambda x: x[0])",
+    "new": "        indexed_results.sort(key=lambda item: item[0])",
+    "category": "benign_control",
+    "file": "llm/models.py"
+  }
+]

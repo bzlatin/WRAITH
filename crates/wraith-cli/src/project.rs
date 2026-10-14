@@ -94,6 +94,8 @@ pub fn prompt(label: &str, default: &str) -> Result<String, Error> {
 }
 
 pub struct InitOptions {
+    pub input_only: bool,
+    pub cases: Option<PathBuf>,
     pub entrypoint: Option<String>,
     pub language: Option<String>,
     pub runtime: Option<String>,
@@ -193,7 +195,18 @@ pub fn init(path: &Path, mut options: InitOptions) -> Result<(), Error> {
             "rag" => json!({"sources":{"include":["knowledge_base"]}}),
             _ => json!({"json":[{"path":"","check":{"op":"exists"}}]}),
         };
-        let config = json!({"version":1,"agent":{"command":format!("{} {} {}",quote(&runtime),quote(adapter_name),quote(&entrypoint)),"timeout_ms":60000},"tests":[{"id":"first-case","input":{"text":"Replace this with a representative request"},"expect":expect}]});
+        let tests = if let Some(file) = options.cases {
+            serde_json::to_value(crate::cases::reviewed(&file)?)
+                .map_err(|e| Error::Config(e.to_string()))?
+        } else {
+            json!([{"id":"first-case","input":{"text":"Replace this with a representative request"},"expect":expect}])
+        };
+        let flag = if options.input_only {
+            " --input-only"
+        } else {
+            ""
+        };
+        let config = json!({"version":1,"agent":{"command":format!("{} {} {}{flag}",quote(&runtime),quote(adapter_name),quote(&entrypoint)),"timeout_ms":60000},"tests":tests});
         // Validate the generated configuration before writing any files.
         config::parse(&config.to_string())?;
         write_new(&adapter_path, adapter.as_bytes())?;
@@ -315,17 +328,22 @@ pub fn doctor(path: &Path) -> Result<(Value, bool), Error> {
         }
         checks.push(json!({"status":"info","message":format!("Mode: {}. Model label: {}. Live requests require SDK budget helpers, including retries.",p.mode,p.model.unwrap_or_else(||"not declared".into()))}));
     }
-    let minimal = cfg.tests.iter().all(|s| {
-        serde_json::to_value(&s.expect)
-            .ok()
-            .is_some_and(|v| v["json"].as_array().is_none_or(|a| a.len() <= 1))
-            && s.expect.tools_called.is_empty()
-            && s.expect.sources.include.is_empty()
-            && s.expect.output_contains.is_empty()
-    });
-    if minimal {
-        checks.push(json!({"status":"warning","message":"Review starter expectations: add allowed IDs, required tools/sources, or output constraints before relying on this gate"}));
+    for scenario in &cfg.tests {
+        let expect = &scenario.expect;
+        let behavior = !expect.output_contains.is_empty()
+            || !expect.output_not_contains.is_empty()
+            || !expect.tools_called.is_empty()
+            || !expect.tools_not_called.is_empty()
+            || !expect.sources.include.is_empty()
+            || expect.json.iter().any(|assertion| {
+                !matches!(assertion.check, wraith_core::json_checks::JsonCheck::Exists)
+                    || assertion.each.is_some()
+            });
+        if !behavior {
+            checks.push(json!({"status":"warning","scenarioId":scenario.id,"message":format!("Scenario {} has no behavioral expectations beyond presence checks. Execution/resource checks alone cannot validate its result; add reviewed output, tool, or source constraints.",scenario.id)}));
+        }
     }
+    checks.push(json!({"status":"info","message":"Expectation review does not measure code-path coverage or detect uninstrumented activity. Include approval denials, failures, async paths, and saved-state resume where your application uses them."}));
     checks.push(json!({"status":"info","message":"Doctor does not import or execute your agent. Run baseline to validate runtime dependencies and the function signature."}));
     let passed = !checks.iter().any(|c| c["status"] == "error");
     Ok((json!({"passed":passed,"checks":checks}), passed))

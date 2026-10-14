@@ -1,0 +1,470 @@
+[
+  {
+    "id": "sync-hooks",
+    "input": {
+      "kind": "sdk",
+      "mode": "sync-hooks"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/paused",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/results/0/output",
+          "check": {
+            "op": "equals",
+            "value": "2"
+          }
+        },
+        {
+          "path": "/results/0/callId",
+          "check": {
+            "op": "equals",
+            "value": "call_1"
+          }
+        },
+        {
+          "path": "/results/1/output",
+          "check": {
+            "op": "equals",
+            "value": "4"
+          }
+        },
+        {
+          "path": "/results/1/callId",
+          "check": {
+            "op": "equals",
+            "value": "call_2"
+          }
+        },
+        {
+          "path": "/hooks",
+          "check": {
+            "op": "length",
+            "min": 4,
+            "max": 4
+          }
+        },
+        {
+          "path": "/receipts/0/callId",
+          "check": {
+            "op": "equals",
+            "value": "call_1"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "sync-cancel",
+    "input": {
+      "kind": "sdk",
+      "mode": "sync-cancel"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/paused",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/results/0/output",
+          "check": {
+            "op": "equals",
+            "value": "Cancelled: denied"
+          }
+        },
+        {
+          "path": "/results/1/output",
+          "check": {
+            "op": "equals",
+            "value": "4"
+          }
+        },
+        {
+          "path": "/receipts/0/value",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/hooks",
+          "check": {
+            "op": "equals",
+            "value": [
+              "before:operation",
+              "before:operation",
+              "after:operation"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "sync-error",
+    "input": {
+      "kind": "sdk",
+      "mode": "sync-error"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/paused",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/results/0/output",
+          "check": {
+            "op": "equals",
+            "value": "Error: fixture failure"
+          }
+        },
+        {
+          "path": "/hooks",
+          "check": {
+            "op": "equals",
+            "value": [
+              "before:fail",
+              "after:fail"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "async-hooks",
+    "input": {
+      "kind": "sdk",
+      "mode": "async-hooks"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/paused",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/results/0/output",
+          "check": {
+            "op": "equals",
+            "value": "2"
+          }
+        },
+        {
+          "path": "/results/0/callId",
+          "check": {
+            "op": "equals",
+            "value": "call_1"
+          }
+        },
+        {
+          "path": "/results/1/output",
+          "check": {
+            "op": "equals",
+            "value": "4"
+          }
+        },
+        {
+          "path": "/results/1/callId",
+          "check": {
+            "op": "equals",
+            "value": "call_2"
+          }
+        },
+        {
+          "path": "/hooks",
+          "check": {
+            "op": "length",
+            "min": 4,
+            "max": 4
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "async-cancel",
+    "input": {
+      "kind": "sdk",
+      "mode": "async-cancel"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/paused",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/results/0/output",
+          "check": {
+            "op": "equals",
+            "value": "Cancelled: denied"
+          }
+        },
+        {
+          "path": "/results/1/output",
+          "check": {
+            "op": "equals",
+            "value": "4"
+          }
+        },
+        {
+          "path": "/receipts/0/value",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/hooks",
+          "check": {
+            "op": "equals",
+            "value": [
+              "before:operation",
+              "before:operation",
+              "after:operation"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "async-pause",
+    "input": {
+      "kind": "sdk",
+      "mode": "async-pause"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/paused",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/results/0/output",
+          "check": {
+            "op": "equals",
+            "value": "4"
+          }
+        },
+        {
+          "path": "/results/0/callId",
+          "check": {
+            "op": "equals",
+            "value": "call_2"
+          }
+        },
+        {
+          "path": "/receipts/0/value",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "resume-partial",
+    "input": {
+      "kind": "sdk",
+      "mode": "resume-partial"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/paused",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/receipts/0/value",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/modelOutput/tool_results/0/tool_call_id",
+          "check": {
+            "op": "equals",
+            "value": "call_2"
+          }
+        },
+        {
+          "path": "/modelOutput/tool_results/0/output",
+          "check": {
+            "op": "equals",
+            "value": "4"
+          }
+        },
+        {
+          "path": "/hooks",
+          "check": {
+            "op": "equals",
+            "value": [
+              "before:operation",
+              "after:operation"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "resume-stale",
+    "input": {
+      "kind": "sdk",
+      "mode": "resume-stale"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/paused",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ]
+    }
+  }
+]

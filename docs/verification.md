@@ -47,9 +47,26 @@ failing `check`, and a passing `check`, without model calls.
   feature checks. Approval-format differences stayed informational. No additional
   regression surfaced; incremental detection value remains unproven. Verified
   locally on macOS arm64 with offline Echo fixtures. See [scope and reproduction](application-pilot.md).
+- **Assisted setup and report review (source build):** two identical eighteen-case
+  workflows passed baseline, harmless change, a seeded approval failure, and
+  restoration. Reviewed initialization and typed CLI rules removed two config/
+  expectation-file operations, with seven native commands in both paths. A direct
+  input-only utility check required no wrapper. Fixtures and dependencies were
+  prepared; human onboarding time is unmeasured. Exact-trace HTML failures now
+  precede passing cases and expose before/after comparison evidence plus request
+  input/metadata. See [scope and reproduction](first-use.md).
 - **Statistics:** the deterministic fixture produced an inconclusive result with
   20 samples, a passing harmless comparison with 200, and a failing stale-policy
   comparison with 200. These exercise policy mechanics, not model randomness.
+- **Application coverage challenge:** nine CLI scenarios caught 3/12 deliberately
+  seeded source faults; seventeen CLI/SDK scenarios caught 12/12. Four benign
+  controls passed both suites. The selected 60-test upstream subset caught all
+  twelve faults, so this establishes improved scenario coverage, not incremental
+  detection over those tests. Two subsequent application changes passed feature
+  acceptance, that subset, and the fixed seventeen-case suite. One overlapping
+  check was rejected by the project lock and passed on a serial retry; it remains
+  a setup failure in the evidence. Verified offline on macOS arm64; see the
+  [operator guide and limits](coverage-challenge.md).
 - **Process and artifacts:** fault tests cover bounded pipes, timeouts, descendants,
   cancellation, protocol errors, schema migration, incompatible suites, fixed
   baselines, immutable history, and live-budget exhaustion/failure preservation.

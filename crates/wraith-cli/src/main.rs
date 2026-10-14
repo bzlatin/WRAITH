@@ -34,6 +34,12 @@ enum Commands {
         language: Option<String>,
         #[arg(long)]
         runtime: Option<String>,
+        /// Call an existing function with only its input, without a context argument.
+        #[arg(long, requires = "entrypoint")]
+        input_only: bool,
+        /// Start with a reviewed JSON array of scenarios instead of the placeholder.
+        #[arg(long, requires = "entrypoint")]
+        cases: Option<PathBuf>,
         #[arg(long, default_value="offline", value_parser=["offline","live"])]
         mode: String,
         #[arg(long)]
@@ -134,6 +140,8 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
             entrypoint,
             language,
             runtime,
+            input_only,
+            cases,
             mode,
             model,
             require_env,
@@ -146,6 +154,8 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
                     entrypoint,
                     language,
                     runtime,
+                    input_only,
+                    cases,
                     mode,
                     model,
                     required_env: require_env,

@@ -13,6 +13,13 @@ Priorities follow [product validation](product-direction.md), without a fixed re
 
 See [verification](verification.md) for native release and controlled-fixture results.
 
+## Current source improvements
+
+The source build adds reviewed batch import and initialization, explicit input-only
+functions, typed case-authoring flags, per-case expectation diagnostics, and report
+context with comparison failures first. These are not in the published v0.5.0
+binary. See [faster setup](first-use.md) and [coverage results](coverage-challenge.md).
+
 ## Next priorities
 
 1. **Use a real agent during real changes.** Catch a useful natural regression and

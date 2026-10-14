@@ -216,11 +216,30 @@ pub fn save_value(
     let mut groups = wraith_core::sampling::groups(run)
         .into_iter()
         .collect::<Vec<_>>();
-    groups.sort_by_key(|(id, items)| (!items.iter().any(|s| !s.passed), id.to_string()));
+    let comparison_failed = |id: &str| {
+        comparison
+            .and_then(|v| v["changes"].as_array())
+            .is_some_and(|changes| {
+                changes
+                    .iter()
+                    .any(|change| change["scenarioId"] == id && change["severity"] == "failure")
+            })
+    };
+    groups.sort_by_key(|(id, items)| {
+        (
+            !(items.iter().any(|s| !s.passed) || comparison_failed(id)),
+            id.to_string(),
+        )
+    });
     for (id, items) in groups {
-        let failed = items.iter().any(|s| !s.passed);
+        let failed = items.iter().any(|s| !s.passed) || comparison_failed(id);
         let passed = items.iter().filter(|s| s.passed).count();
-        body.push_str(&format!("<section class=\"scenario\"><div class=\"scenario-head\"><h3>{}</h3><span class=\"status {}\">{passed}/{} observations passed</span></div>",escape(id),if failed{"failure"}else{"pass"},items.len()));
+        let label = if comparison_failed(id) && passed == items.len() {
+            "Comparison failed · "
+        } else {
+            ""
+        };
+        body.push_str(&format!("<section class=\"scenario\"><div class=\"scenario-head\"><h3>{}</h3><span class=\"status {}\">{label}{passed}/{} observations passed</span></div>",escape(id),if failed{"failure"}else{"pass"},items.len()));
         if let Some(changes) = comparison.and_then(|v| v["changes"].as_array()) {
             for change in changes.iter().filter(|c| c["scenarioId"] == id) {
                 body.push_str(&format!(
@@ -229,8 +248,19 @@ pub fn save_value(
                     escape(change["classification"].as_str().unwrap_or("Change")),
                     escape(change["message"].as_str().unwrap_or(""))
                 ));
+                if change["severity"] == "failure" && passed == items.len() {
+                    body.push_str(&format!(
+                        "<details open><summary>Comparison evidence</summary>{}</details>",
+                        evidence(&change["baseline"], &change["candidate"])
+                    ));
+                }
             }
         }
+        let scenario = &items[0].scenario;
+        body.push_str(&format!(
+            "<details><summary>Request input and metadata</summary><pre>{}</pre></details>",
+            pretty(&serde_json::json!({"input":scenario.input,"metadata":scenario.metadata}))
+        ));
         for item in items {
             if let Some(error) = &item.run.error {
                 body.push_str(&format!(

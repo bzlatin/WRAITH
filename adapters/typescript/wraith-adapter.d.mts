@@ -6,3 +6,5 @@ export declare class Context {
   usage(inputTokens: number, outputTokens: number): void;
   modelCall<T>(call: () => Promise<T>): Promise<T>;
 }
+
+export declare function run(entrypoint: string, inputOnly?: boolean): Promise<void>;

@@ -84,6 +84,33 @@ class ApplicationEvidenceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "Completed native history changed"):
                 pilot.verify(root)
 
+    def test_deleted_completed_calibration_is_rejected(self):
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(pilot, "packages", return_value=[]),
+        ):
+            root = Path(tmp)
+            project = self.fixture(root)
+            result = root / "changes/fault/result.json"
+            result.parent.mkdir(parents=True)
+            result.write_text("saved fault evidence")
+            pilot.artifacts.save(
+                root / "completion.json",
+                {
+                    "schema": 1,
+                    "nativeHistory": pilot.artifacts.manifest(
+                        project / ".wraith/history"
+                    ),
+                    "changeEvidence": pilot.artifacts.manifest(root / "changes"),
+                },
+            )
+            pilot.verify(root)
+            result.unlink()
+            with self.assertRaisesRegex(
+                ValueError, "calibration evidence changed or disappeared"
+            ):
+                pilot.verify(root)
+
 
 if __name__ == "__main__":
     unittest.main()

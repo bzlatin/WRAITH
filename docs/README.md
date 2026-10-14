@@ -8,6 +8,7 @@ the same suite when reviewing changes.
 - [Install](install.md): native binaries, supported platforms, and source builds.
 - [Try the workflow](dogfooding.md): see a passing check and a deliberate regression.
 - [Connect your agent](getting-started.md): Python/TypeScript functions, recorded activity, live budgets, and history.
+- [Faster setup and case authoring](first-use.md): reviewed initialization, input-only functions, and typed CLI expectations.
 - [Add PR checks](ci-setup.md): generate and review an offline GitHub workflow.
 - [Upstream examples](../examples/external-agents/README.md): pinned PydanticAI and LangGraph orchestration.
 
@@ -24,10 +25,13 @@ the same suite when reviewing changes.
 - [Automated mock-agent trial](automated-trial.md): Codex-operated changes, test overlap, and a bounded evidence report.
 - [Historical upstream pilot](historical-pilot.md): reproduce an authentic approval bug and compare it with existing tests.
 - [Prospective application pilot](application-pilot.md): evaluate real LLM CLI changes against fixed contracts and existing tests.
+- [Capped live-agent evaluation](live-pilot.md): real tool selection and answer generation under one request budget.
+- [Automated coverage challenge](coverage-challenge.md): measure scenario misses and rerun reviewed application contracts.
 - [Contributing](../CONTRIBUTING.md): build, test, and documentation conventions.
 - [Architecture](architecture.md): execution, evaluation, storage, and versioned contracts.
 - [Repository CI and packaging](ci.md): baseline artifacts, native builds, and release archives.
 - [Verification](verification.md): release evidence and its limits.
+- [Commercial assessment](commercial-assessment.md): current market offers, a service hypothesis, and missing buyer evidence.
 - [Product direction](product-direction.md) and [roadmap](roadmap.md): current priorities.
 - [Report design](report-design.md) and [design tokens](../DESIGN.md): HTML evidence presentation.
 

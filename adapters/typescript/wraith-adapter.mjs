@@ -48,7 +48,7 @@ export class Context {
   }
 }
 
-export async function run(entrypoint) {
+export async function run(entrypoint, inputOnly = false) {
   const separator = entrypoint.lastIndexOf(':');
   if (separator <= 0) throw new Error('Entrypoint must be path.js:export or path.ts:export');
   let raw = '';
@@ -63,7 +63,7 @@ export async function run(entrypoint) {
   const module = await import(pathToFileURL(path.resolve(entrypoint.slice(0, separator))).href);
   const agent = module[entrypoint.slice(separator + 1)];
   if (typeof agent !== 'function') throw new Error('Entrypoint export must be callable');
-  const output = await agent(request.input, context);
+  const output = inputOnly ? await agent(request.input) : await agent(request.input, context);
   if (output === undefined || output === null) throw new Error('Agent must return non-null JSON output');
   const response = { protocolVersion: 1, scenarioId: context.scenarioId, output,
     toolCalls: context.tools, retrievals: context.retrievals,
@@ -75,5 +75,11 @@ export async function run(entrypoint) {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
-  run(process.argv[2]).catch(error => { console.error(`${error.name}: ${error.message}`); process.exitCode = 1; });
+  const flags = process.argv.slice(3);
+  if (flags.length > 1 || (flags.length === 1 && flags[0] !== '--input-only')) {
+    console.error('Unknown adapter option; supported: --input-only');
+    process.exitCode = 1;
+  } else {
+    run(process.argv[2], flags.includes('--input-only')).catch(error => { console.error(`${error.name}: ${error.message}`); process.exitCode = 1; });
+  }
 }

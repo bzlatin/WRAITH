@@ -13,6 +13,7 @@ protocol. No Wraith account or hosted service is required.
 
 | Change | Check |
 | --- | --- |
+| Approval handling changes | A denied action does not execute |
 | A prompt skips a required lookup | The expected tool was called |
 | Retrieval starts returning an outdated policy | The answer contains the current value and cites the expected source |
 | Generated JSON breaks an application contract | Required fields, allowed IDs, item counts, uniqueness, and numeric ranges |
@@ -21,6 +22,20 @@ protocol. No Wraith account or hosted service is required.
 Reports show failed expectations, baseline/candidate outputs, and recorded activity.
 Harmless output differences stay visible without failing the gate. Wraith checks
 your expectations; it does not automatically judge answer quality.
+
+## Tested with evidence
+
+- **A real approval regression:** reproduced a historical upstream bug where an
+  unapproved action ran after resuming saved history. Wraith failed the buggy
+  revision and passed the fix. [Reproduction](docs/historical-pilot.md).
+- **12/12 seeded defects detected, 4/4 harmless controls passed** with a reviewed
+  17-scenario suite. Existing upstream tests also caught all 12 defects.
+  [Coverage challenge](docs/coverage-challenge.md).
+- **A live action mismatch:** a model said a refund was processed, but no refund
+  action ran. Required-tool and receipt checks failed. This was an existing
+  baseline failure in a small synthetic application. [Live observations](docs/live-pilot.md#observed-results).
+
+These are scoped engineering results, not production accuracy or measured customer ROI.
 
 ## Try it in five minutes
 
@@ -66,7 +81,8 @@ wraith check
 Each completed run saves JSON evidence and an HTML report. The baseline stays fixed
 until `wraith baseline --replace`. Start with a few real tasks.
 [The integration guide](docs/getting-started.md) covers examples, instrumentation,
-and live model calls.
+and live model calls. The current source build adds
+[reviewed initialization and typed case-authoring flags](docs/first-use.md).
 
 ## Add it to your workflow
 

@@ -122,3 +122,16 @@ Read `docs/application-pilot.md` before operating `scripts/application-pilot.py`
 Edit only the returned candidate's approved application modules; keep offline
 fixtures and upstream tests frozen. Report developer-selected local changes
 separately from maintainer adoption and retrospective bug reproductions.
+
+Read `docs/coverage-challenge.md` before operating `scripts/coverage-challenge.py`.
+Seeded defects calibrate coverage; do not count them as prospective discoveries.
+Keep witness validation, upstream overlap, controls, and execution errors separate.
+
+Read `docs/first-use.md` before operating `scripts/first-use.py`. Its prepared
+fixtures measure mechanical setup only; do not claim human authoring time or buyer
+validation. Keep market offers, Wraith technical results, and paid demand separate.
+
+Read `docs/live-pilot.md` before operating `scripts/live-pilot.py`. Preparation is
+offline; live execution needs explicit spending authorization. Never reset the
+shared budget, retry an attempted experiment, or turn ten live observations into
+a production-accuracy or causal-regression claim.
