@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "scope": "Three independent developer-selected features in an authored synthetic support application; offline recorded-model replay, not new live observations.",
+  "baseApplicationCommit": "311d85eb6db73d33827c7d45a0aeba749e41d4d9",
+  "recordedDecisionSourceCommit": "300d2fe",
+  "frozenFilesSha256": {
+    "scripts/live-pilot.py": "18f4ed190f3d48459751f12ba015568b00dcbda16ae877a8bac00205f4307d90",
+    "scripts/historical-pilot.py": "2b4ff1d9d4f0e700a4bf076f868866525f65d56f9d8545e5c407fbaabcb52352",
+    "scripts/tests/test_live_agent.py": "6c30b4d54db39cf4804b78afec02a78a94d4e982d12d74206090d3ffed74dab0",
+    "examples/live-agent/cases.json": "672aa80722ed6acdac1fa8e5d4db788ac3dddd7a5592a5a17edae000a3be6244",
+    "examples/live-agent/agent.py": "903bb32252448e5aab1dd845469739a153e8bfff9803825f1a63b2602d922cb5",
+    "examples/feature-queue/check.py": "8fbc34f337b8a32f4cd299ba6e5798855deba37bac8dca7f7759423a045ce49c",
+    "examples/feature-queue/acceptance.py": "07da9d0a48a64ce00c3d6e621bb2e0a285b8a8395963306ddf09a47a9486e3bf",
+    "examples/feature-queue/entry.py": "86e1d1c764ceb4549d81983395748d69ce473bea3c203ab68366b821452eb9a7",
+    "examples/feature-queue/recorded-decisions.json": "9e018ad707abe6037eb9689d2a0be23da4f6bf4579a397bae18ed414e3be4c70",
+    "examples/feature-queue/tasks.json": "6f08d6abea4562ef10e5b8d5700ea7c9b2edbf946fca1897153e2eeb7bfe29df",
+    "adapters/python/wraith_adapter.py": "e272be3c534aeef4c9cb569012ddf361fb9815ab7f6b0a27ed87665d5327f388",
+    "docs/evidence/live-support.json": "1fe85d13139f18f16c289e05f1d116354dc075fd61e5dac0559eb2016b13fe90"
+  },
+  "candidateSha256": {
+    "policy-aliases": "0279d20ecff2fe5b7ff50e4060dde0e54d40143c058f2efa4e288217c93b7f2d",
+    "order-identifiers": "64847e4d165e4517de062019182f7518c7645e12914917ec50270a4afaead3c0",
+    "handoff-summary": "d3631a90f89cb5770e2448cdd4cc4a6043ba81e6428fcedd7fd9404a5beab546"
+  },
+  "uniqueWraithCases": 10,
+  "uniqueApplicationTests": 10,
+  "providerRequests": 0,
+  "featureAcceptancePassed": 3,
+  "newFeaturesRejectedBeforeImplementation": 3,
+  "reviewedUsefulCatches": 0,
+  "overlap": {
+    "wraithGateOnly": 0,
+    "componentTestsOnly": 0,
+    "bothFailed": 0,
+    "bothPassed": 3,
+    "unmeasured": 0
+  },
+  "versions": [
+    {
+      "variant": "baseline",
+      "componentTests": 10,
+      "componentsPassed": true,
+      "featureAcceptancePassed": null,
+      "wraithPassedCases": 10,
+      "wraithCases": 10,
+      "nativeExit": 0,
+      "comparisonPassed": null,
+      "findings": []
+    },
+    {
+      "variant": "policy-aliases",
+      "componentTests": 10,
+      "componentsPassed": true,
+      "featureAcceptancePassed": true,
+      "wraithPassedCases": 10,
+      "wraithCases": 10,
+      "nativeExit": 0,
+      "comparisonPassed": true,
+      "findings": []
+    },
+    {
+      "variant": "order-identifiers",
+      "componentTests": 10,
+      "componentsPassed": true,
+      "featureAcceptancePassed": true,
+      "wraithPassedCases": 10,
+      "wraithCases": 10,
+      "nativeExit": 0,
+      "comparisonPassed": true,
+      "findings": []
+    },
+    {
+      "variant": "handoff-summary",
+      "componentTests": 10,
+      "componentsPassed": true,
+      "featureAcceptancePassed": true,
+      "wraithPassedCases": 10,
+      "wraithCases": 10,
+      "nativeExit": 0,
+      "comparisonPassed": true,
+      "findings": [
+        {
+          "scenarioId": "other-customer",
+          "classification": "OUTPUT_CHANGED",
+          "severity": "info"
+        },
+        {
+          "scenarioId": "owned-order",
+          "classification": "OUTPUT_CHANGED",
+          "severity": "info"
+        },
+        {
+          "scenarioId": "public-injection",
+          "classification": "OUTPUT_CHANGED",
+          "severity": "info"
+        },
+        {
+          "scenarioId": "refund-approved",
+          "classification": "OUTPUT_CHANGED",
+          "severity": "info"
+        },
+        {
+          "scenarioId": "refund-denied",
+          "classification": "OUTPUT_CHANGED",
+          "severity": "info"
+        },
+        {
+          "scenarioId": "returns",
+          "classification": "OUTPUT_CHANGED",
+          "severity": "info"
+        },
+        {
+          "scenarioId": "shipping",
+          "classification": "OUTPUT_CHANGED",
+          "severity": "info"
+        },
+        {
+          "scenarioId": "unicode-order",
+          "classification": "OUTPUT_CHANGED",
+          "severity": "info"
+        },
+        {
+          "scenarioId": "unknown-policy",
+          "classification": "OUTPUT_CHANGED",
+          "severity": "info"
+        },
+        {
+          "scenarioId": "warranty",
+          "classification": "OUTPUT_CHANGED",
+          "severity": "info"
+        }
+      ]
+    }
+  ],
+  "liveStatus": "not run; separate spending authorization pending",
+  "preservedHarnessError": {
+    "kind": "replay execution error",
+    "cause": "search activity trace list differed from the tool return JSON envelope",
+    "countedAsRegression": false
+  },
+  "limitations": [
+    "Recorded model decisions and final drafts are fixed; replay cannot evaluate a new model response to different evidence.",
+    "The selected component tests were authored for this example; they are not an independent upstream suite.",
+    "All-pass results do not establish incremental detection value, false-alarm rates, human diagnosis time, adoption, or paid demand."
+  ]
+}

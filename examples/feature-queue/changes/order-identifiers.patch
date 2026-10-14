@@ -1,0 +1,40 @@
+--- a/agent.py
++++ b/agent.py
+@@ -184,6 +184,12 @@
+     return result
+ 
+ 
++def canonical_order_id(value):
++    if not isinstance(value, str):
++        raise ValueError("Order IDs must be strings")
++    return value.strip().upper()
++
++
+ def execute(name, arguments, trusted, context, receipts):
+     if name not in {"search_policy", "lookup_order", "issue_refund"}:
+         raise ValueError("Model requested an unknown tool")
+@@ -204,6 +210,13 @@
+             if result
+             else {"error": "no evidence", "decision": "escalated"}
+         )
++    arguments = {**arguments, "order_id": canonical_order_id(arguments["order_id"])}
++    trusted = {
++        **trusted,
++        "requested_order_id": canonical_order_id(
++            trusted.get("requested_order_id") or ""
++        ),
++    }
+     order = ORDERS.get(arguments["order_id"])
+     if name == "lookup_order":
+         result = (
+@@ -253,7 +266,9 @@
+             "citations": [],
+         }
+     if any(
+-        receipt["order_id"] == payload.get("requested_order_id") for receipt in receipts
++        receipt["order_id"]
++        == canonical_order_id(payload.get("requested_order_id") or "")
++        for receipt in receipts
+     ):
+         return {"decision": "resolved", "value": "refund queued", "citations": []}
+     return {

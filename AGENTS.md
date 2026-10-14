@@ -135,3 +135,8 @@ Read `docs/live-pilot.md` before operating `scripts/live-pilot.py`. Preparation 
 offline; live execution needs explicit spending authorization. Never reset the
 shared budget, retry an attempted experiment, or turn ten live observations into
 a production-accuracy or causal-regression claim.
+
+Read `docs/feature-queue.md` before operating `scripts/change-pilot.py`. Keep the
+frozen suite and component tests unchanged. Candidate patches implement features,
+not seeded faults; report recorded-model replay separately from new live calls.
+Keep acceptance, test overlap, execution errors, and reviewed useful catches separate.

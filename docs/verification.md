@@ -70,6 +70,11 @@ failing `check`, and a passing `check`, without model calls.
 - **Statistics:** the deterministic fixture produced an inconclusive result with
   20 samples, a passing harmless comparison with 200, and a failing stale-policy
   comparison with 200. These exercise policy mechanics, not model randomness.
+- **Feature-change queue:** three independent support features passed acceptance,
+  ten frozen application tests, and ten fixed Wraith cases in recorded-model
+  replay. Both systems passed; no additional useful catch was observed and no
+  provider request ran. An initial replay serialization error is preserved as a
+  harness failure. See [scope, overlap, and evidence](feature-queue.md).
 - **Application coverage challenge:** nine CLI scenarios caught 3/12 deliberately
   seeded source faults; seventeen CLI/SDK scenarios caught 12/12. Four benign
   controls passed both suites. The selected 60-test upstream subset caught all

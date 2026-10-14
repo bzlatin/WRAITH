@@ -1,0 +1,16 @@
+--- a/agent.py
++++ b/agent.py
+@@ -344,4 +344,12 @@
+         "receipts": receipts,
+         "model": final["model"],
+         "modelDraft": draft,
+-    }
++        "handoff": {
++            "required": answer["decision"] != "resolved",
++            "reason": "approval_required"
++            if answer["decision"] == "approval_required"
++            else "human_review"
++            if answer["decision"] == "escalated"
++            else None,
++        },
++    }
