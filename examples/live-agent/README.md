@@ -29,3 +29,9 @@ One observation per scenario is a functional check. These cases do not establish
 production quality, an independent application integration, statistical equivalence,
 customer demand, or a causal prompt effect. Model variability can explain a changed
 observation; inspect saved outputs and traces before classifying it.
+
+The initial observed run and its original source are pinned in the guide. Current
+refund fixtures declare trusted action intent and order ID; public confirmations
+require matching receipts. Follow-up case/guard changes were validated offline,
+not rerun against the exhausted live budget. The two-request limit can still leave
+a multi-step action incomplete; the application now reports that honestly.

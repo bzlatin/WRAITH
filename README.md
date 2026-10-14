@@ -79,7 +79,8 @@ wraith check
 ```
 
 Each completed run saves JSON evidence and an HTML report. The baseline stays fixed
-until `wraith baseline --replace`. Start with a few real tasks.
+until `wraith baseline --replace`. A passing comparison can retain existing baseline
+failures; reports show them. Start with a few real tasks.
 [The integration guide](docs/getting-started.md) covers examples, instrumentation,
 and live model calls. The current source build adds
 [reviewed initialization and typed case-authoring flags](docs/first-use.md).

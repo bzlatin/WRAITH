@@ -410,5 +410,6 @@
     "missingRefundAction": 1,
     "newConfiguredRegressions": 0,
     "notes": "Original contracts were frozen before calls. Six failures compare prose to atomic strings. The approved refund had no issue_refund execution in either version. The candidate claimed a refund was processed. Check passed relative to pre-existing baseline debt; this is not an overall-quality pass or causal prompt regression."
-  }
+  },
+  "sourceCommit": "7ebe0cc"
 }

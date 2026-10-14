@@ -787,3 +787,48 @@ fn report_prioritizes_trace_regression_when_observations_pass() {
     assert!(html.contains("&quot;id&quot;: 1"));
     assert!(html.contains("&quot;id&quot;: 2"));
 }
+
+#[test]
+fn passing_comparison_warns_about_remaining_failed_observations() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(
+        dir.path().join("agent.py"),
+        "def evaluate(input, context):\n    return {'text':'existing failure'}\n",
+    )
+    .unwrap();
+    std::fs::write(
+        dir.path().join("cases.json"),
+        r#"[{"id":"baseline-debt","input":{},"expect":{"output_contains":["required answer"]}}]"#,
+    )
+    .unwrap();
+    assert!(
+        cli(
+            dir.path(),
+            &[
+                "init",
+                "--entrypoint",
+                "agent.py:evaluate",
+                "--cases",
+                "cases.json"
+            ],
+            false
+        )
+        .status
+        .success()
+    );
+    assert_eq!(cli(dir.path(), &["baseline"], false).status.code(), Some(1));
+    let human = cli(dir.path(), &["check"], false);
+    assert!(human.status.success());
+    assert!(
+        String::from_utf8_lossy(&human.stdout)
+            .contains("WARNING: 1 of 1 candidate observations fail configured checks")
+    );
+    let json = cli(dir.path(), &["check", "--output", "json"], false);
+    assert!(json.status.success());
+    let result: serde_json::Value = serde_json::from_slice(&json.stdout).unwrap();
+    assert_eq!(result["comparison"]["passed"], true);
+    assert_eq!(result["run"]["scenarios"][0]["passed"], false);
+    let html = std::fs::read_to_string(result["report"].as_str().unwrap()).unwrap();
+    assert!(html.contains("1 of 1 candidate observations fail configured checks"));
+    assert!(html.contains("No new configured regressions detected"));
+}

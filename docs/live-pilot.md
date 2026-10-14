@@ -98,3 +98,30 @@ caused it. The existing baseline failure explains the passing comparison.
 [Sanitized per-case observations](evidence/live-support.json) retain the synthetic
 answers, executed-tool names, and failed requirements without credentials or local
 paths. One observation per case does not support a production accuracy estimate.
+
+## Follow-up fixes, validated offline
+
+The recorded live run used the example at commit `7ebe0cc`. Its original ten cases,
+agent source, binary, native history, and 40-request budget remain preserved locally;
+the sanitized evidence retains the original outcomes. No more provider calls ran.
+
+The current example adds an explicit trusted `requested_action` and
+`requested_order_id` for refund workflows. Its public confirmation now depends on
+a matching execution receipt. An absent action escalates with “refund not executed”
+instead of presenting a model draft as completion; the draft remains labeled
+`modelDraft` for diagnosis. A mismatched requested order is rejected before action.
+An offline regression test uses the observed false confirmation and missing receipt.
+This prevents premature confirmation, but does not make the missing action execute.
+The two-request orchestration limit remains; a more capable action loop needs its
+own future evaluation and separately authorized budget.
+
+The current case file is a reviewed follow-up suite: human-facing values use
+required fact substrings while machine decisions, citations, action counts, and
+required/forbidden tools remain strict. This policy/input change requires a new
+baseline and experiment. It was not applied to rewrite the original live result
+or advertised as a higher live score.
+
+Wraith now warns prominently when a passing comparison still contains failed
+candidate observations, in human CLI and HTML output. Exit codes and original
+gating decisions remain unchanged. Run `wraith run` when you want to require all
+configured checks to pass on current code rather than compare changes with debt.

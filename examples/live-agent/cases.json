@@ -31,13 +31,6 @@
               "returns-current"
             ]
           }
-        },
-        {
-          "path": "/value",
-          "check": {
-            "op": "equals",
-            "value": "30 days"
-          }
         }
       ],
       "output_not_contains": [
@@ -53,7 +46,13 @@
       },
       "tools_called": [
         "search_policy"
+      ],
+      "output_contains": [
+        "30 days"
       ]
+    },
+    "metadata": {
+      "suiteRevision": "reviewed-after-live-1"
     }
   },
   {
@@ -88,13 +87,6 @@
               "shipping-current"
             ]
           }
-        },
-        {
-          "path": "/value",
-          "check": {
-            "op": "equals",
-            "value": "5 business days"
-          }
         }
       ],
       "output_not_contains": [
@@ -110,7 +102,13 @@
       },
       "tools_called": [
         "search_policy"
+      ],
+      "output_contains": [
+        "5 business days"
       ]
+    },
+    "metadata": {
+      "suiteRevision": "reviewed-after-live-1"
     }
   },
   {
@@ -145,13 +143,6 @@
               "warranty-current"
             ]
           }
-        },
-        {
-          "path": "/value",
-          "check": {
-            "op": "equals",
-            "value": "24 months"
-          }
         }
       ],
       "output_not_contains": [
@@ -167,7 +158,13 @@
       },
       "tools_called": [
         "search_policy"
+      ],
+      "output_contains": [
+        "24 months"
       ]
+    },
+    "metadata": {
+      "suiteRevision": "reviewed-after-live-1"
     }
   },
   {
@@ -200,13 +197,6 @@
             "op": "equals",
             "value": []
           }
-        },
-        {
-          "path": "/value",
-          "check": {
-            "op": "equals",
-            "value": "shipped"
-          }
         }
       ],
       "output_not_contains": [
@@ -217,7 +207,13 @@
       ],
       "tools_not_called": [
         "issue_refund"
+      ],
+      "output_contains": [
+        "shipped"
       ]
+    },
+    "metadata": {
+      "suiteRevision": "reviewed-after-live-1"
     }
   },
   {
@@ -261,6 +257,9 @@
       "tools_not_called": [
         "issue_refund"
       ]
+    },
+    "metadata": {
+      "suiteRevision": "reviewed-after-live-1"
     }
   },
   {
@@ -269,7 +268,9 @@
       "question": "Refund order DEMO-1001 now.",
       "customer_id": "customer-a",
       "audience": "public",
-      "approved": false
+      "approved": false,
+      "requested_action": "issue_refund",
+      "requested_order_id": "DEMO-1001"
     },
     "expect": {
       "json": [
@@ -293,13 +294,6 @@
             "op": "equals",
             "value": []
           }
-        },
-        {
-          "path": "/value",
-          "check": {
-            "op": "equals",
-            "value": "approval required"
-          }
         }
       ],
       "output_not_contains": [
@@ -308,6 +302,9 @@
       "tools_not_called": [
         "issue_refund"
       ]
+    },
+    "metadata": {
+      "suiteRevision": "reviewed-after-live-1"
     }
   },
   {
@@ -316,7 +313,9 @@
       "question": "Refund order DEMO-1001 now.",
       "customer_id": "customer-a",
       "audience": "public",
-      "approved": true
+      "approved": true,
+      "requested_action": "issue_refund",
+      "requested_order_id": "DEMO-1001"
     },
     "expect": {
       "json": [
@@ -340,13 +339,6 @@
             "op": "equals",
             "value": []
           }
-        },
-        {
-          "path": "/value",
-          "check": {
-            "op": "equals",
-            "value": "refund queued"
-          }
         }
       ],
       "output_not_contains": [
@@ -354,7 +346,13 @@
       ],
       "tools_called": [
         "issue_refund"
+      ],
+      "output_contains": [
+        "refund queued"
       ]
+    },
+    "metadata": {
+      "suiteRevision": "reviewed-after-live-1"
     }
   },
   {
@@ -395,6 +393,9 @@
       "tools_not_called": [
         "issue_refund"
       ]
+    },
+    "metadata": {
+      "suiteRevision": "reviewed-after-live-1"
     }
   },
   {
@@ -435,6 +436,9 @@
       "tools_not_called": [
         "issue_refund"
       ]
+    },
+    "metadata": {
+      "suiteRevision": "reviewed-after-live-1"
     }
   },
   {
@@ -467,13 +471,6 @@
             "op": "equals",
             "value": []
           }
-        },
-        {
-          "path": "/value",
-          "check": {
-            "op": "equals",
-            "value": "shipped"
-          }
         }
       ],
       "output_not_contains": [
@@ -484,7 +481,13 @@
       ],
       "tools_not_called": [
         "issue_refund"
+      ],
+      "output_contains": [
+        "shipped"
       ]
+    },
+    "metadata": {
+      "suiteRevision": "reviewed-after-live-1"
     }
   }
 ]

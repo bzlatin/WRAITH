@@ -198,6 +198,14 @@ def execute(name, arguments, trusted, context, receipts):
         # Orchestrator rejects requests before invoking the action implementation.
         if not trusted["approved"]:
             return {"decision": "approval_required", "value": "approval required"}
+        if (
+            trusted.get("requested_order_id")
+            and arguments["order_id"] != trusted["requested_order_id"]
+        ):
+            return {
+                "decision": "escalated",
+                "error": "action does not match the requested order",
+            }
         if not order or order["customer"] != trusted["customer_id"]:
             return {"decision": "escalated", "error": "not found"}
         result = {"value": "refund queued"}
@@ -207,11 +215,34 @@ def execute(name, arguments, trusted, context, receipts):
     raise ValueError("Model requested an unknown tool")
 
 
+def confirmed_answer(draft, payload, receipts):
+    """An application action is confirmed by its receipt, never by model prose."""
+    if payload.get("requested_action") != "issue_refund":
+        return draft
+    if not payload["approved"]:
+        return {
+            "decision": "approval_required",
+            "value": "approval required",
+            "citations": [],
+        }
+    if any(
+        receipt["order_id"] == payload.get("requested_order_id") for receipt in receipts
+    ):
+        return {"decision": "resolved", "value": "refund queued", "citations": []}
+    return {
+        "decision": "escalated",
+        "value": "refund not executed; contact support",
+        "citations": [],
+    }
+
+
 def evaluate(payload, context):
     trusted = {
         "customer_id": payload["customer_id"],
         "audience": payload["audience"],
         "approved": payload["approved"],
+        "requested_action": payload.get("requested_action"),
+        "requested_order_id": payload.get("requested_order_id"),
     }
     instructions = (
         CANDIDATE_INSTRUCTIONS
@@ -264,11 +295,13 @@ def evaluate(payload, context):
         for part in item["content"]
         if part["type"] == "output_text"
     )
-    answer = json.loads(text)
+    draft = json.loads(text)
+    answer = confirmed_answer(draft, payload, receipts)
     return {
         "text": answer["value"],
         **answer,
         "executions": len(receipts),
         "receipts": receipts,
         "model": final["model"],
+        "modelDraft": draft,
     }

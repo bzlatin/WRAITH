@@ -167,6 +167,7 @@ def run(root, authorize):
         "| Version | Exit | Passing scenarios | Recorded provider attempts |",
         "| --- | --- | --- | --- |",
     ]
+    reports = []
     for phase, outcome in phases.items():
         p = root / f"{phase}.stdout"
         value = art.read(p) if p.stat().st_size else {}
@@ -185,11 +186,10 @@ def run(root, authorize):
             f"| {phase} | {outcome['exit']} | {passed}/{len(scenarios)} | {calls} |"
         )
         if value.get("report"):
-            lines += [
-                "",
-                f"[{phase} native report]({Path(value['report']).relative_to(root)})",
-                "",
-            ]
+            reports.append(
+                f"[{phase} native report]({Path(value['report']).relative_to(root)})"
+            )
+    lines += ["", *reports]
     lines += [
         "",
         f"Shared budget: {observed}.",
@@ -199,7 +199,8 @@ def run(root, authorize):
     (root / "report.md").write_text("\n".join(lines) + "\n")
     verify(root)
     print(root / "report.md")
-    return 2 if any(p["exit"] not in (0, 1) for p in phases.values()) else 0
+    exits = [phase["exit"] for phase in phases.values()]
+    return 2 if any(code not in (0, 1, 3) for code in exits) else exits[-1]
 
 
 def main():

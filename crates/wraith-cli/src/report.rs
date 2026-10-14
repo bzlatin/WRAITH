@@ -138,6 +138,14 @@ pub fn save_value(
         wraith_core::sampling::groups(run).len(),
         run.samples_per_scenario
     );
+    if state == "passed" && comparison.is_some() {
+        if let Some(message) = crate::render::remaining_failures(run) {
+            body.push_str(&format!(
+                "<p class=\"warning\"><strong>{}</strong></p>",
+                escape(&message)
+            ));
+        }
+    }
     if let Some(r) = record {
         body.push_str(&format!("<p class=\"meta\">Run <code>{}</code> · {} · {} · model {}</p><p class=\"meta muted\">Commit {}{} · captured {}</p>",escape(&r.id),escape(&r.kind),escape(&r.mode),escape(r.model.as_deref().unwrap_or("not declared")),escape(r.git_commit.as_deref().unwrap_or("unavailable")),if r.git_dirty{" (working tree changes)"}else{""},timestamp(r.created_at_unix_ms)));
     }

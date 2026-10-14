@@ -25,6 +25,70 @@ adapter = load("live_context", ROOT / "adapters/python/wraith_adapter.py")
 
 
 class LiveAgentTests(unittest.TestCase):
+    def test_recorded_false_refund_confirmation_is_suppressed_offline(self):
+        observed = json.loads((ROOT / "docs/evidence/live-support.json").read_text())
+        record = next(
+            c
+            for c in observed["versions"]["candidate"]["cases"]
+            if c["id"] == "refund-approved"
+        )
+        self.assertEqual(record["executedTools"], ["lookup_order"])
+        self.assertEqual(record["output"]["executions"], 0)
+        draft = {
+            key: record["output"][key] for key in ("decision", "value", "citations")
+        }
+        payload = {
+            "approved": True,
+            "requested_action": "issue_refund",
+            "requested_order_id": "DEMO-1001",
+        }
+        answer = agent.confirmed_answer(draft, payload, [])
+        self.assertEqual(answer["decision"], "escalated")
+        self.assertEqual(answer["value"], "refund not executed; contact support")
+        answer = agent.confirmed_answer(draft, payload, [{"order_id": "DEMO-1002"}])
+        self.assertEqual(answer["decision"], "escalated")
+        answer = agent.confirmed_answer(draft, payload, [{"order_id": "DEMO-1001"}])
+        self.assertEqual(answer["value"], "refund queued")
+        denied = agent.confirmed_answer(draft, dict(payload, approved=False), [])
+        self.assertEqual(denied["decision"], "approval_required")
+        context = adapter.Context({"scenarioId": "observed-refund"})
+        responses = [
+            {
+                "output": [
+                    {
+                        "type": "function_call",
+                        "name": "lookup_order",
+                        "arguments": '{"order_id":"DEMO-1001"}',
+                        "call_id": "lookup",
+                    }
+                ]
+            },
+            {
+                "model": agent.MODEL,
+                "output": [
+                    {
+                        "type": "message",
+                        "content": [{"type": "output_text", "text": json.dumps(draft)}],
+                    }
+                ],
+            },
+        ]
+        with patch.object(agent, "provider", side_effect=responses) as provider:
+            result = agent.evaluate(
+                dict(
+                    payload,
+                    customer_id="customer-a",
+                    audience="public",
+                    question="Refund my order",
+                ),
+                context,
+            )
+        self.assertEqual(provider.call_count, 2)
+        self.assertEqual(result["text"], "refund not executed; contact support")
+        self.assertEqual(result["modelDraft"], draft)
+        self.assertEqual(result["executions"], 0)
+        self.assertEqual([tool["name"] for tool in context.tools], ["lookup_order"])
+
     def test_failed_http_attempt_consumes_budget_and_stops_following_calls(self):
         with tempfile.TemporaryDirectory() as tmp:
             budget = Path(tmp) / "budget.json"

@@ -336,7 +336,14 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
                 report::save(&path, &c, Some(&b), Some(&report), None)?;
             }
             match output {
-                Output::Human => render::comparison(&baseline, &candidate, &report),
+                Output::Human => {
+                    render::comparison(&baseline, &candidate, &report);
+                    if report.passed {
+                        if let Some(message) = render::remaining_failures(&c) {
+                            println!("WARNING: {message}");
+                        }
+                    }
+                }
                 Output::Json => println!(
                     "{}",
                     serde_json::to_string_pretty(&report)

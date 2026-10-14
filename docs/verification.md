@@ -55,6 +55,13 @@ failing `check`, and a passing `check`, without model calls.
   prepared; human onboarding time is unmeasured. Exact-trace HTML failures now
   precede passing cases and expose before/after comparison evidence plus request
   input/metadata. See [scope and reproduction](first-use.md).
+- **Capped live model pilot:** 40 actual provider attempts evaluated ten synthetic
+  support cases per version with real tool selection and final answers. Each
+  version passed 3/10 original contracts; review found six wording-related checks
+  and a missing approved-refund action. The candidate claimed completion without
+  executing the action. No new configured regression appeared over baseline debt.
+  Original results remain preserved; confirmation guards and revised case rules
+  were subsequently tested offline only. See [observations and limits](live-pilot.md).
 - **Statistics:** the deterministic fixture produced an inconclusive result with
   20 samples, a passing harmless comparison with 200, and a failing stale-policy
   comparison with 200. These exercise policy mechanics, not model randomness.

@@ -387,6 +387,11 @@ pub async fn execute(
     } else {
         if let Some(report) = &comparison {
             render::comparison("baseline", "current agent", report);
+            if report.passed {
+                if let Some(message) = render::remaining_failures(&run) {
+                    println!("WARNING: {message}");
+                }
+            }
         } else {
             render::run(&run);
         }

@@ -242,7 +242,10 @@ YAML comments are not retained. Refresh the baseline after reviewing the new cas
 | 130 | Interrupted; no partial run saved as complete |
 
 A baseline with behavioral debt may exit 1; that does not make its failures new.
-A check compares changes and can pass despite unchanged debt, which the report shows.
+A check compares changes and can pass despite unchanged debt. Current source
+builds warn about remaining failed observations in CLI and HTML; the saved gate
+decision and exit code are unchanged. Use `wraith run` for a current-code check
+that requires every configured expectation to pass.
 One observation per version cannot establish statistical non-regression. Use
 `baseline --samples N` and [statistical gating](statistical-gating.md) when appropriate.
 Live repeated sampling still needs explicit budget authorization.
