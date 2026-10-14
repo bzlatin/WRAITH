@@ -392,7 +392,7 @@ def run(root, mode, authorize=False):
         if row["native"]:
             lines += [
                 f"- [{v} native JSON]({v}-wraith.stdout)",
-                f"- [{v} HTML]({Path(row['native']['report']).relative_to(directory)})",
+                f"- [{v} HTML]({art.relative_report_path(row['native']['report'], directory)})",
             ]
     lines += [
         "",

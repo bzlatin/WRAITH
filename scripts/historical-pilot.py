@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 import shlex
 import shutil
 import subprocess
@@ -42,6 +42,26 @@ def save(path, value):
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def relative_report_path(report, directory):
+    """Normalize Rust's Windows canonical prefix before making a Markdown link."""
+
+    def normal(value):
+        value = str(value)
+        if value.startswith("\\\\?\\UNC\\"):
+            return "\\\\" + value[8:]
+        if value.startswith("\\\\?\\"):
+            return value[4:]
+        return value
+
+    if os.name == "nt" or str(report).startswith("\\\\?\\"):
+        return (
+            PureWindowsPath(normal(report))
+            .relative_to(PureWindowsPath(normal(directory)))
+            .as_posix()
+        )
+    return Path(report).resolve().relative_to(Path(directory).resolve()).as_posix()
 
 
 def manifest(directory):

@@ -215,7 +215,7 @@ def run(root, authorize):
         )
         if value.get("report"):
             reports.append(
-                f"[{phase} native report]({Path(value['report']).relative_to(root)})"
+                f"[{phase} native report]({art.relative_report_path(value['report'], root)})"
             )
     lines += ["", *reports]
     if "candidate" not in phases:

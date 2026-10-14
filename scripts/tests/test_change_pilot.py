@@ -15,6 +15,22 @@ spec.loader.exec_module(queue)
 
 
 class ChangeQueueTests(unittest.TestCase):
+    def test_extended_windows_paths_produce_portable_report_links(self):
+        for report, directory in (
+            (r"\\?\D:\work\queue\project\report.html", r"D:\work\queue"),
+            (
+                r"\\?\UNC\server\share\queue\project\report.html",
+                r"\\server\share\queue",
+            ),
+        ):
+            self.assertEqual(
+                queue.art.relative_report_path(report, directory), "project/report.html"
+            )
+        with self.assertRaises(ValueError):
+            queue.art.relative_report_path(
+                r"\\?\D:\outside\report.html", r"D:\work\queue"
+            )
+
     def root(self):
         parent = ROOT / ".wraith"
         parent.mkdir(exist_ok=True)
