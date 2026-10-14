@@ -113,4 +113,12 @@ if __name__ == '__main__':
         asyncio.run(run(sys.argv[1]))
     except Exception as error:
         print(f'{type(error).__name__}: {error}', file=sys.stderr)
+        if isinstance(error, RuntimeError) and any(message in str(error).lower() for message in (
+                'event loop is already running', 'cannot be called from a running event loop')):
+            print(
+                'Use an async entrypoint and await the agent\'s async API. '
+                'For a synchronous API that starts its own event loop, use '
+                'await asyncio.to_thread(...) inside an async entrypoint.',
+                file=sys.stderr,
+            )
         sys.exit(1)

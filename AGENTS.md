@@ -117,3 +117,8 @@ Read `docs/historical-pilot.md` before operating `scripts/historical-pilot.py`.
 Keep historical reproductions distinct from prospective findings. Run upstream
 tests unchanged and report the selected subset; a later targeted unit test can
 detect the same defect. Preserve incomplete experiments and completed evidence.
+
+Read `docs/application-pilot.md` before operating `scripts/application-pilot.py`.
+Edit only the returned candidate's approved application modules; keep offline
+fixtures and upstream tests frozen. Report developer-selected local changes
+separately from maintainer adoption and retrospective bug reproductions.

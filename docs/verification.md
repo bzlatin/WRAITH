@@ -42,6 +42,11 @@ failing `check`, and a passing `check`, without model calls.
   the small wrapper passed acceptance and comparison. Verified locally on macOS
   arm64; this is retrospective framework evidence, not prospective discovery or
   customer adoption. See [reproduction and limits](historical-pilot.md).
+- **Prospective application changes:** three independent changes to pinned LLM CLI
+  source passed nine Wraith scenarios, 60 selected upstream tests, and separate
+  feature checks. Approval-format differences stayed informational. No additional
+  regression surfaced; incremental detection value remains unproven. Verified
+  locally on macOS arm64 with offline Echo fixtures. See [scope and reproduction](application-pilot.md).
 - **Statistics:** the deterministic fixture produced an inconclusive result with
   20 samples, a passing harmless comparison with 200, and a failing stale-policy
   comparison with 200. These exercise policy mechanics, not model randomness.

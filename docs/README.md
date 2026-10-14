@@ -23,6 +23,7 @@ the same suite when reviewing changes.
 
 - [Automated mock-agent trial](automated-trial.md): Codex-operated changes, test overlap, and a bounded evidence report.
 - [Historical upstream pilot](historical-pilot.md): reproduce an authentic approval bug and compare it with existing tests.
+- [Prospective application pilot](application-pilot.md): evaluate real LLM CLI changes against fixed contracts and existing tests.
 - [Contributing](../CONTRIBUTING.md): build, test, and documentation conventions.
 - [Architecture](architecture.md): execution, evaluation, storage, and versioned contracts.
 - [Repository CI and packaging](ci.md): baseline artifacts, native builds, and release archives.

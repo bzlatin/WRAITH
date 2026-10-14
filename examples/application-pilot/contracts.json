@@ -1,0 +1,452 @@
+[
+  {
+    "id": "multiply",
+    "input": {
+      "kind": "execute",
+      "calls": [
+        {
+          "name": "multiply",
+          "arguments": {
+            "a": 6,
+            "b": 7
+          }
+        }
+      ]
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/exitCode",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/receipts/0/result",
+          "check": {
+            "op": "equals",
+            "value": 42
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "multiply"
+      ]
+    }
+  },
+  {
+    "id": "negative",
+    "input": {
+      "kind": "execute",
+      "calls": [
+        {
+          "name": "multiply",
+          "arguments": {
+            "a": -4,
+            "b": 3
+          }
+        }
+      ]
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/exitCode",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/receipts/0/result",
+          "check": {
+            "op": "equals",
+            "value": -12
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "multiply"
+      ]
+    }
+  },
+  {
+    "id": "unicode",
+    "input": {
+      "kind": "execute",
+      "calls": [
+        {
+          "name": "greet",
+          "arguments": {
+            "name": "Zoë \"QA\""
+          }
+        }
+      ]
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/exitCode",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/receipts/0/result",
+          "check": {
+            "op": "equals",
+            "value": "Hello, Zoë \"QA\"!"
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "greet"
+      ]
+    }
+  },
+  {
+    "id": "two-tools",
+    "input": {
+      "kind": "execute",
+      "calls": [
+        {
+          "name": "multiply",
+          "arguments": {
+            "a": 2,
+            "b": 5
+          }
+        },
+        {
+          "name": "greet",
+          "arguments": {
+            "name": "Ari"
+          }
+        }
+      ]
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/exitCode",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/receipts/0/result",
+          "check": {
+            "op": "equals",
+            "value": 10
+          }
+        },
+        {
+          "path": "/receipts/1/result",
+          "check": {
+            "op": "equals",
+            "value": "Hello, Ari!"
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "greet",
+        "multiply"
+      ]
+    }
+  },
+  {
+    "id": "approved",
+    "input": {
+      "kind": "execute",
+      "calls": [
+        {
+          "name": "multiply",
+          "arguments": {
+            "a": 6,
+            "b": 7
+          }
+        }
+      ],
+      "approve": true
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/exitCode",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/receipts/0/result",
+          "check": {
+            "op": "equals",
+            "value": 42
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_called": [
+        "multiply"
+      ]
+    }
+  },
+  {
+    "id": "denied",
+    "input": {
+      "kind": "execute",
+      "calls": [
+        {
+          "name": "multiply",
+          "arguments": {
+            "a": 6,
+            "b": 7
+          }
+        }
+      ],
+      "approve": false
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/exitCode",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_not_called": [
+        "multiply"
+      ]
+    }
+  },
+  {
+    "id": "default-denial",
+    "input": {
+      "kind": "execute",
+      "calls": [
+        {
+          "name": "multiply",
+          "arguments": {
+            "a": 6,
+            "b": 7
+          }
+        }
+      ],
+      "approve": false,
+      "answer": "\n"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/exitCode",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/executions",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_not_called": [
+        "multiply"
+      ]
+    }
+  },
+  {
+    "id": "catalog",
+    "input": {
+      "kind": "catalog"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/exitCode",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/toolNames",
+          "check": {
+            "op": "equals",
+            "value": [
+              "greet",
+              "llm_time",
+              "llm_version",
+              "multiply"
+            ]
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ],
+      "tools_not_called": [
+        "greet",
+        "multiply"
+      ]
+    }
+  },
+  {
+    "id": "typed-schema",
+    "input": {
+      "kind": "schema"
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/schema/properties/title/type",
+          "check": {
+            "op": "equals",
+            "value": "string"
+          }
+        },
+        {
+          "path": "/schema/properties/count/type",
+          "check": {
+            "op": "equals",
+            "value": "integer"
+          }
+        },
+        {
+          "path": "/schema/properties/count/default",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/schema/required",
+          "check": {
+            "op": "equals",
+            "value": [
+              "title"
+            ]
+          }
+        },
+        {
+          "path": "/argumentNames",
+          "check": {
+            "op": "equals",
+            "value": [
+              "count",
+              "title"
+            ]
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ]
+    }
+  }
+]

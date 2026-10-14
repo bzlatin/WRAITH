@@ -37,6 +37,8 @@ in an existing virtualenv. Activate that environment when using a plain `python3
 For async agent frameworks, export `async def evaluate(...)` and await the agent's
 async API. The adapter invokes functions inside an event loop; calling an API such
 as PydanticAI's `run_sync()` there raises “event loop is already running.”
+For a synchronous CLI/API that manages its own event loop, call it from an async
+entrypoint with `await asyncio.to_thread(sync_function, input, context)`.
 
 ## TypeScript
 
