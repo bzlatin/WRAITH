@@ -12,7 +12,7 @@ Build the current source (reviewed initialization is not in published v0.5.0):
 ```sh
 cargo build --workspace --locked
 python3 -m unittest discover -s scripts/tests -p test_live_agent.py
-python3 scripts/live-pilot.py --root .wraith/live-support prepare
+python3 scripts/live-pilot.py --root .wraith/live-support-multistep prepare
 ```
 
 Set `OPENAI_API_KEY` in your existing environment before preparation; do not put it
@@ -29,19 +29,20 @@ if the model fails them.
 ## Run only with explicit authorization
 
 ```sh
-python3 scripts/live-pilot.py --root .wraith/live-support run --allow-live
+python3 scripts/live-pilot.py --root .wraith/live-support-multistep run --allow-live
 ```
 
-Authorize the cost and request cap before running. **One native 40-request budget
+Authorize the cost and request cap before running. **One native 60-request budget
 covers baseline plus candidate, including failed HTTP attempts.** Each scenario
-uses at most two attempts: model tool selection, then final JSON generation from
-real local tool results. No HTTP/SDK retries occur. The pinned model is
+uses at most three attempts: up to two sequential tool selections, then final JSON
+generation from real local tool results. The model can also finish earlier. No HTTP/SDK retries occur. The pinned model is
 `gpt-4.1-mini-2025-04-14`; observed provider model names and token usage are saved.
 Cost is not inferred from token counts or changing price tables.
 
-The baseline uses native `baseline --allow-live --max-requests 40`; the candidate
+The baseline uses native `baseline --allow-live --max-requests 60`; the candidate
 uses `check --allow-live` against its fixed baseline and original budget. No new
-budget is created by check. A provider error writes a stop marker before later
+budget is created by check. The runner skips the candidate if the baseline fails
+or does not contain the full passing suite; it retains the failed experiment. A provider error writes a stop marker before later
 scenarios can make more requests. The attempt marker and native budget remain
 preserved after failures or interruption. The runner refuses another invocation
 on the same attempted root. A fresh root requires separately authorized new
@@ -55,7 +56,7 @@ setting is not a claim that provider processing or retention rules cease to appl
 
 ## Inspect and interpret results
 
-Open `.wraith/live-support/report.md`. Native JSON/HTML, the accepted baseline,
+Open `.wraith/live-support-multistep/report.md`. Native JSON/HTML, the accepted baseline,
 shared budget, cases, prompt versions, binary hash, and runner copy remain under
 that ignored directory. Original decisions and failures are retained. The budget
 counter is authoritative if an execution error lacks completed adapter metadata.
@@ -73,7 +74,7 @@ case design. Keep those costs explicit when assessing value. Use
 [verification](verification.md) for published results and
 [commercial assessment](commercial-assessment.md) for the separate buyer hypothesis.
 
-## Observed results
+## Original 40-request experiment
 
 The authorized run consumed exactly **40 provider attempts**, 20 per version, with
 no retries or execution errors. Both versions passed **3/10 original contracts**.
@@ -105,17 +106,16 @@ The recorded live run used the example at commit `7ebe0cc`. Its original ten cas
 agent source, binary, native history, and 40-request budget remain preserved locally;
 the sanitized evidence retains the original outcomes. No more provider calls ran.
 
-The current example adds an explicit trusted `requested_action` and
+The first follow-up added an explicit trusted `requested_action` and
 `requested_order_id` for refund workflows. Its public confirmation now depends on
 a matching execution receipt. An absent action escalates with “refund not executed”
 instead of presenting a model draft as completion; the draft remains labeled
 `modelDraft` for diagnosis. A mismatched requested order is rejected before action.
 An offline regression test uses the observed false confirmation and missing receipt.
-This prevents premature confirmation, but does not make the missing action execute.
-The two-request orchestration limit remains; a more capable action loop needs its
-own future evaluation and separately authorized budget.
+That guard prevented premature confirmation but retained the original two-request
+orchestration limit. It did not make the missing action execute.
 
-The current case file is a reviewed follow-up suite: human-facing values use
+The reviewed follow-up suite changed the contracts: human-facing values use
 required fact substrings while machine decisions, citations, action counts, and
 required/forbidden tools remain strict. This policy/input change requires a new
 baseline and experiment. It was not applied to rewrite the original live result
@@ -125,3 +125,23 @@ Wraith now warns prominently when a passing comparison still contains failed
 candidate observations, in human CLI and HTML output. Exit codes and original
 gating decisions remain unchanged. Run `wraith run` when you want to require all
 configured checks to pass on current code rather than compare changes with debt.
+
+## Multi-step follow-up
+
+The current example allows two sequential tool rounds and a final answer, at most
+three provider attempts per scenario. Approved refunds must first look up the
+trusted requested order and then execute its refund. The application checks
+ownership, explicit action intent, approval, and order identity before execution.
+A repeated refund request reuses its receipt without executing or recording a
+second action. Public completion still requires a matching receipt.
+
+The ten-case `multi-step-v2` suite retains the reviewed wording checks and adds
+required lookup plus refund execution and the matching receipt/order contract.
+It is frozen separately from the original run; changed inputs or expectations
+are never compared against the old baseline. Offline tests cover multi-step tool
+results, denied and mismatched actions, duplicate requests, bounded loops,
+provider-error stops, budget exhaustion, and skipping a failed baseline.
+
+The runner's experiment record is schema 2 with a 60-request cap. Schema 1's
+original 40-request evidence remains verifiable and read-only. This operator
+schema does not change Wraith's run or comparison artifact contracts.

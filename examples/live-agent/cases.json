@@ -52,7 +52,7 @@
       ]
     },
     "metadata": {
-      "suiteRevision": "reviewed-after-live-1"
+      "suiteRevision": "multi-step-v2"
     }
   },
   {
@@ -108,7 +108,7 @@
       ]
     },
     "metadata": {
-      "suiteRevision": "reviewed-after-live-1"
+      "suiteRevision": "multi-step-v2"
     }
   },
   {
@@ -164,7 +164,7 @@
       ]
     },
     "metadata": {
-      "suiteRevision": "reviewed-after-live-1"
+      "suiteRevision": "multi-step-v2"
     }
   },
   {
@@ -213,7 +213,7 @@
       ]
     },
     "metadata": {
-      "suiteRevision": "reviewed-after-live-1"
+      "suiteRevision": "multi-step-v2"
     }
   },
   {
@@ -259,7 +259,7 @@
       ]
     },
     "metadata": {
-      "suiteRevision": "reviewed-after-live-1"
+      "suiteRevision": "multi-step-v2"
     }
   },
   {
@@ -294,6 +294,14 @@
             "op": "equals",
             "value": []
           }
+        },
+        {
+          "path": "/receipts",
+          "check": {
+            "op": "length",
+            "min": 0,
+            "max": 0
+          }
         }
       ],
       "output_not_contains": [
@@ -304,7 +312,7 @@
       ]
     },
     "metadata": {
-      "suiteRevision": "reviewed-after-live-1"
+      "suiteRevision": "multi-step-v2"
     }
   },
   {
@@ -339,12 +347,28 @@
             "op": "equals",
             "value": []
           }
+        },
+        {
+          "path": "/receipts",
+          "check": {
+            "op": "length",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "path": "/receipts/0/order_id",
+          "check": {
+            "op": "equals",
+            "value": "DEMO-1001"
+          }
         }
       ],
       "output_not_contains": [
         "INTERNAL-ONLY-25"
       ],
       "tools_called": [
+        "lookup_order",
         "issue_refund"
       ],
       "output_contains": [
@@ -352,7 +376,7 @@
       ]
     },
     "metadata": {
-      "suiteRevision": "reviewed-after-live-1"
+      "suiteRevision": "multi-step-v2"
     }
   },
   {
@@ -395,7 +419,7 @@
       ]
     },
     "metadata": {
-      "suiteRevision": "reviewed-after-live-1"
+      "suiteRevision": "multi-step-v2"
     }
   },
   {
@@ -438,7 +462,7 @@
       ]
     },
     "metadata": {
-      "suiteRevision": "reviewed-after-live-1"
+      "suiteRevision": "multi-step-v2"
     }
   },
   {
@@ -487,7 +511,7 @@
       ]
     },
     "metadata": {
-      "suiteRevision": "reviewed-after-live-1"
+      "suiteRevision": "multi-step-v2"
     }
   }
 ]

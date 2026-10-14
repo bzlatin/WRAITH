@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare or execute one explicitly authorized, fixed 40-request live pilot."""
+"""Prepare or execute one explicitly authorized, fixed 60-request live pilot."""
 
 import argparse
 from datetime import datetime, timezone
@@ -29,7 +29,7 @@ def budget(root):
 
 def verify(root):
     state = art.read(root / "state.json")
-    if state["schema"] != 1 or state["cap"] != 40:
+    if (state["schema"], state["cap"]) not in ((1, 40), (2, 60)):
         raise ValueError("Unsupported pilot state")
     if art.digest(Path(state["binary"])) != state["binarySha256"]:
         raise ValueError("Pilot binary changed")
@@ -87,8 +87,10 @@ def prepare(root, binary):
         [executable, "doctor", "--output", "json"], project, "doctor"
     )
     state = {
-        "schema": 1,
-        "cap": 40,
+        "schema": 2,
+        "cap": 60,
+        "caseCount": len(art.read(root / "frozen/cases.json")),
+        "requirePassingBaseline": True,
         "binary": str(executable),
         "binarySha256": art.digest(executable),
         "frozen": art.manifest(root / "frozen"),
@@ -97,7 +99,7 @@ def prepare(root, binary):
             for name in ("wraith.yaml", "wraith.project.json", "wraith_adapter.py")
         },
         "phases": phases,
-        "plan": "10 cases, baseline then shorter equivalent prompt, one observation each; max two attempts per case; no retries or extra comparisons",
+        "plan": "10 reviewed cases, passing baseline required before shorter equivalent prompt; one observation each; max three attempts per case, 60 shared; no retries or extra comparisons",
         "preparedAt": datetime.now(timezone.utc).isoformat(),
     }
     art.save(root / "state.json", state)
@@ -108,6 +110,10 @@ def run(root, authorize):
     if not authorize:
         raise ValueError("Live calls require explicit --allow-live authorization")
     state = verify(root)
+    if state["schema"] != 2 or state.get("requirePassingBaseline") is not True:
+        raise ValueError(
+            "Old experiments are read-only; prepare an explicit new experiment"
+        )
     if (root / "attempt.json").exists():
         raise ValueError(
             "Live experiment already attempted; preserve its budget and results"
@@ -119,7 +125,7 @@ def run(root, authorize):
     art.save(
         root / "attempt.json",
         {
-            "cap": 40,
+            "cap": state["cap"],
             "startedAt": datetime.now(timezone.utc).isoformat(),
             "automaticRetries": False,
         },
@@ -129,7 +135,14 @@ def run(root, authorize):
     for phase, args in [
         (
             "baseline",
-            ["baseline", "--allow-live", "--max-requests", "40", "--output", "json"],
+            [
+                "baseline",
+                "--allow-live",
+                "--max-requests",
+                str(state["cap"]),
+                "--output",
+                "json",
+            ],
         ),
         ("candidate", ["check", "--allow-live", "--output", "json"]),
     ]:
@@ -146,11 +159,26 @@ def run(root, authorize):
         )
         if phases[phase]["exit"] not in (0, 1):
             break
+        if phase == "baseline":
+            scenarios = (
+                art.read(root / "baseline.stdout").get("run", {}).get("scenarios", [])
+            )
+            if (
+                phases[phase]["exit"] != 0
+                or len(scenarios) != state["caseCount"]
+                or not all(s["passed"] for s in scenarios)
+            ):
+                # Do not spend candidate requests or normalize an already-bad baseline.
+                if phases[phase]["exit"] == 0:
+                    phases[phase]["validationError"] = (
+                        "Baseline did not contain the complete passing suite"
+                    )
+                break
     observed = budget(root)
-    if observed and not 0 <= observed["used"] <= observed["limit"] == 40:
+    if observed and not 0 <= observed["used"] <= observed["limit"] == state["cap"]:
         raise ValueError("Budget invariant violated")
     result = {
-        "schema": 1,
+        "schema": 2,
         "phases": phases,
         "budget": observed,
         "history": art.manifest(root / "project/.wraith/history"),
@@ -190,6 +218,11 @@ def run(root, authorize):
                 f"[{phase} native report]({Path(value['report']).relative_to(root)})"
             )
     lines += ["", *reports]
+    if "candidate" not in phases:
+        lines += [
+            "",
+            "Candidate skipped: a complete passing baseline is required. Preserve this experiment; do not retry it with a fresh budget.",
+        ]
     lines += [
         "",
         f"Shared budget: {observed}.",
@@ -200,12 +233,19 @@ def run(root, authorize):
     verify(root)
     print(root / "report.md")
     exits = [phase["exit"] for phase in phases.values()]
-    return 2 if any(code not in (0, 1, 3) for code in exits) else exits[-1]
+    return (
+        2
+        if any(code not in (0, 1, 3) for code in exits)
+        or any(p.get("validationError") for p in phases.values())
+        else exits[-1]
+    )
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--root", type=Path, default=REPO / ".wraith/live-support")
+    parser.add_argument(
+        "--root", type=Path, default=REPO / ".wraith/live-support-multistep"
+    )
     parser.add_argument("--binary", type=Path, default=REPO / "target/debug/wraith")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("prepare")

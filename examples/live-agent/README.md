@@ -14,8 +14,8 @@ Use the [live evaluation guide](../../docs/live-pilot.md) from a source checkout
 Preparation makes no provider request. Live execution requires explicit permission,
 an environment credential, and a fixed shared budget. The runner refuses reuse of
 an attempted experiment and never automatically replaces its baseline or budget.
-Ten cases use at most two provider attempts each, across baseline and one intended
-equivalent prompt refactor: **40 attempts maximum in total**, no retries.
+Ten cases use at most three provider attempts each, across baseline and one intended
+equivalent prompt refactor: **60 attempts maximum in total**, no retries.
 
 `cases.json` contains reviewed contracts for public policy values, order ownership,
 refund approval, missing evidence, prompt injection, and Unicode requests. Application
@@ -30,8 +30,10 @@ production quality, an independent application integration, statistical equivale
 customer demand, or a causal prompt effect. Model variability can explain a changed
 observation; inspect saved outputs and traces before classifying it.
 
-The initial observed run and its original source are pinned in the guide. Current
-refund fixtures declare trusted action intent and order ID; public confirmations
-require matching receipts. Follow-up case/guard changes were validated offline,
-not rerun against the exhausted live budget. The two-request limit can still leave
-a multi-step action incomplete; the application now reports that honestly.
+The initial 40-request run is preserved separately in the guide. The current
+workflow can look up an order, issue its refund, and generate the final answer.
+Execution requires trusted intent, approval, ownership, and the requested order;
+matching receipts confirm completion and prevent duplicate execution. The runner
+requires a complete passing baseline before spending requests on the candidate.
+Offline tests cover these boundaries. Live results are reported separately from
+unit tests and from the original experiment.
