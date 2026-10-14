@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/huggingface/smolagents.git",
+  "revision": "96f33faaf028479119ec8d34507b47694cf14e34",
+  "license": "Apache-2.0",
+  "application": "smolagents ToolCallingAgent",
+  "modelLabel": "scripted-offline-model",
+  "tests": [
+    "tests/test_agents.py::TestToolCallingAgent",
+    "tests/test_agents.py::TestAgent::test_final_answer_checks",
+    "tests/test_agents.py::TestAgent::test_final_answer_checks_with_agent_access",
+    "tests/test_agents.py::TestAgent::test_reset_conversations",
+    "tests/test_agents.py::TestMultiStepAgent::test_setup_step_callbacks",
+    "tests/test_agents.py::TestMultiStepAgent::test_finalize_step_callbacks_with_list",
+    "tests/test_agents.py::TestMultiStepAgent::test_finalize_step_callbacks_by_type",
+    "tests/test_agents.py::TestAgent::test_generation_errors_are_raised"
+  ],
+  "optimizedControl": [
+    "tests/test_agents.py::TestAgent::test_final_answer_checks",
+    "tests/test_agents.py::TestAgent::test_final_answer_checks_with_agent_access"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "id": "critic-current-step",
+  "request": "Make the current ActionStep available in memory to final-answer critics, without duplicate memory entries, extra model calls, repeated finalization, or changes to existing streaming/error behavior. Upstream request #1374.",
+  "files": [
+    "src/smolagents/agents.py"
+  ],
+  "requestUrl": "https://github.com/huggingface/smolagents/issues/1374"
+}

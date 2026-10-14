@@ -64,7 +64,9 @@ seeing developers run Wraith repeatedly during changes and in CI.
   provider attempt, consume failed attempts, and preserve budget identity through
   failures/interruption. A fresh budget requires an explicit new experiment.
   Helpers cannot cap hidden retries or code that bypasses instrumentation.
-- Project/workflow records use schema 1 separately from run/comparison schema 4.
+- Project settings use schema 1 and workflow records schema 2, separately from
+  run/comparison schema 4. Migrate workflow schema 1 in memory with jobs=1; reject
+  unsupported future versions before execution.
   Store declared model names and credential variable names, never credential values.
 - Reports are self-contained escaped HTML, with failures first and native disclosures.
   Read `DESIGN.md` for report UI rules; keep scripts and remote resources out.
@@ -147,3 +149,10 @@ The deliberately failing diagnostic baseline is not an approved CI baseline.
 Partial comparisons can pass while retaining debt; require all fixed contracts
 for the combined fix. Edit only returned candidate modules, preserve upstream
 tests, and report optimized/strict-warning controls alongside ordinary tests.
+
+
+Read `docs/workflow-value.md` before operating `scripts/workflow-pilot.py`.
+Keep the original feature development separate from recorded reproduction and
+known-defect calibration. Require a green fixed baseline; never weaken the suite
+for a candidate. Record machine runtime separately from human effort and avoid
+claiming a false-positive rate or customer ROI from repeated deterministic runs.

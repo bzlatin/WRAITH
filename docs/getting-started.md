@@ -142,6 +142,11 @@ or code changes are candidates, not reasons to silently replace the baseline. Ol
 history is retained. Baseline execution/instrumentation errors are saved but never
 accepted. Existing behavioral failures can be baseline debt and remain visible.
 
+Current source builds also support `baseline --jobs 4` for independent offline
+observations. Later checks inherit that setting; changing it requires a new
+baseline. Shared-state and live agents stay sequential. See the
+[measured workflow](workflow-value.md) before enabling concurrency.
+
 ## Live requests
 
 For a new integration, add `--mode live` to `wraith init`. For an existing one, set

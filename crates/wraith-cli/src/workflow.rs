@@ -24,6 +24,7 @@ pub struct Record {
     pub baseline_id: Option<String>,
     pub created_at_unix_ms: u64,
     pub samples: u32,
+    pub jobs: u32,
     pub mode: String,
     pub model: Option<String>,
     pub agent_command: String,
@@ -33,7 +34,7 @@ pub struct Record {
     pub budget_id: Option<String>,
 }
 
-fn git(directory: &Path, args: &[&str]) -> Option<String> {
+pub(crate) fn git(directory: &Path, args: &[&str]) -> Option<String> {
     let output = Command::new("git")
         .args(args)
         .current_dir(directory)
@@ -72,11 +73,31 @@ pub fn history_path(directory: &Path, id: &str) -> Result<PathBuf, Error> {
 }
 
 pub fn load_record(path: &Path) -> Result<Record, Error> {
-    let record: Record = serde_json::from_slice(
+    let mut value: Value = serde_json::from_slice(
         &fs::read(path).map_err(|e| error::io("read workflow record", path, e))?,
     )
     .map_err(|e| Error::Artifact(e.to_string()))?;
-    if record.version != 1
+    match value["version"].as_u64() {
+        Some(1) => {
+            if value.get("jobs").is_some() {
+                return Err(Error::Artifact(
+                    "Schema-1 workflow records cannot declare jobs".into(),
+                ));
+            }
+            value["version"] = 2.into();
+            value["jobs"] = 1.into();
+        }
+        Some(2) => {}
+        _ => {
+            return Err(Error::Artifact(
+                "Unsupported workflow record version; upgrade Wraith".into(),
+            ));
+        }
+    }
+    let record: Record =
+        serde_json::from_value(value).map_err(|e| Error::Artifact(e.to_string()))?;
+    if !(1..=32).contains(&record.jobs)
+        || (record.mode == "live" && record.jobs != 1)
         || !["baseline", "check"].contains(&record.kind.as_str())
         || !["offline", "live"].contains(&record.mode.as_str())
     {
@@ -163,6 +184,7 @@ impl Drop for WorkflowLock {
 
 pub struct Options {
     pub samples: Option<u32>,
+    pub jobs: Option<u32>,
     pub allow_live: bool,
     pub max_requests: Option<u32>,
     pub replace: bool,
@@ -185,6 +207,9 @@ pub async fn execute(
         .unwrap_or("offline");
     if mode == "live" && !options.allow_live {
         return Err(Error::Config("Live mode needs --allow-live and an explicit request budget. Review the scenarios, then run baseline --allow-live --max-requests N.".into()));
+    }
+    if mode == "live" && options.jobs.is_some_and(|jobs| jobs != 1) {
+        return Err(Error::Config("Live execution requires --jobs 1".into()));
     }
     if mode != "live" && (options.allow_live || options.max_requests.is_some()) {
         return Err(Error::Config(
@@ -212,7 +237,7 @@ pub async fn execute(
     let previous = if is_baseline {
         None
     } else {
-        Some(load_record(&pointer).map_err(|_|Error::Config("No readable baseline. Run wraith baseline first; check never silently creates or replaces it.".into()))?)
+        Some(load_record(&pointer).map_err(|error|Error::Config(format!("No readable baseline: {error}. Run wraith baseline first; check never silently creates or replaces it.")))?)
     };
     if previous.as_ref().is_some_and(|r| r.kind != "baseline") {
         return Err(Error::Artifact(
@@ -227,6 +252,14 @@ pub async fn execute(
         .samples
         .or_else(|| previous.as_ref().map(|p| p.samples))
         .unwrap_or(1);
+    let previous_jobs = previous.as_ref().map(|record| record.jobs).unwrap_or(1);
+    let jobs = options.jobs.unwrap_or(previous_jobs);
+    if previous.is_some() && jobs != previous_jobs {
+        return Err(Error::Config("Concurrency changed. Keep the baseline's jobs value or run baseline --replace --jobs N. No agent was executed.".into()));
+    }
+    if mode == "live" && jobs != 1 {
+        return Err(Error::Config("Live execution requires --jobs 1".into()));
+    }
     if let Some(b) = &baseline {
         if samples != b.samples_per_scenario
             || cfg.tests.len() != wraith_core::sampling::groups(b).len()
@@ -311,6 +344,7 @@ pub async fn execute(
         None,
         &runner::RunOptions {
             samples,
+            jobs,
             cancellation: cancellation.clone(),
             request_budget: budget.clone(),
         },
@@ -343,12 +377,13 @@ pub async fn execute(
         run_exit(&run)
     };
     let record = Record {
-        version: 1,
+        version: 2,
         id: id.clone(),
         kind: if is_baseline { "baseline" } else { "check" }.into(),
         baseline_id: previous.as_ref().map(|p| p.id.clone()),
         created_at_unix_ms: run.created_at_unix_ms,
         samples,
+        jobs,
         mode: mode.into(),
         model: settings.as_ref().and_then(|p| p.model.clone()),
         agent_command: cfg.agent.command.clone(),

@@ -49,7 +49,10 @@ def package(binary, target, output, require_license=False, expected_version=None
                  "docs/evidence/live-support.json", "docs/evidence/live-support-multistep.json",
                  "examples/feature-queue/README.md", "docs/evidence/feature-queue.json",
                  "examples/maintained-agent/README.md", "examples/maintained-agent/source.json",
-                 "examples/maintained-agent/UPSTREAM_LICENSE.txt", "docs/evidence/maintained-agent.json"]:
+                 "examples/maintained-agent/UPSTREAM_LICENSE.txt", "docs/evidence/maintained-agent.json",
+                 "examples/workflow-agent/README.md", "examples/workflow-agent/source.json",
+                 "examples/workflow-agent/task.json", "examples/workflow-agent/UPSTREAM_LICENSE.txt",
+                 "docs/evidence/workflow-value.json"]:
         path = ROOT / name
         if path.is_file():
             files[name] = path.read_bytes()

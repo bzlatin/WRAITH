@@ -20,6 +20,10 @@ functions, typed case-authoring flags, per-case expectation diagnostics, and rep
 context with comparison failures first. These are not in the published v0.5.0
 binary. See [faster setup](first-use.md) and [coverage results](coverage-challenge.md).
 
+The source also adds [native CI comparison and bounded offline jobs](workflow-value.md).
+These reduce measured run time and custom workflow scripting; v0.5.0 does not
+include them.
+
 ## Next priorities
 
 The [maintained-agent fix study](maintained-agent.md) reproduced existing smolagents

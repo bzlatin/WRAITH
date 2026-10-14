@@ -1,0 +1,29 @@
+--- a/src/smolagents/agents.py
++++ b/src/smolagents/agents.py
+@@ -575,6 +575,7 @@
+             )
+             self.logger.log_rule(f"Step {self.step_number}", level=LogLevel.INFO)
+             closing = False
++            step_recorded = False
+             try:
+                 for output in self._step_stream(action_step):
+                     # Yield all
+@@ -588,6 +589,8 @@
+                         )
+ 
+                         if self.final_answer_checks:
++                            self.memory.steps.append(action_step)
++                            step_recorded = True
+                             self._validate_final_answer(final_answer)
+                         returned_final_answer = True
+                         action_step.is_final_answer = True
+@@ -603,7 +606,8 @@
+                 action_step.error = e
+             finally:
+                 self._finalize_step(action_step)
+-                self.memory.steps.append(action_step)
++                if not step_recorded:
++                    self.memory.steps.append(action_step)
+                 if not closing:
+                     yield action_step
+                 self.step_number += 1

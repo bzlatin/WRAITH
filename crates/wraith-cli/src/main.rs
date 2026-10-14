@@ -1,5 +1,6 @@
 mod cases;
 mod ci;
+mod ci_check;
 mod project;
 mod render;
 mod report;
@@ -60,6 +61,9 @@ enum Commands {
     },
     /// Save an accepted baseline and begin an experiment.
     Baseline {
+        /// Concurrent independent observations (offline only).
+        #[arg(long, value_parser = clap::value_parser!(u32).range(1..=32))]
+        jobs: Option<u32>,
         #[arg(long, value_parser=clap::value_parser!(u32).range(1..=1000))]
         samples: Option<u32>,
         #[arg(long)]
@@ -73,6 +77,9 @@ enum Commands {
     },
     /// Evaluate current code against the accepted baseline and write a report.
     Check {
+        /// Concurrent independent observations (offline only).
+        #[arg(long, value_parser = clap::value_parser!(u32).range(1..=32))]
+        jobs: Option<u32>,
         #[arg(long, value_parser=clap::value_parser!(u32).range(1..=1000))]
         samples: Option<u32>,
         #[arg(long)]
@@ -97,13 +104,16 @@ enum Commands {
         #[command(subcommand)]
         command: cases::Commands,
     },
-    /// Generate an offline pull-request evaluation workflow.
+    /// Generate and run offline pull-request checks.
     Ci {
         #[command(subcommand)]
         command: ci::Commands,
     },
     /// Execute scenarios against the configured agent.
     Run {
+        /// Concurrent independent observations (offline only).
+        #[arg(long, default_value_t = 1, value_parser = clap::value_parser!(u32).range(1..=32))]
+        jobs: u32,
         #[arg(long)]
         scenario: Option<String>,
         #[arg(long)]
@@ -193,6 +203,7 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
             Ok(if passed { 0 } else { 2 })
         }
         Commands::Baseline {
+            jobs,
             samples,
             replace,
             allow_live,
@@ -203,6 +214,7 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
                 &cli.config,
                 true,
                 workflow::Options {
+                    jobs,
                     samples,
                     replace,
                     allow_live,
@@ -214,6 +226,7 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
             .await
         }
         Commands::Check {
+            jobs,
             samples,
             allow_live,
             output,
@@ -222,6 +235,7 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
                 &cli.config,
                 false,
                 workflow::Options {
+                    jobs,
                     samples,
                     replace: false,
                     allow_live,
@@ -245,8 +259,8 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
             } else {
                 for record in records {
                     println!(
-                        "{}  {}  {}  {} samples",
-                        record.id, record.kind, record.outcome, record.samples
+                        "{}  {}  {}  {} samples  {} jobs",
+                        record.id, record.kind, record.outcome, record.samples, record.jobs
                     );
                 }
             }
@@ -261,11 +275,9 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
             cases::execute(&cli.config, command)?;
             Ok(0)
         }
-        Commands::Ci { command } => {
-            ci::execute(&cli.config, command)?;
-            Ok(0)
-        }
+        Commands::Ci { command } => ci::execute(&cli.config, command, cancellation).await,
         Commands::Run {
+            jobs,
             scenario,
             save,
             samples,
@@ -277,7 +289,13 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
                 .as_deref()
                 .map(|name| snapshot::named_path(&directory, name))
                 .transpose()?;
+            if jobs > 1
+                && project::load(project::directory(&cli.config))?.is_some_and(|p| p.mode == "live")
+            {
+                return Err(Error::Config("Live execution requires --jobs 1".into()));
+            }
             let options = runner::RunOptions {
+                jobs,
                 samples,
                 cancellation: cancellation.clone(),
                 request_budget: None,

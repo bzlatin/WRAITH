@@ -32,11 +32,10 @@ your expectations; it does not automatically judge answer quality.
   flagged new crashes in two scenarios while the selected upstream tests passed.
   Those scenarios already failed other requirements. Combined local fixes
   passed 9/9 contracts. [Reproduction and test overlap](docs/maintained-agent.md).
-- **A live action mismatch:** a model said a refund was processed, but no refund
-  action ran. Required-tool and receipt checks failed. This was an existing
-  baseline failure in a small synthetic application. The corrected workflow passed
-  10/10 reviewed cases in each of two prompt versions, using 42 requests total.
-  [Live observations and limits](docs/live-pilot.md).
+- **Measured workflow cost:** a 16-case offline baseline/candidate comparison took
+  4.96 seconds median with four jobs, versus 14.03 seconds sequentially, on the
+  tested Mac. Installation and build time are excluded.
+  [Workflow study and limits](docs/workflow-value.md).
 
 These are scoped engineering results, not production accuracy or measured customer ROI.
 
@@ -86,7 +85,8 @@ until `wraith baseline --replace`. A passing comparison can retain existing base
 failures; reports show them. Start with a few real tasks.
 [The integration guide](docs/getting-started.md) covers examples, instrumentation,
 and live model calls. The current source build adds
-[reviewed initialization and typed case-authoring flags](docs/first-use.md).
+[reviewed initialization and typed case-authoring flags](docs/first-use.md), plus
+[native CI comparisons and offline parallel jobs](docs/workflow-value.md).
 
 ## Add it to your workflow
 
