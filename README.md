@@ -1,6 +1,6 @@
 # Wraith
 
-**Regression tests for AI agents.**
+**Before-and-after checks for AI agents.**
 
 A prompt, model, tool, or retrieval change can fix one task and break another.
 Wraith runs the same scenarios before and after a change, then shows what stopped
@@ -23,23 +23,19 @@ Reports show failed expectations, baseline/candidate outputs, and recorded activ
 Harmless output differences stay visible without failing the gate. Wraith checks
 your expectations; it does not automatically judge answer quality.
 
-## Tested with evidence
+## When to use it
 
-- **A real approval regression:** reproduced a historical upstream bug where an
-  unapproved action ran after resuming saved history. Wraith failed the buggy
-  revision and passed the fix. [Reproduction](docs/historical-pilot.md).
-- **A partial fix exposed another failure:** in pinned smolagents source, Wraith
-  flagged new crashes in two scenarios while the selected upstream tests passed.
-  Those scenarios already failed other requirements. Combined local fixes
-  passed 9/9 contracts. [Reproduction and test overlap](docs/maintained-agent.md).
-- **Measured workflow cost:** a 16-case offline baseline/candidate comparison took
-  about 5 seconds on the tested Mac and 17 seconds in hosted Linux CI with four
-  jobs. The lighter 12-case RAG PR check reported 0.73 seconds. Build/setup time
-  is excluded; these are different fixtures.
-  [Workflow study and limits](docs/workflow-value.md);
-  [upstream PR study](docs/upstream-study.md).
+Use Wraith when you need fixed scenario suites, recorded agent activity, and
+portable before/after evidence across implementations. If your existing integration
+tests already answer the review question, they may be enough. Wraith still needs
+reviewed requirements and an adapter.
 
-These are scoped engineering results, not production accuracy or measured customer ROI.
+The engine has been checked with historical defects and controlled fixtures. In a
+ten-case offline weather study, Wraith and ordinary Python tests detected the same
+fault controls; no new useful regression was caught. Wraith took about seven seconds
+per base/candidate comparison versus two seconds for ordinary tests on the tested Mac.
+[Results and limits](docs/weather-comparison.md) ·
+[Current product assessment](docs/product-assessment.md) · [Verification](docs/verification.md).
 
 ## Try it in five minutes
 

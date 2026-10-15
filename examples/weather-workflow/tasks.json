@@ -1,0 +1,13 @@
+{
+  "tasks": [
+    {
+      "id": "retries",
+      "request": "Retry a transient 503 from the forecast endpoints once, without repeating the location lookup, suppressing persistent HTTP failures, or changing successful default forecasts. Edit only weather_agent.py."
+    },
+    {
+      "id": "units",
+      "request": "Let callers choose Fahrenheit through Deps(unit=\"F\"); retain Celsius as the default, preserve successful tool chaining and existing failure propagation. Edit only weather_agent.py."
+    }
+  ],
+  "stoppingRule": "Stop after these two independent feature implementations and two labeled calibration controls. Count only reviewed natural regressions, keep execution failures separate, and assess detection overlap and end-to-end machine cost against equivalent ordinary tests. Do not expand the queue to seek a favorable result."
+}

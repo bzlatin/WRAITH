@@ -24,32 +24,26 @@ The source also adds [native CI comparison and bounded offline jobs](workflow-va
 These reduce measured run time and custom workflow scripting; v0.5.0 does not
 include them.
 
-## Next priorities
+## Current decision
 
-The [maintained-agent fix study](maintained-agent.md) reproduced existing smolagents
-defects and caught a partial fix exposing a latent crash. It used source-guided
-contracts. A later [frozen upstream PR study](upstream-study.md) selected ten PRs:
-four comparisons passed and six merges were blocked. Post-evaluation review found
-that several changes fell outside the suite's behavior. No additional useful catch
-was found; relevant workflow coverage, repeat use and customer value remain unmeasured.
+[Narrow the scope and pause expansion](product-assessment.md). The engine is usable;
+additional workflow value and demand remain unproven. The latest
+[weather comparison](weather-comparison.md) found equal control detection with
+ordinary tests and higher machine runtime for Wraith in the measured setup.
 
-1. **Use a real agent during real changes.** Catch a useful natural regression and
-   fix integration or report friction revealed by the exercise.
-2. **Repeat the workflow on independent projects.** Learn which checks are useful,
-   where false alarms occur, and whether developers keep running them in CI.
-3. **Address the strongest recurring gap.** Select the next improvement from evidence
-   rather than adding integrations or evaluators for their own sake.
+Continue compatibility, reliability fixes and clear documentation. Keep Wraith
+local and framework neutral. Existing tests should supply requirements and helpers
+where possible; avoid maintaining duplicate application test logic.
 
-| Observed need | Possible response |
-| --- | --- |
-| Common framework activity is hard to record | Targeted adapter hooks |
-| Important output contracts cannot be expressed | Additional evaluators |
-| Sampling produces too many uncertain decisions | More efficient statistical methods, retaining honest uncertainty |
-| Production failures are difficult to reproduce | Trace import and replay experiments |
-| Creating useful cases takes too much effort | Better reviewed case authoring |
-| Reviewers miss findings in CI artifacts | Clearer PR reporting |
-| Teams repeatedly need shared history | Optional collaboration features |
+## Conditions for the next feature
 
-Provider logic stays outside the core. New releases should repeat native tests and
-archive checks before publication. Live-model accuracy and repeat adoption remain
-unproven; neither is implied by the controlled demos.
+1. Identify a concrete, repeated review or CI need that existing tests do not meet.
+2. Record the benefit and added setup, runtime and maintenance. Review a useful
+   natural catch against the actual requirement when one occurs.
+3. Implement the smallest change justified by that gap, then validate it in the
+   same workflow. Do not add another research framework to manufacture evidence.
+
+A passing synthetic queue, download count or feature list is insufficient. New
+releases still require native tests and archive checks before publication. Hosted
+features and billing remain deferred. With independent feedback deferred, Codex
+can establish engineering behavior but cannot establish adoption or paid demand.

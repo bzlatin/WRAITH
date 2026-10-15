@@ -3,6 +3,14 @@
 Wraith should make an agent change easier to review: show what broke, show the
 before/after evidence, and give the developer a check they can repeat.
 
+## Current decision
+
+The [product assessment](product-assessment.md) recommends a narrower focus on local,
+portable change evidence. Pause feature expansion and commercial-service work until
+a concrete repeat workflow demonstrates enough benefit over existing tests. More
+synthetic faults or recorded replays cannot establish that benefit. The engine works;
+net workflow value and paid demand remain unvalidated.
+
 ## Validation goal
 
 Catch a useful, naturally occurring regression in an independently useful agent,

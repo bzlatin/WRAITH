@@ -162,3 +162,11 @@ selection rules before inspecting candidate changes; keep blocked merges and set
 failures in the denominator. Never replace blocked PRs, resolve prerequisite patch
 conflicts, or retry an incomplete attempt. Recorded reproduction is not new evidence.
 Source-path overlap alone does not establish that changed behavior was tested.
+
+Read `docs/weather-comparison.md` and `docs/product-assessment.md` before operating
+`scripts/weather-study.py`. Keep equal requirements and observation code across
+runners, new-feature acceptance separate from old-behavior checks, and seeded
+controls separate from natural catches. Preserve qualification drafts and completed
+evidence. Report process-isolation differences and machine timing separately from
+human savings. The current decision pauses feature expansion and commercial-service
+work until a concrete repeated workflow benefit is demonstrated.

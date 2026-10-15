@@ -1,0 +1,264 @@
+[
+  {
+    "id": "london",
+    "input": {
+      "city": "London",
+      "temperature": 24,
+      "coordinates": [
+        51.5,
+        -0.1
+      ]
+    },
+    "expected": {
+      "forecasts": [
+        {
+          "temperature": "24 \u00b0C",
+          "description": "Sunny"
+        }
+      ],
+      "successfulTools": [
+        "get_lat_lng",
+        "get_weather"
+      ],
+      "coordinatesForwarded": true,
+      "weatherRequests": 1,
+      "blockedNetworkAttempts": 0,
+      "available": true
+    }
+  },
+  {
+    "id": "paris",
+    "input": {
+      "city": "Paris",
+      "temperature": 18,
+      "coordinates": [
+        48.85,
+        2.35
+      ]
+    },
+    "expected": {
+      "forecasts": [
+        {
+          "temperature": "18 \u00b0C",
+          "description": "Sunny"
+        }
+      ],
+      "successfulTools": [
+        "get_lat_lng",
+        "get_weather"
+      ],
+      "coordinatesForwarded": true,
+      "weatherRequests": 1,
+      "blockedNetworkAttempts": 0,
+      "available": true
+    }
+  },
+  {
+    "id": "freezing",
+    "input": {
+      "city": "Reykjavik",
+      "temperature": 0,
+      "coordinates": [
+        64.1,
+        -21.9
+      ]
+    },
+    "expected": {
+      "forecasts": [
+        {
+          "temperature": "0 \u00b0C",
+          "description": "Sunny"
+        }
+      ],
+      "successfulTools": [
+        "get_lat_lng",
+        "get_weather"
+      ],
+      "coordinatesForwarded": true,
+      "weatherRequests": 1,
+      "blockedNetworkAttempts": 0,
+      "available": true
+    }
+  },
+  {
+    "id": "negative",
+    "input": {
+      "city": "Oslo",
+      "temperature": -5,
+      "coordinates": [
+        59.9,
+        10.7
+      ]
+    },
+    "expected": {
+      "forecasts": [
+        {
+          "temperature": "-5 \u00b0C",
+          "description": "Sunny"
+        }
+      ],
+      "successfulTools": [
+        "get_lat_lng",
+        "get_weather"
+      ],
+      "coordinatesForwarded": true,
+      "weatherRequests": 1,
+      "blockedNetworkAttempts": 0,
+      "available": true
+    }
+  },
+  {
+    "id": "fractional",
+    "input": {
+      "city": "Tokyo",
+      "temperature": 18.5,
+      "coordinates": [
+        35.7,
+        139.7
+      ]
+    },
+    "expected": {
+      "forecasts": [
+        {
+          "temperature": "18.5 \u00b0C",
+          "description": "Sunny"
+        }
+      ],
+      "successfulTools": [
+        "get_lat_lng",
+        "get_weather"
+      ],
+      "coordinatesForwarded": true,
+      "weatherRequests": 1,
+      "blockedNetworkAttempts": 0,
+      "available": true
+    }
+  },
+  {
+    "id": "unicode",
+    "input": {
+      "city": "S\u00e3o Paulo",
+      "temperature": 27,
+      "coordinates": [
+        -23.5,
+        -46.6
+      ]
+    },
+    "expected": {
+      "forecasts": [
+        {
+          "temperature": "27 \u00b0C",
+          "description": "Sunny"
+        }
+      ],
+      "successfulTools": [
+        "get_lat_lng",
+        "get_weather"
+      ],
+      "coordinatesForwarded": true,
+      "weatherRequests": 1,
+      "blockedNetworkAttempts": 0,
+      "available": true
+    }
+  },
+  {
+    "id": "unknown-location",
+    "input": {
+      "city": "London",
+      "temperature": 24,
+      "coordinates": [
+        51.5,
+        -0.1
+      ],
+      "status": {
+        "/latlng": 404
+      }
+    },
+    "expected": {
+      "response": null,
+      "forecasts": [],
+      "successfulTools": [],
+      "blockedNetworkAttempts": 0,
+      "available": false,
+      "weatherRequests": 0
+    }
+  },
+  {
+    "id": "invalid-coordinates",
+    "input": {
+      "city": "London",
+      "temperature": 24,
+      "coordinates": [
+        51.5,
+        -0.1
+      ],
+      "invalidCoordinates": true
+    },
+    "expected": {
+      "response": null,
+      "forecasts": [],
+      "successfulTools": [],
+      "blockedNetworkAttempts": 0,
+      "available": false,
+      "weatherRequests": 0
+    }
+  },
+  {
+    "id": "forecast-unavailable",
+    "input": {
+      "city": "London",
+      "temperature": 24,
+      "coordinates": [
+        51.5,
+        -0.1
+      ],
+      "status": {
+        "/number": 503
+      }
+    },
+    "expected": {
+      "response": null,
+      "forecasts": [],
+      "successfulTools": [
+        "get_lat_lng"
+      ],
+      "blockedNetworkAttempts": 0,
+      "available": false,
+      "weatherRequests": 1
+    }
+  },
+  {
+    "id": "repeat-run",
+    "input": {
+      "city": "London",
+      "temperature": 24,
+      "coordinates": [
+        51.5,
+        -0.1
+      ],
+      "repeat": 2
+    },
+    "expected": {
+      "forecasts": [
+        {
+          "temperature": "24 \u00b0C",
+          "description": "Sunny"
+        },
+        {
+          "temperature": "24 \u00b0C",
+          "description": "Sunny"
+        }
+      ],
+      "successfulTools": [
+        "get_lat_lng",
+        "get_weather",
+        "get_lat_lng",
+        "get_weather"
+      ],
+      "coordinatesForwarded": true,
+      "weatherRequests": 2,
+      "blockedNetworkAttempts": 0,
+      "available": true
+    }
+  }
+]

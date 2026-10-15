@@ -53,7 +53,8 @@ def package(binary, target, output, require_license=False, expected_version=None
                  "examples/workflow-agent/README.md", "examples/workflow-agent/source.json",
                  "examples/workflow-agent/task.json", "examples/workflow-agent/UPSTREAM_LICENSE.txt",
                  "docs/evidence/workflow-value.json", "docs/evidence/upstream-study.json",
-                 "docs/evidence/upstream-queue.json"]:
+                 "docs/evidence/upstream-queue.json", "docs/evidence/weather-comparison.json",
+                 "examples/weather-workflow/README.md", "examples/weather-workflow/UPSTREAM_LICENSE.txt"]:
         path = ROOT / name
         if path.is_file():
             files[name] = path.read_bytes()

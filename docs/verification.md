@@ -108,6 +108,12 @@ failing `check`, and a passing `check`, without model calls.
   old-binary setup failures are preserved; the same queue was reproduced with the
   current binary. Source review found several changed behaviors outside the suite.
   See [scope and reproduction](upstream-study.md).
+- **Equal-requirement weather study:** ten user-facing requirements in a second
+  framework, two independent application features, and two seeded controls. Both
+  Wraith and ordinary integration tests pass the features and detect the same
+  control cases. Base/candidate runs take about 7s versus 2s on the tested Mac;
+  no useful natural catch or human savings are established. See
+  [methods and reproduction](weather-comparison.md).
 - **Process and artifacts:** fault tests cover bounded pipes, timeouts, descendants,
   cancellation, protocol errors, schema migration, incompatible suites, fixed
   baselines, immutable history, and live-budget exhaustion/failure preservation.
