@@ -102,6 +102,12 @@ failing `check`, and a passing `check`, without model calls.
   16.99s. The actual 12-case RAG PR comparison passed both versions and reported
   0.73s for evaluation. Setup/build and human work are excluded. Known-defect
   restoration is separate calibration. See [results](workflow-value.md).
+- **Frozen upstream PR queue:** ten PRs selected in two chronological batches;
+  four comparisons pass 16 cases per version and 25 upstream tests (one skip), six
+  stale test merges remain blocked. No useful catch was found. The initial two
+  old-binary setup failures are preserved; the same queue was reproduced with the
+  current binary. Source review found several changed behaviors outside the suite.
+  See [scope and reproduction](upstream-study.md).
 - **Process and artifacts:** fault tests cover bounded pipes, timeouts, descendants,
   cancellation, protocol errors, schema migration, incompatible suites, fixed
   baselines, immutable history, and live-budget exhaustion/failure preservation.

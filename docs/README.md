@@ -25,6 +25,7 @@ the same suite when reviewing changes.
 - [Automated mock-agent trial](automated-trial.md): Codex-operated changes, test overlap, and a bounded evidence report.
 - [Historical upstream pilot](historical-pilot.md): reproduce an authentic approval bug and compare it with existing tests.
 - [Prospective application pilot](application-pilot.md): evaluate real LLM CLI changes against fixed contracts and existing tests.
+- [Frozen upstream PR study](upstream-study.md): ten chronologically selected PRs, four executed comparisons, six blocked merges, and the limits of a narrow suite.
 - [Workflow integration and overhead](workflow-value.md): green-baseline feature evaluation, native CI comparisons, and bounded offline parallelism.
 - [Maintained-agent fix study](maintained-agent.md): reproduce smolagents defects, compare local fixes with existing tests, and inspect a partial-fix interaction.
 - [Support-agent feature queue](feature-queue.md): three independent changes, frozen application tests, recorded replay, and optional live comparison.

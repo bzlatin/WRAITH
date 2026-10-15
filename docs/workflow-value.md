@@ -50,6 +50,10 @@ A separate calibration restores the already-known upstream defects. Wraith exits
 1 while the selected ordinary upstream tests pass. That checks the failure path;
 it is not a new prospective discovery. [Sanitized evidence](evidence/workflow-value.json).
 
+A [subsequent frozen upstream PR study](upstream-study.md) ran four of ten selected
+PR test merges; six were blocked. It found no new useful catch and exposed limits
+in selecting relevant changes by file path alone.
+
 ## Use the improved workflow
 
 A **current source build** adds one native command for existing offline checkouts:

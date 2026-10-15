@@ -36,7 +36,8 @@ your expectations; it does not automatically judge answer quality.
   about 5 seconds on the tested Mac and 17 seconds in hosted Linux CI with four
   jobs. The lighter 12-case RAG PR check reported 0.73 seconds. Build/setup time
   is excluded; these are different fixtures.
-  [Workflow study and limits](docs/workflow-value.md).
+  [Workflow study and limits](docs/workflow-value.md);
+  [upstream PR study](docs/upstream-study.md).
 
 These are scoped engineering results, not production accuracy or measured customer ROI.
 

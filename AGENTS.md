@@ -156,3 +156,9 @@ Keep the original feature development separate from recorded reproduction and
 known-defect calibration. Require a green fixed baseline; never weaken the suite
 for a candidate. Record machine runtime separately from human effort and avoid
 claiming a false-positive rate or customer ROI from repeated deterministic runs.
+
+Read `docs/upstream-study.md` before operating `scripts/upstream-pilot.py`. Freeze
+selection rules before inspecting candidate changes; keep blocked merges and setup
+failures in the denominator. Never replace blocked PRs, resolve prerequisite patch
+conflicts, or retry an incomplete attempt. Recorded reproduction is not new evidence.
+Source-path overlap alone does not establish that changed behavior was tested.
