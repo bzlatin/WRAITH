@@ -25,19 +25,26 @@ filenames and comparison orchestration, removing that custom glue.
 
 ## Measured result
 
-On macOS arm64, three interleaved repetitions per setting produced:
+Three interleaved repetitions per setting ran locally on macOS arm64. A Linux
+GitHub runner independently reproduced the feature with two repetitions per setting:
 
-| Check | Wall time |
-| --- | --- |
-| Wraith, baseline + candidate, one job | 14.03 s median |
-| Wraith, baseline + candidate, four jobs | 4.96 s median |
-| Selected upstream tests, candidate only | 1.37 s |
+| Check | macOS arm64 | Hosted Ubuntu 24.04 |
+| --- | --- | --- |
+| Wraith, baseline + candidate, one job | 14.03 s median | 38.78 s median |
+| Wraith, baseline + candidate, four jobs | 4.96 s median | 16.99 s median |
+| Selected upstream tests, candidate only | 1.37 s | 2.27 s |
 
-All six comparisons passed without editing the suite. This demonstrates mechanical
-repeatability for one deterministic change; it is not a general false-positive
-rate. Dependencies were warm. Installation, build, queue, human authoring, and
-review time are excluded. Parallel speedup depends on the agent and machine;
-latency per observation can increase with resource contention.
+All six local and four Linux comparisons passed without suite edits. The original
+and reproduced runs match the frozen contracts and application module fingerprints.
+This demonstrates mechanical repeatability for one deterministic change, not a
+general false-positive rate. Dependencies were warm. Installation, build, queue,
+human authoring, and review time are excluded. Speedup depends on the agent and
+machine; per-observation latency can rise with resource contention.
+
+The actual PR gate also passed **12/12 RAG cases in each version**, using the exact
+base/head commits. It reported 0.73 seconds for evaluation and evidence generation
+with two jobs. This is a different, lighter fixture; it is not a smolagents timing
+or the complete CI job duration.
 
 A separate calibration restores the already-known upstream defects. Wraith exits
 1 while the selected ordinary upstream tests pass. That checks the failure path;

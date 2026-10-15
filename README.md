@@ -33,8 +33,9 @@ your expectations; it does not automatically judge answer quality.
   Those scenarios already failed other requirements. Combined local fixes
   passed 9/9 contracts. [Reproduction and test overlap](docs/maintained-agent.md).
 - **Measured workflow cost:** a 16-case offline baseline/candidate comparison took
-  4.96 seconds median with four jobs, versus 14.03 seconds sequentially, on the
-  tested Mac. Installation and build time are excluded.
+  about 5 seconds on the tested Mac and 17 seconds in hosted Linux CI with four
+  jobs. The lighter 12-case RAG PR check reported 0.73 seconds. Build/setup time
+  is excluded; these are different fixtures.
   [Workflow study and limits](docs/workflow-value.md).
 
 These are scoped engineering results, not production accuracy or measured customer ROI.

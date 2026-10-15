@@ -98,8 +98,10 @@ failing `check`, and a passing `check`, without model calls.
   repeated comparisons passed without suite changes; no additional feature
   regression was caught. Three repetitions per setting measured a median 14.03s
   for sequential base+candidate CI evaluation and 4.96s with four jobs on macOS
-  arm64. Setup/build and human work are excluded. Known-defect restoration is
-  separately calibrated, not counted as discovery. See [results](workflow-value.md).
+  arm64. Linux reproduction passed four comparisons and measured 38.78s versus
+  16.99s. The actual 12-case RAG PR comparison passed both versions and reported
+  0.73s for evaluation. Setup/build and human work are excluded. Known-defect
+  restoration is separate calibration. See [results](workflow-value.md).
 - **Process and artifacts:** fault tests cover bounded pipes, timeouts, descendants,
   cancellation, protocol errors, schema migration, incompatible suites, fixed
   baselines, immutable history, and live-budget exhaustion/failure preservation.

@@ -42,5 +42,28 @@
     "No buyer demand, human time savings, or ROI measured."
   ],
   "platform": "macOS arm64",
-  "runtime": "Python 3.13; Rust 1.87 debug binary"
+  "runtime": "Python 3.13; Rust 1.87 debug binary",
+  "ciVerification": {
+    "run": "https://github.com/bzlatin/WRAITH/actions/runs/38645154410",
+    "sourceCommit": "2c335ae69e680dbef5e3990789e38078acd05b3d",
+    "platform": "Ubuntu 24.04, Python 3.12",
+    "scope": "recorded_reproduction",
+    "comparisons": 4,
+    "unexpectedComparisonFailures": 0,
+    "medianCiSecondsByJobs": {
+      "1": 38.7763,
+      "4": 16.99465
+    },
+    "selectedUpstreamWallSeconds": 2.2696,
+    "featureFailureEntries": 0,
+    "calibrationWraithExit": 1,
+    "ragPrCheck": {
+      "baseCommit": "804df28b65ba6fd752080dd87cf4b3e36efcf0d9",
+      "candidateCommit": "2c335ae69e680dbef5e3990789e38078acd05b3d",
+      "scenariosPerVersion": 12,
+      "exitCode": 0,
+      "reportedEvaluationSeconds": 0.732594868,
+      "jobs": 2
+    }
+  }
 }
