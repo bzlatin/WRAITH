@@ -31,6 +31,11 @@ additional workflow value and demand remain unproven. The latest
 [weather comparison](weather-comparison.md) found equal control detection with
 ordinary tests and higher machine runtime for Wraith in the measured setup.
 
+A bounded [public issue audit](public-issue-audit.md) also found no repeated unmet
+workflow that justifies a new integration. Post-evaluation trace access is a lead,
+not an approved feature or evidence of paid demand. The research step is complete;
+there is no further automated validation queue to wait for.
+
 Continue compatibility, reliability fixes and clear documentation. Keep Wraith
 local and framework neutral. Existing tests should supply requirements and helpers
 where possible; avoid maintaining duplicate application test logic.

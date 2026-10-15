@@ -26,6 +26,7 @@ the same suite when reviewing changes.
 - [Historical upstream pilot](historical-pilot.md): reproduce an authentic approval bug and compare it with existing tests.
 - [Prospective application pilot](application-pilot.md): evaluate real LLM CLI changes against fixed contracts and existing tests.
 - [Product assessment](product-assessment.md): decision to narrow the scope and pause expansion pending a concrete workflow benefit.
+- [Public issue audit](public-issue-audit.md): fifteen issues across three agent projects, existing solutions, and the remaining trace-access lead.
 - [Weather workflow comparison](weather-comparison.md): equivalent requirements in Wraith and ordinary tests, feature changes, calibration and measured runtime.
 - [Frozen upstream PR study](upstream-study.md): ten chronologically selected PRs, four executed comparisons, six blocked merges, and the limits of a narrow suite.
 - [Workflow integration and overhead](workflow-value.md): green-baseline feature evaluation, native CI comparisons, and bounded offline parallelism.

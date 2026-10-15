@@ -29,6 +29,14 @@ partial fix revealing a latent crash. They remain source-guided or historical,
 and ordinary tests can detect the same behavior when they express the requirement.
 No study establishes human review savings, repeat adoption or willingness to pay.
 
+The [public issue audit](public-issue-audit.md) reviewed fifteen requests and bugs
+across PydanticAI, LangGraph and CrewAI. It found concrete debugging needs, including
+post-evaluation trace access, but no repeated unmet workflow that justifies another
+Wraith integration. Some needs already have native support; others require upstream
+instrumentation fixes. Three interchange proposals share one origin, and one was
+explicitly retracted. The audit supports keeping expansion paused. It is a selected
+source review, not a measure of market demand.
+
 ## The competitive question
 
 Agent testing is already served by ordinary test frameworks. PydanticAI recommends
