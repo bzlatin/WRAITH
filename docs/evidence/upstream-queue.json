@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "base": "96f33faaf028479119ec8d34507b47694cf14e34",
+  "scope": "recorded_reproduction_of_two_chronological_batches",
+  "contractSha256": "79d26adfe7ebf439f3087ab9ab7a512aa682b8075e86fe4760aa7db2e17795a1",
+  "batches": [
+    {
+      "selectionRule": {
+        "limit": 5,
+        "path": "src/smolagents/agents.py",
+        "mode": "open-prs",
+        "order": "oldest open PRs by creation time targeting main and touching path; never replace blocked PRs",
+        "carryForward": "Apply frozen base.patch unchanged; conflicts are integration blocks, not regressions"
+      },
+      "selectedAt": "2026-10-15T13:35:24.874387+00:00",
+      "queueSha256": "74fca019d62ad428ea4e2c6dba8f1d0bc5dbd1d0593bdddac3a8ffb9578ea49f"
+    },
+    {
+      "selectionRule": {
+        "limit": 5,
+        "offset": 5,
+        "path": "src/smolagents/agents.py",
+        "mode": "open-prs",
+        "order": "oldest open PRs by creation time targeting main and touching path; never replace blocked PRs",
+        "carryForward": "Apply frozen base.patch unchanged; conflicts are integration blocks, not regressions"
+      },
+      "selectedAt": "2026-10-15T13:39:32.590972+00:00",
+      "queueSha256": "51dadc6a618c476de1936c58cb9d1ca01c51a148b095329e7693d61fe10cdb68"
+    }
+  ],
+  "candidates": [
+    {
+      "pullRequest": 301,
+      "url": "https://github.com/huggingface/smolagents/pull/301",
+      "head": "e739a09ccdd3efe89e78fa3eb5d65b0710a6ec1e",
+      "createdAt": "2025-01-21T23:49:48Z",
+      "revision": "pr-301",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "blocked": "test_merge_is_stale_or_head_changed"
+    },
+    {
+      "pullRequest": 511,
+      "url": "https://github.com/huggingface/smolagents/pull/511",
+      "head": "4d2c00e10f4fd0d90760e182de9dc5d488c33e50",
+      "createdAt": "2025-02-06T07:15:30Z",
+      "revision": "pr-511",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "blocked": "test_merge_is_stale_or_head_changed"
+    },
+    {
+      "pullRequest": 851,
+      "url": "https://github.com/huggingface/smolagents/pull/851",
+      "head": "c99c2b5d2d5fb6cccf10a1b7161e027bf73cc3ce",
+      "createdAt": "2025-03-03T09:31:43Z",
+      "revision": "pr-851",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "blocked": "test_merge_is_stale_or_head_changed"
+    },
+    {
+      "pullRequest": 888,
+      "url": "https://github.com/huggingface/smolagents/pull/888",
+      "head": "820a09667aa3785db96d5889589ac9026b7b0ea3",
+      "createdAt": "2025-03-05T14:52:44Z",
+      "revision": "ce4b1a13627d81c638494e8eb26a38a8ee24a9c5",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34"
+    },
+    {
+      "pullRequest": 963,
+      "url": "https://github.com/huggingface/smolagents/pull/963",
+      "head": "edd395f93967cf734d11c6b2b533f7a75717e5bf",
+      "createdAt": "2025-03-12T23:09:24Z",
+      "revision": "4cb7a5cc31de4acf5025f7cf1ce0054a04879f28",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34"
+    },
+    {
+      "pullRequest": 1439,
+      "url": "https://github.com/huggingface/smolagents/pull/1439",
+      "head": "5aed6d0542e6bb88a77ae4ee97f12d7112489ba1",
+      "createdAt": "2025-06-13T15:42:38Z",
+      "revision": "9ac73e7506fe3df494cfb308f0640af70fe185ca",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "observedTestMerge": "9ac73e7506fe3df494cfb308f0640af70fe185ca",
+      "observedParents": [
+        "96f33faaf028479119ec8d34507b47694cf14e34",
+        "5aed6d0542e6bb88a77ae4ee97f12d7112489ba1"
+      ]
+    },
+    {
+      "pullRequest": 1457,
+      "url": "https://github.com/huggingface/smolagents/pull/1457",
+      "head": "dd0f6c3cbcb92d6093b5dcbc51db27e21e7fd7f0",
+      "createdAt": "2025-06-19T12:03:24Z",
+      "revision": "pr-1457",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "observedTestMerge": "02bc55b43cc9b0af1b6596623b6841f8351ba428",
+      "observedParents": [
+        "e812838986e66a82e3319c0ddbbf21c703c9a484",
+        "dd0f6c3cbcb92d6093b5dcbc51db27e21e7fd7f0"
+      ],
+      "blocked": "test_merge_is_stale_or_head_changed"
+    },
+    {
+      "pullRequest": 1458,
+      "url": "https://github.com/huggingface/smolagents/pull/1458",
+      "head": "5665c92317b7042fd1a60fe56a2a40639ff11765",
+      "createdAt": "2025-06-19T14:59:08Z",
+      "revision": "pr-1458",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "observedTestMerge": "aeed2d7513158e0af0fd502bf6f5a86d1034fc73",
+      "observedParents": [
+        "bb1c5426cfda581f099fb323e41329432e575dc3",
+        "5665c92317b7042fd1a60fe56a2a40639ff11765"
+      ],
+      "blocked": "test_merge_is_stale_or_head_changed"
+    },
+    {
+      "pullRequest": 1635,
+      "url": "https://github.com/huggingface/smolagents/pull/1635",
+      "head": "af8a829a6b29352a34b706e15ccf702b98adc057",
+      "createdAt": "2025-07-29T16:08:23Z",
+      "revision": "pr-1635",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "observedTestMerge": "860a39a7f315d4868c40036e42bf1030df8c69fc",
+      "observedParents": [
+        "33c727bda2d8ad2de117708794dc500bedd0c1a9",
+        "af8a829a6b29352a34b706e15ccf702b98adc057"
+      ],
+      "blocked": "test_merge_is_stale_or_head_changed"
+    },
+    {
+      "pullRequest": 1769,
+      "url": "https://github.com/huggingface/smolagents/pull/1769",
+      "head": "79261097f6563d7d0fe79d05c96b6061acd0d547",
+      "createdAt": "2025-09-12T16:08:02Z",
+      "revision": "19a9aa0c701c3ff2087101c054c544b38f82405e",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "observedTestMerge": "19a9aa0c701c3ff2087101c054c544b38f82405e",
+      "observedParents": [
+        "96f33faaf028479119ec8d34507b47694cf14e34",
+        "79261097f6563d7d0fe79d05c96b6061acd0d547"
+      ]
+    }
+  ],
+  "archives": {
+    "4cb7a5cc31de4acf5025f7cf1ce0054a04879f28.tar": "bff86192de8910c794f7d0b3652fb348c3e458360b9300742a09935951e6f04b",
+    "ce4b1a13627d81c638494e8eb26a38a8ee24a9c5.tar": "bc21a179601d03b6837e1c9f8e165a94975c08ccf4f8dbc71d95cc7f7e3d33dc",
+    "9ac73e7506fe3df494cfb308f0640af70fe185ca.tar": "3bf63e5587668805e542af747870998659a9d7f7d0fc2d737c8e42e2f9eea294",
+    "19a9aa0c701c3ff2087101c054c544b38f82405e.tar": "23ca86492039ce802384025a97dcf0c36e0edf372a74b248fd781f66de00bf7d"
+  },
+  "limits": [
+    "Six stale test merges are retained as blocked; no replacements.",
+    "Four merge revisions include three frozen local prerequisite fixes.",
+    "The original first batch attempted an older binary, causing two setup failures; corrected reproduction preserves the same candidates."
+  ],
+  "expectedCategories": {
+    "301": "test_merge_is_stale_or_head_changed",
+    "511": "test_merge_is_stale_or_head_changed",
+    "851": "test_merge_is_stale_or_head_changed",
+    "888": "both_checks_pass",
+    "963": "both_checks_pass",
+    "1439": "both_checks_pass",
+    "1457": "test_merge_is_stale_or_head_changed",
+    "1458": "test_merge_is_stale_or_head_changed",
+    "1635": "test_merge_is_stale_or_head_changed",
+    "1769": "both_checks_pass"
+  }
+}

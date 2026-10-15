@@ -146,8 +146,9 @@ The files are trusted local artifacts, not signed attestations.
 CLI `project` creates and validates starter files; `workflow` manages the fixed
 baseline and immutable `.wraith/history/<id>/` directories. Each completed record
 contains the run, effective comparison when present, HTML report, declared model,
-command, Git commit/dirty state, and budget identity. Project/workflow schemas are
-1 independently of core schema 4. Reporting reads saved decisions rather than
+command, Git commit/dirty state, and budget identity. Project settings use schema
+1; workflow records use schema 2 independently of core schema 4. Schema-1 workflow
+records migrate in memory with jobs=1. Reporting reads saved decisions rather than
 recomputing policy from a later edited config. Git state does not fingerprint
 uncommitted source; these local files are evidence, not attestations.
 
@@ -200,5 +201,14 @@ No privileged PR event or provider secret is used. The workflow is described in
 Async Rust benefits subprocess I/O, deadlines, cancellation, and future bounded
 concurrency. Parsing, evaluation, comparison, and small artifact file operations
 are straightforward synchronous functions. Sequential execution avoids an elaborate
-scheduler; traits, separate policy languages, databases, and additional crates
-should follow demonstrated needs.
+scheduler by default. Opt-in offline `--jobs 1..32` uses a bounded Tokio JoinSet;
+completed observations are restored to scenario/sample order. Cancellation drains
+active invocations through cleanup before returning. No new process protocol or
+run schema is needed. CLI workflow records use schema 2 with an explicit `jobs` field. Schema-1
+records migrate in memory with jobs=1, without rewriting files; unsupported
+future versions are rejected before execution. Older binaries reject new records
+rather than silently using the wrong concurrency. Project settings remain schema
+1. Checks inherit baseline concurrency and reject changes before execution. Native CI
+comparisons record jobs in their separate version-1 `ci.json` envelope.
+Traits, separate policy languages, databases, and additional crates should follow
+demonstrated needs.

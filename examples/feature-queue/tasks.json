@@ -1,0 +1,5 @@
+[
+  {"id":"policy-aliases","request":"Recognize ETA, return period, and coverage period policy queries without exposing internal policy or changing existing values."},
+  {"id":"order-identifiers","request":"Accept pasted order IDs with surrounding whitespace or different casing for lookup and refund. Preserve owner/approval checks, canonical receipts, and duplicate prevention."},
+  {"id":"handoff-summary","request":"Add structured handoff metadata to final responses for human review and approval requests, preserving existing decisions, public values, receipts, and action behavior."}
+]

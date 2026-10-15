@@ -1,0 +1,674 @@
+[
+  {
+    "id": "london",
+    "input": {
+      "city": "London",
+      "temperature": 24,
+      "coordinates": [
+        51.5,
+        -0.1
+      ]
+    },
+    "metadata": {
+      "scope": "Real upstream weather tools; scripted model and HTTP; shared requirements with ordinary tests."
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/forecasts",
+          "check": {
+            "op": "equals",
+            "value": [
+              {
+                "temperature": "24 \u00b0C",
+                "description": "Sunny"
+              }
+            ]
+          }
+        },
+        {
+          "path": "/successfulTools",
+          "check": {
+            "op": "equals",
+            "value": [
+              "get_lat_lng",
+              "get_weather"
+            ]
+          }
+        },
+        {
+          "path": "/coordinatesForwarded",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/weatherRequests",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/available",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "paris",
+    "input": {
+      "city": "Paris",
+      "temperature": 18,
+      "coordinates": [
+        48.85,
+        2.35
+      ]
+    },
+    "metadata": {
+      "scope": "Real upstream weather tools; scripted model and HTTP; shared requirements with ordinary tests."
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/forecasts",
+          "check": {
+            "op": "equals",
+            "value": [
+              {
+                "temperature": "18 \u00b0C",
+                "description": "Sunny"
+              }
+            ]
+          }
+        },
+        {
+          "path": "/successfulTools",
+          "check": {
+            "op": "equals",
+            "value": [
+              "get_lat_lng",
+              "get_weather"
+            ]
+          }
+        },
+        {
+          "path": "/coordinatesForwarded",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/weatherRequests",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/available",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "freezing",
+    "input": {
+      "city": "Reykjavik",
+      "temperature": 0,
+      "coordinates": [
+        64.1,
+        -21.9
+      ]
+    },
+    "metadata": {
+      "scope": "Real upstream weather tools; scripted model and HTTP; shared requirements with ordinary tests."
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/forecasts",
+          "check": {
+            "op": "equals",
+            "value": [
+              {
+                "temperature": "0 \u00b0C",
+                "description": "Sunny"
+              }
+            ]
+          }
+        },
+        {
+          "path": "/successfulTools",
+          "check": {
+            "op": "equals",
+            "value": [
+              "get_lat_lng",
+              "get_weather"
+            ]
+          }
+        },
+        {
+          "path": "/coordinatesForwarded",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/weatherRequests",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/available",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "negative",
+    "input": {
+      "city": "Oslo",
+      "temperature": -5,
+      "coordinates": [
+        59.9,
+        10.7
+      ]
+    },
+    "metadata": {
+      "scope": "Real upstream weather tools; scripted model and HTTP; shared requirements with ordinary tests."
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/forecasts",
+          "check": {
+            "op": "equals",
+            "value": [
+              {
+                "temperature": "-5 \u00b0C",
+                "description": "Sunny"
+              }
+            ]
+          }
+        },
+        {
+          "path": "/successfulTools",
+          "check": {
+            "op": "equals",
+            "value": [
+              "get_lat_lng",
+              "get_weather"
+            ]
+          }
+        },
+        {
+          "path": "/coordinatesForwarded",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/weatherRequests",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/available",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "fractional",
+    "input": {
+      "city": "Tokyo",
+      "temperature": 18.5,
+      "coordinates": [
+        35.7,
+        139.7
+      ]
+    },
+    "metadata": {
+      "scope": "Real upstream weather tools; scripted model and HTTP; shared requirements with ordinary tests."
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/forecasts",
+          "check": {
+            "op": "equals",
+            "value": [
+              {
+                "temperature": "18.5 \u00b0C",
+                "description": "Sunny"
+              }
+            ]
+          }
+        },
+        {
+          "path": "/successfulTools",
+          "check": {
+            "op": "equals",
+            "value": [
+              "get_lat_lng",
+              "get_weather"
+            ]
+          }
+        },
+        {
+          "path": "/coordinatesForwarded",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/weatherRequests",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/available",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "unicode",
+    "input": {
+      "city": "S\u00e3o Paulo",
+      "temperature": 27,
+      "coordinates": [
+        -23.5,
+        -46.6
+      ]
+    },
+    "metadata": {
+      "scope": "Real upstream weather tools; scripted model and HTTP; shared requirements with ordinary tests."
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/forecasts",
+          "check": {
+            "op": "equals",
+            "value": [
+              {
+                "temperature": "27 \u00b0C",
+                "description": "Sunny"
+              }
+            ]
+          }
+        },
+        {
+          "path": "/successfulTools",
+          "check": {
+            "op": "equals",
+            "value": [
+              "get_lat_lng",
+              "get_weather"
+            ]
+          }
+        },
+        {
+          "path": "/coordinatesForwarded",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/weatherRequests",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/available",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "unknown-location",
+    "input": {
+      "city": "London",
+      "temperature": 24,
+      "coordinates": [
+        51.5,
+        -0.1
+      ],
+      "status": {
+        "/latlng": 404
+      }
+    },
+    "metadata": {
+      "scope": "Real upstream weather tools; scripted model and HTTP; shared requirements with ordinary tests."
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/response",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/forecasts",
+          "check": {
+            "op": "equals",
+            "value": []
+          }
+        },
+        {
+          "path": "/successfulTools",
+          "check": {
+            "op": "equals",
+            "value": []
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/available",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/weatherRequests",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "invalid-coordinates",
+    "input": {
+      "city": "London",
+      "temperature": 24,
+      "coordinates": [
+        51.5,
+        -0.1
+      ],
+      "invalidCoordinates": true
+    },
+    "metadata": {
+      "scope": "Real upstream weather tools; scripted model and HTTP; shared requirements with ordinary tests."
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/response",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/forecasts",
+          "check": {
+            "op": "equals",
+            "value": []
+          }
+        },
+        {
+          "path": "/successfulTools",
+          "check": {
+            "op": "equals",
+            "value": []
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/available",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/weatherRequests",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "forecast-unavailable",
+    "input": {
+      "city": "London",
+      "temperature": 24,
+      "coordinates": [
+        51.5,
+        -0.1
+      ],
+      "status": {
+        "/number": 503
+      }
+    },
+    "metadata": {
+      "scope": "Real upstream weather tools; scripted model and HTTP; shared requirements with ordinary tests."
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/response",
+          "check": {
+            "op": "equals",
+            "value": null
+          }
+        },
+        {
+          "path": "/forecasts",
+          "check": {
+            "op": "equals",
+            "value": []
+          }
+        },
+        {
+          "path": "/successfulTools",
+          "check": {
+            "op": "equals",
+            "value": [
+              "get_lat_lng"
+            ]
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/available",
+          "check": {
+            "op": "equals",
+            "value": false
+          }
+        },
+        {
+          "path": "/weatherRequests",
+          "check": {
+            "op": "equals",
+            "value": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "repeat-run",
+    "input": {
+      "city": "London",
+      "temperature": 24,
+      "coordinates": [
+        51.5,
+        -0.1
+      ],
+      "repeat": 2
+    },
+    "metadata": {
+      "scope": "Real upstream weather tools; scripted model and HTTP; shared requirements with ordinary tests."
+    },
+    "expect": {
+      "json": [
+        {
+          "path": "/forecasts",
+          "check": {
+            "op": "equals",
+            "value": [
+              {
+                "temperature": "24 \u00b0C",
+                "description": "Sunny"
+              },
+              {
+                "temperature": "24 \u00b0C",
+                "description": "Sunny"
+              }
+            ]
+          }
+        },
+        {
+          "path": "/successfulTools",
+          "check": {
+            "op": "equals",
+            "value": [
+              "get_lat_lng",
+              "get_weather",
+              "get_lat_lng",
+              "get_weather"
+            ]
+          }
+        },
+        {
+          "path": "/coordinatesForwarded",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        {
+          "path": "/weatherRequests",
+          "check": {
+            "op": "equals",
+            "value": 2
+          }
+        },
+        {
+          "path": "/blockedNetworkAttempts",
+          "check": {
+            "op": "equals",
+            "value": 0
+          }
+        },
+        {
+          "path": "/available",
+          "check": {
+            "op": "equals",
+            "value": true
+          }
+        }
+      ]
+    }
+  }
+]

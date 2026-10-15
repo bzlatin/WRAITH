@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/simonw/llm.git",
+  "revision": "05d7ae7dedc524b024ab463b063854e7c43fee01",
+  "license": "Apache-2.0",
+  "application": "LLM command-line application",
+  "documentation": "https://llm.datasette.io/en/stable/tools.html",
+  "tests": ["tests/test_tools.py", "tests/test_pause_resume.py"],
+  "markers": "not vcr"
+}

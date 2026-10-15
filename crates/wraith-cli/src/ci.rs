@@ -1,10 +1,28 @@
 use crate::project;
 use clap::Subcommand;
 use std::{fs, path::Path};
-use wraith_core::{config, error::Error};
+use wraith_core::{cancellation::Cancellation, config, error::Error};
 
 #[derive(Subcommand)]
 pub enum Commands {
+    /// Evaluate base and candidate with the trusted offline base policy.
+    Check {
+        #[arg(long)]
+        base_config: std::path::PathBuf,
+        #[arg(long, default_value_t=1, value_parser=clap::value_parser!(u32).range(1..=1000))]
+        samples: u32,
+        /// Run independent observations concurrently. Defaults to sequential.
+        #[arg(long, default_value_t=1, value_parser=clap::value_parser!(u32).range(1..=32))]
+        jobs: u32,
+        /// A new directory; refuses to overwrite existing artifacts.
+        #[arg(long)]
+        artifacts: Option<std::path::PathBuf>,
+        /// Append a concise Markdown summary (for example GITHUB_STEP_SUMMARY).
+        #[arg(long)]
+        summary: Option<std::path::PathBuf>,
+        #[arg(long, value_enum, default_value_t=crate::Output::Human)]
+        output: crate::Output,
+    },
     /// Write .github/workflows/wraith.yml; never overwrite an existing workflow.
     Init {
         /// Pin a published Wraith binary version.
@@ -13,8 +31,42 @@ pub enum Commands {
     },
 }
 
-pub fn execute(path: &Path, command: Commands) -> Result<(), Error> {
-    let Commands::Init { version } = command;
+pub async fn execute(
+    path: &Path,
+    command: Commands,
+    cancellation: Cancellation,
+) -> Result<u8, Error> {
+    match command {
+        Commands::Init { version } => {
+            init(path, version)?;
+            Ok(0)
+        }
+        Commands::Check {
+            base_config,
+            samples,
+            jobs,
+            artifacts,
+            summary,
+            output,
+        } => {
+            crate::ci_check::execute(
+                path,
+                &base_config,
+                crate::ci_check::Options {
+                    samples,
+                    jobs,
+                    artifacts,
+                    summary,
+                    json: matches!(output, crate::Output::Json),
+                },
+                cancellation,
+            )
+            .await
+        }
+    }
+}
+
+fn init(path: &Path, version: String) -> Result<(), Error> {
     if !version
         .chars()
         .all(|c| c.is_ascii_alphanumeric() || c == '.' || c == '-')

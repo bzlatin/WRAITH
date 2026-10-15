@@ -140,6 +140,7 @@ async fn cooperative_and_task_cancellation_kill_descendants() {
         let cancellation = Cancellation::default();
         let options = runner::RunOptions {
             samples: 2,
+            jobs: 1,
             cancellation: cancellation.clone(),
             request_budget: None,
         };

@@ -1,0 +1,42 @@
+name: Maintained agent study
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'examples/maintained-agent/**'
+      - 'scripts/maintained-pilot.py'
+      - 'scripts/application-pilot.py'
+      - 'scripts/historical-pilot.py'
+      - '.github/workflows/maintained-agent.yml'
+permissions:
+  contents: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Rust toolchain
+        run: rustup toolchain install stable --profile minimal
+      - run: cargo +stable build --workspace --locked
+      - name: Reproduce pinned defects, fixes, and test overlap offline
+        run: python3 scripts/maintained-pilot.py reproduce --install
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: ${{ always() }}
+        with:
+          name: maintained-agent-evidence
+          path: |
+            .wraith/maintained-agent-study/assessment.json
+            .wraith/maintained-agent-study/report.md
+            .wraith/maintained-agent-study/project/.wraith/history/**/report.html
+            .wraith/maintained-agent-study/project/*.stdout
+            .wraith/maintained-agent-study/project/*.stderr
+            .wraith/maintained-agent-study/tasks/*/attempt-*/*.stdout
+            .wraith/maintained-agent-study/tasks/*/attempt-*/*.stderr
+          include-hidden-files: true
+          if-no-files-found: warn

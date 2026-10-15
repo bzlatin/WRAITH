@@ -1,0 +1,12 @@
+--- a/src/smolagents/agents.py
++++ b/src/smolagents/agents.py
+@@ -615,7 +615,8 @@
+             try:
+                 assert check_function(final_answer, self.memory, agent=self)
+             except Exception as e:
+-                raise AgentError(f"Check {check_function.__name__} failed with error: {e}", self.logger)
++                check_name = getattr(check_function, "__name__", type(check_function).__name__)
++                raise AgentError(f"Check {check_name} failed with error: {e}", self.logger) from e
+ 
+     def _finalize_step(self, memory_step: ActionStep | PlanningStep | FinalAnswerStep):
+         if not isinstance(memory_step, FinalAnswerStep):

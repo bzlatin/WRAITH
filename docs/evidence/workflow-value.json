@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "revision": "96f33faaf028479119ec8d34507b47694cf14e34",
+  "providerRequests": 0,
+  "scope": "developer_selected_feature_after_contract_freeze",
+  "contractsFrozenAt": "2026-10-14T21:32:16.317568+00:00",
+  "baselineModuleSha256": "a77faff7ab6041e2f0265f555aafb5bf32428fd49ad3f886ac74b26e0f524a6a",
+  "featureModuleSha256": "76ad59402026aebeb56acf2df482cdc12dfb27e1bb73e3386f12a0cc5953e7b4",
+  "wraithBinarySha256": "771ae8d9bc8ef261ab47f04277b6c7032a43e3018caa28be2dd17373f37844a4",
+  "incompleteFeatureAttempts": 1,
+  "scenarios": 16,
+  "contractSha256": "79d26adfe7ebf439f3087ab9ab7a512aa682b8075e86fe4760aa7db2e17795a1",
+  "feature": "current action visible to final-answer critic (upstream request #1374)",
+  "featureAcceptanceExit": 0,
+  "newFeatureFailureEntries": 0,
+  "reviewedUsefulFeatureCatches": 0,
+  "selectedUpstreamTests": {
+    "tests": 26,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 25
+  },
+  "selectedUpstreamWallSeconds": 1.3738,
+  "comparisons": 6,
+  "unexpectedComparisonFailures": 0,
+  "medianCiSecondsByJobs": {
+    "1": 14.0337,
+    "4": 4.9574
+  },
+  "serialToParallelSpeedup": 2.831,
+  "calibration": {
+    "category": "restored_known_upstream_defects",
+    "wraithExit": 1,
+    "upstreamExit": 0
+  },
+  "timingScope": "Warm dependencies; external CLI wall time for base plus candidate and saved evidence. Existing-test timing covers one candidate test subset. No human authoring, review, installation, or CI queue time.",
+  "limits": [
+    "One developer-selected feature, not independent adoption.",
+    "Repeated deterministic comparisons are mechanical stability observations, not a false-positive rate estimate.",
+    "Calibration restores known defects; it is not prospective regression discovery.",
+    "No buyer demand, human time savings, or ROI measured."
+  ],
+  "platform": "macOS arm64",
+  "runtime": "Python 3.13; Rust 1.87 debug binary",
+  "ciVerification": {
+    "run": "https://github.com/bzlatin/WRAITH/actions/runs/38645154410",
+    "sourceCommit": "2c335ae69e680dbef5e3990789e38078acd05b3d",
+    "platform": "Ubuntu 24.04, Python 3.12",
+    "scope": "recorded_reproduction",
+    "comparisons": 4,
+    "unexpectedComparisonFailures": 0,
+    "medianCiSecondsByJobs": {
+      "1": 38.7763,
+      "4": 16.99465
+    },
+    "selectedUpstreamWallSeconds": 2.2696,
+    "featureFailureEntries": 0,
+    "calibrationWraithExit": 1,
+    "ragPrCheck": {
+      "baseCommit": "804df28b65ba6fd752080dd87cf4b3e36efcf0d9",
+      "candidateCommit": "2c335ae69e680dbef5e3990789e38078acd05b3d",
+      "scenariosPerVersion": 12,
+      "exitCode": 0,
+      "reportedEvaluationSeconds": 0.732594868,
+      "jobs": 2
+    }
+  }
+}

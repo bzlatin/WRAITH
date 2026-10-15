@@ -1,5 +1,6 @@
 mod cases;
 mod ci;
+mod ci_check;
 mod project;
 mod render;
 mod report;
@@ -34,6 +35,12 @@ enum Commands {
         language: Option<String>,
         #[arg(long)]
         runtime: Option<String>,
+        /// Call an existing function with only its input, without a context argument.
+        #[arg(long, requires = "entrypoint")]
+        input_only: bool,
+        /// Start with a reviewed JSON array of scenarios instead of the placeholder.
+        #[arg(long, requires = "entrypoint")]
+        cases: Option<PathBuf>,
         #[arg(long, default_value="offline", value_parser=["offline","live"])]
         mode: String,
         #[arg(long)]
@@ -54,6 +61,9 @@ enum Commands {
     },
     /// Save an accepted baseline and begin an experiment.
     Baseline {
+        /// Concurrent independent observations (offline only).
+        #[arg(long, value_parser = clap::value_parser!(u32).range(1..=32))]
+        jobs: Option<u32>,
         #[arg(long, value_parser=clap::value_parser!(u32).range(1..=1000))]
         samples: Option<u32>,
         #[arg(long)]
@@ -67,6 +77,9 @@ enum Commands {
     },
     /// Evaluate current code against the accepted baseline and write a report.
     Check {
+        /// Concurrent independent observations (offline only).
+        #[arg(long, value_parser = clap::value_parser!(u32).range(1..=32))]
+        jobs: Option<u32>,
         #[arg(long, value_parser=clap::value_parser!(u32).range(1..=1000))]
         samples: Option<u32>,
         #[arg(long)]
@@ -91,13 +104,16 @@ enum Commands {
         #[command(subcommand)]
         command: cases::Commands,
     },
-    /// Generate an offline pull-request evaluation workflow.
+    /// Generate and run offline pull-request checks.
     Ci {
         #[command(subcommand)]
         command: ci::Commands,
     },
     /// Execute scenarios against the configured agent.
     Run {
+        /// Concurrent independent observations (offline only).
+        #[arg(long, default_value_t = 1, value_parser = clap::value_parser!(u32).range(1..=32))]
+        jobs: u32,
         #[arg(long)]
         scenario: Option<String>,
         #[arg(long)]
@@ -134,6 +150,8 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
             entrypoint,
             language,
             runtime,
+            input_only,
+            cases,
             mode,
             model,
             require_env,
@@ -146,6 +164,8 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
                     entrypoint,
                     language,
                     runtime,
+                    input_only,
+                    cases,
                     mode,
                     model,
                     required_env: require_env,
@@ -183,6 +203,7 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
             Ok(if passed { 0 } else { 2 })
         }
         Commands::Baseline {
+            jobs,
             samples,
             replace,
             allow_live,
@@ -193,6 +214,7 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
                 &cli.config,
                 true,
                 workflow::Options {
+                    jobs,
                     samples,
                     replace,
                     allow_live,
@@ -204,6 +226,7 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
             .await
         }
         Commands::Check {
+            jobs,
             samples,
             allow_live,
             output,
@@ -212,6 +235,7 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
                 &cli.config,
                 false,
                 workflow::Options {
+                    jobs,
                     samples,
                     replace: false,
                     allow_live,
@@ -235,8 +259,8 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
             } else {
                 for record in records {
                     println!(
-                        "{}  {}  {}  {} samples",
-                        record.id, record.kind, record.outcome, record.samples
+                        "{}  {}  {}  {} samples  {} jobs",
+                        record.id, record.kind, record.outcome, record.samples, record.jobs
                     );
                 }
             }
@@ -251,11 +275,9 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
             cases::execute(&cli.config, command)?;
             Ok(0)
         }
-        Commands::Ci { command } => {
-            ci::execute(&cli.config, command)?;
-            Ok(0)
-        }
+        Commands::Ci { command } => ci::execute(&cli.config, command, cancellation).await,
         Commands::Run {
+            jobs,
             scenario,
             save,
             samples,
@@ -267,7 +289,13 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
                 .as_deref()
                 .map(|name| snapshot::named_path(&directory, name))
                 .transpose()?;
+            if jobs > 1
+                && project::load(project::directory(&cli.config))?.is_some_and(|p| p.mode == "live")
+            {
+                return Err(Error::Config("Live execution requires --jobs 1".into()));
+            }
             let options = runner::RunOptions {
+                jobs,
                 samples,
                 cancellation: cancellation.clone(),
                 request_budget: None,
@@ -326,7 +354,14 @@ async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
                 report::save(&path, &c, Some(&b), Some(&report), None)?;
             }
             match output {
-                Output::Human => render::comparison(&baseline, &candidate, &report),
+                Output::Human => {
+                    render::comparison(&baseline, &candidate, &report);
+                    if report.passed {
+                        if let Some(message) = render::remaining_failures(&c) {
+                            println!("WARNING: {message}");
+                        }
+                    }
+                }
                 Output::Json => println!(
                     "{}",
                     serde_json::to_string_pretty(&report)

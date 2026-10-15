@@ -1,0 +1,17 @@
+[
+  {
+    "id":"partial-tools",
+    "files":["llm/models.py"],
+    "request":"Support functools.partial in Tool.function. Use the underlying function's default name/docstring and type hints, with the partial's actual bound signature. Honor explicit name/description overrides. Keep lambda naming rules and reserved llm_tool_call injection unchanged. Support nested partials and both positional/keyword binding."
+  },
+  {
+    "id":"tool-prefix",
+    "files":["llm/cli.py"],
+    "request":"Add optional case-sensitive --name-prefix to tools list. Filter top-level function tool, toolbox, and server-side tool names before rendering either JSON or text. Keep the default unfiltered behavior, deterministic ordering, tool definitions, and model selection intact; do not invoke tool implementations when listing."
+  },
+  {
+    "id":"approval-json",
+    "files":["llm/cli.py"],
+    "request":"Render tool-call arguments as indented, sorted, Unicode-preserving JSON in the CLI approval prompt. Keep the Tool call: label and tool name, yes/no confirmation, denial behavior, and callback wiring intact."
+  }
+]

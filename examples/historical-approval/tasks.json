@@ -1,0 +1,5 @@
+[
+  {"id":"history-roundtrip","instruction":"Add encode_history(note) returning JSON text and decode_history(text) returning typed messages using ModelMessagesTypeAdapter. Use both helpers in evaluate for saved-history modes. Preserve approval behavior and Unicode/quoted notes."},
+  {"id":"receipt-summary","instruction":"Add receiptSummary to every result, containing count and notes from actual completed receipts. Preserve existing fields and approval behavior."},
+  {"id":"pending-details","instruction":"Add pendingRequests to every result: a list of {id, tool, arguments} from actual deferred approvals. Completed/denied workflows return an empty list. Preserve existing fields and approval behavior."}
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "resume-opt-out",
+    "files": ["llm/models.py"],
+    "request": "Add keyword-only resume_pending: bool = True to the sync/async model.chain and conversation.chain APIs. Forward it through the shared chain response. False skips execution of unresolved historical calls but still permits new model-requested calls. Defaults, approval/cancellation hooks, result correlation, and ordinary prompt APIs must retain existing behavior. Do not mutate supplied history."
+  },
+  {
+    "id": "argument-isolation",
+    "files": ["llm/models.py"],
+    "request": "Isolate JSON-compatible nested tool arguments before invoking sync and async implementations, including sync tools in async responses. A tool mutating its argument containers must not change ToolCall.arguments or the source request. Retain reserved llm_tool_call injection, callbacks, returned outputs, and exception handling. Do not deep-copy the reserved ToolCall object itself."
+  }
+]

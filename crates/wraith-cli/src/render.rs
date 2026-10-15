@@ -72,6 +72,14 @@ fn number(value: Option<f64>) -> String {
         .unwrap_or_else(|| "unavailable".into())
 }
 
+pub fn remaining_failures(snapshot: &RunSnapshot) -> Option<String> {
+    let failed = snapshot.scenarios.iter().filter(|s| !s.passed).count();
+    (failed > 0).then(|| format!(
+        "{failed} of {} candidate observations fail configured checks. The comparison passed relative to the baseline and policy; review the remaining failures.",
+        snapshot.scenarios.len()
+    ))
+}
+
 fn metric_rows(b: &Metrics, c: &Metrics) {
     println!(
         "{:<22} {:>16} {:>16} {:>14}",

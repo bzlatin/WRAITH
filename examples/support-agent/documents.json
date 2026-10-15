@@ -1,0 +1,6 @@
+[
+  {"id":"refund-current","title":"Refund return policy","status":"current","audience":"public","text":"Refunds are available within 30 days of delivery."},
+  {"id":"refund-archived","title":"Refund return policy refund refund","status":"archived","audience":"public","text":"Archived refunds were available within 90 days."},
+  {"id":"shipping","title":"Shipping times","status":"current","audience":"public","text":"Standard shipping takes 3 to 5 business days."},
+  {"id":"discount-staff","title":"Staff discount code","status":"current","audience":"staff","text":"The synthetic staff discount code is STAFF-ONLY-42."}
+]

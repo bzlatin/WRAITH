@@ -9,11 +9,13 @@ use crate::{
 use std::{
     path::Path,
     process::Stdio,
+    sync::Arc,
     time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
 use tokio::{
     io::{AsyncRead, AsyncReadExt, AsyncWriteExt},
     process::Command,
+    task::JoinSet,
 };
 
 const STDOUT_LIMIT: usize = 1024 * 1024;
@@ -156,6 +158,7 @@ async fn invoke(
 #[derive(Debug, Clone)]
 pub struct RunOptions {
     pub samples: u32,
+    pub jobs: u32,
     pub cancellation: Cancellation,
     pub request_budget: Option<std::path::PathBuf>,
 }
@@ -164,6 +167,7 @@ impl Default for RunOptions {
     fn default() -> Self {
         Self {
             samples: 1,
+            jobs: 1,
             cancellation: Cancellation::default(),
             request_budget: None,
         }
@@ -226,17 +230,7 @@ pub async fn run(
     directory: &Path,
     selected: Option<&str>,
 ) -> Result<RunSnapshot, Error> {
-    run_with_options(
-        config,
-        directory,
-        selected,
-        &RunOptions {
-            samples: 1,
-            cancellation: Cancellation::default(),
-            request_budget: None,
-        },
-    )
-    .await
+    run_with_options(config, directory, selected, &RunOptions::default()).await
 }
 
 pub async fn run_with_options(
@@ -250,42 +244,80 @@ pub async fn run_with_options(
             "samples: expected an integer from 1 to 1000".into(),
         ));
     }
+    if !(1..=32).contains(&options.jobs) {
+        return Err(Error::Config(
+            "jobs: expected an integer from 1 to 32".into(),
+        ));
+    }
+    if options.jobs > 1 && options.request_budget.is_some() {
+        return Err(Error::Config(
+            "Live budgeted execution requires --jobs 1".into(),
+        ));
+    }
     if selected.is_some_and(|id| !config.tests.iter().any(|s| s.id == id)) {
         return Err(Error::Config(format!(
             "Unknown scenario {selected:?}. Check tests[].id in the configuration."
         )));
     }
-    let mut scenarios = Vec::new();
-    for scenario in config
+    let mut pending = config
         .tests
         .iter()
         .filter(|s| selected.is_none_or(|id| id == s.id))
-    {
-        for sample_index in 1..=options.samples {
-            if options.cancellation.is_cancelled() {
-                return Err(Error::Cancelled);
+        .flat_map(|scenario| (1..=options.samples).map(move |sample| (scenario, sample)))
+        .enumerate();
+    let agent = Arc::new(config.agent.clone());
+    let mut running = JoinSet::new();
+    let mut completed = Vec::new();
+    loop {
+        while running.len() < options.jobs as usize && !options.cancellation.is_cancelled() {
+            let Some((position, (scenario, sample))) = pending.next() else {
+                break;
+            };
+            let (agent, scenario, directory, options) = (
+                agent.clone(),
+                scenario.clone(),
+                directory.to_path_buf(),
+                options.clone(),
+            );
+            running.spawn(async move {
+                (
+                    position,
+                    run_observation(
+                        &agent,
+                        &scenario,
+                        &directory,
+                        sample,
+                        &options.cancellation,
+                        options.request_budget.as_deref(),
+                    )
+                    .await,
+                )
+            });
+        }
+        if options.cancellation.is_cancelled() {
+            // Let every active invocation finish termination and reap its child.
+            while running.join_next().await.is_some() {}
+            return Err(Error::Cancelled);
+        }
+        let Some(joined) = running.join_next().await else {
+            break;
+        };
+        match joined {
+            Ok(result) => completed.push(result),
+            Err(error) => {
+                options.cancellation.cancel();
+                while running.join_next().await.is_some() {}
+                return Err(Error::Artifact(format!(
+                    "Agent execution task failed: {error}"
+                )));
             }
-            let result = run_observation(
-                &config.agent,
-                scenario,
-                directory,
-                sample_index,
-                &options.cancellation,
-                options.request_budget.as_deref(),
-            )
-            .await;
-            if options.cancellation.is_cancelled()
-                || result
-                    .run
-                    .error
-                    .as_ref()
-                    .is_some_and(|e| e.kind == RunErrorKind::Cancelled)
-            {
-                return Err(Error::Cancelled);
-            }
-            scenarios.push(result);
         }
     }
+    if options.cancellation.is_cancelled() {
+        return Err(Error::Cancelled);
+    }
+    completed.sort_unstable_by_key(|(position, _)| *position);
+    let scenarios = completed.into_iter().map(|(_, result)| result).collect();
     Ok(RunSnapshot {
         schema_version: SCHEMA_VERSION,
         wraith_version: env!("CARGO_PKG_VERSION").into(),

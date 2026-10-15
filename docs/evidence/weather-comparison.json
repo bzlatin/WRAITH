@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "scope": "developer_selected_application_features_against_equivalent_tests",
+  "source": {
+    "repository": "https://github.com/pydantic/pydantic-ai.git",
+    "revision": "0ba01f92be3fc361f89970502cd6e7dd3611aec3",
+    "path": "examples/pydantic_ai_examples/weather_agent.py",
+    "license": "MIT"
+  },
+  "providerRequests": 0,
+  "requirements": 10,
+  "requirementsSha256": "2e9516cd6740636046351bdc364cbe0a95b541211d9fc791653f863e4a1b8d91",
+  "tasks": [
+    {
+      "id": "retries",
+      "featureAcceptanceExit": 0,
+      "ordinaryBaseAndCandidateSeconds": 2.2494,
+      "wraithBaseAndCandidateSeconds": 6.997,
+      "sourceSha256": "e535724ba4626b149ad3937c3dd8489edc8a7f6d647f039e1b1cb8534e36b429"
+    },
+    {
+      "id": "units",
+      "featureAcceptanceExit": 0,
+      "ordinaryBaseAndCandidateSeconds": 2.0429,
+      "wraithBaseAndCandidateSeconds": 6.9897,
+      "sourceSha256": "172191a23c8570d2fdb647346cf376d4f2d3afd1cf4f80456704dc96a6b4ecf9"
+    }
+  ],
+  "featureAttempts": [
+    {
+      "task": "retries",
+      "acceptanceExit": 0,
+      "ordinaryExit": 0,
+      "wraithExit": 0
+    },
+    {
+      "task": "units",
+      "acceptanceExit": 0,
+      "ordinaryExit": 0,
+      "wraithExit": 0
+    }
+  ],
+  "calibration": [
+    {
+      "control": "coordinates",
+      "category": "seeded_calibration_not_discovery",
+      "ordinaryFailedCases": [
+        "fractional",
+        "freezing",
+        "london",
+        "negative",
+        "paris",
+        "repeat-run",
+        "unicode"
+      ],
+      "wraithFailedCases": [
+        "fractional",
+        "freezing",
+        "london",
+        "negative",
+        "paris",
+        "repeat-run",
+        "unicode"
+      ],
+      "validated": true
+    },
+    {
+      "control": "status",
+      "category": "seeded_calibration_not_discovery",
+      "ordinaryFailedCases": [
+        "forecast-unavailable"
+      ],
+      "wraithFailedCases": [
+        "forecast-unavailable"
+      ],
+      "validated": true
+    }
+  ],
+  "limits": [
+    "Equivalent tests share the requirements and observation adapter; oracle independence is not measured.",
+    "Conventional tests use one process per version; Wraith isolates each scenario with four jobs.",
+    "This is a developer-selected change to an upstream example, not independent adoption or an upstream contribution.",
+    "Offline scripted model and HTTP; no live model quality, human time savings or paid demand measured."
+  ],
+  "platform": "macOS arm64; Python 3.13; Rust 1.87 debug source build",
+  "reviewedUsefulNaturalCatches": 0,
+  "independentAdoptionMeasured": false,
+  "paidDemandMeasured": false,
+  "draftQualification": {
+    "ordinaryExit": 1,
+    "wraithExit": 1,
+    "failedCase": "invalid-coordinates",
+    "reason": "Draft expected ValidationError; framework raised UnexpectedModelBehavior after retries. Preserved incomplete preparation; user-facing availability/no-forecast requirement frozen in a new root before candidate implementation."
+  },
+  "decision": "Narrow to portable local change evidence; pause feature expansion and commercial-service work until a concrete repeat workflow benefit is demonstrated."
+}

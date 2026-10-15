@@ -1,0 +1,25 @@
+--- a/weather_agent.py
++++ b/weather_agent.py
+@@ -29,6 +29,7 @@
+ @dataclass
+ class Deps:
+     client: AsyncClient
++    unit: str = "C"
+ 
+ 
+ weather_agent = Agent(
+@@ -85,8 +86,13 @@
+     )
+     temp_response.raise_for_status()
+     descr_response.raise_for_status()
++    temperature = temp_response.text
++    if ctx.deps.unit == 'F':
++        temperature = f'{float(temperature) * 9 / 5 + 32:g}'
++    elif ctx.deps.unit != 'C':
++        raise ValueError("unit must be C or F")
+     return {
+-        'temperature': f'{temp_response.text} °C',
++        'temperature': f'{temperature} °{ctx.deps.unit}',
+         'description': descr_response.text,
+     }
+ 

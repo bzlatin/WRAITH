@@ -13,25 +13,42 @@ Priorities follow [product validation](product-direction.md), without a fixed re
 
 See [verification](verification.md) for native release and controlled-fixture results.
 
-## Next priorities
+## Current source improvements
 
-1. **Use a real agent during real changes.** Catch a useful natural regression and
-   fix integration or report friction revealed by the exercise.
-2. **Repeat the workflow on independent projects.** Learn which checks are useful,
-   where false alarms occur, and whether developers keep running them in CI.
-3. **Address the strongest recurring gap.** Select the next improvement from evidence
-   rather than adding integrations or evaluators for their own sake.
+The source build adds reviewed batch import and initialization, explicit input-only
+functions, typed case-authoring flags, per-case expectation diagnostics, and report
+context with comparison failures first. These are not in the published v0.5.0
+binary. See [faster setup](first-use.md) and [coverage results](coverage-challenge.md).
 
-| Observed need | Possible response |
-| --- | --- |
-| Common framework activity is hard to record | Targeted adapter hooks |
-| Important output contracts cannot be expressed | Additional evaluators |
-| Sampling produces too many uncertain decisions | More efficient statistical methods, retaining honest uncertainty |
-| Production failures are difficult to reproduce | Trace import and replay experiments |
-| Creating useful cases takes too much effort | Better reviewed case authoring |
-| Reviewers miss findings in CI artifacts | Clearer PR reporting |
-| Teams repeatedly need shared history | Optional collaboration features |
+The source also adds [native CI comparison and bounded offline jobs](workflow-value.md).
+These reduce measured run time and custom workflow scripting; v0.5.0 does not
+include them.
 
-Provider logic stays outside the core. New releases should repeat native tests and
-archive checks before publication. Live-model accuracy and repeat adoption remain
-unproven; neither is implied by the controlled demos.
+## Current decision
+
+[Narrow the scope and pause expansion](product-assessment.md). The engine is usable;
+additional workflow value and demand remain unproven. The latest
+[weather comparison](weather-comparison.md) found equal control detection with
+ordinary tests and higher machine runtime for Wraith in the measured setup.
+
+A bounded [public issue audit](public-issue-audit.md) also found no repeated unmet
+workflow that justifies a new integration. Post-evaluation trace access is a lead,
+not an approved feature or evidence of paid demand. The research step is complete;
+there is no further automated validation queue to wait for.
+
+Continue compatibility, reliability fixes and clear documentation. Keep Wraith
+local and framework neutral. Existing tests should supply requirements and helpers
+where possible; avoid maintaining duplicate application test logic.
+
+## Conditions for the next feature
+
+1. Identify a concrete, repeated review or CI need that existing tests do not meet.
+2. Record the benefit and added setup, runtime and maintenance. Review a useful
+   natural catch against the actual requirement when one occurs.
+3. Implement the smallest change justified by that gap, then validate it in the
+   same workflow. Do not add another research framework to manufacture evidence.
+
+A passing synthetic queue, download count or feature list is insufficient. New
+releases still require native tests and archive checks before publication. Hosted
+features and billing remain deferred. With independent feedback deferred, Codex
+can establish engineering behavior but cannot establish adoption or paid demand.

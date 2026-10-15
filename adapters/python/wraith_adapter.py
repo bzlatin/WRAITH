@@ -1,6 +1,7 @@
 """Wraith function adapter, Python 3.10+. Standard library only.
 
 Export a function(input, context), sync or async. Return its final JSON output.
+Use explicit --input-only to call a pre-existing single-argument function.
 Wrap every live model attempt in `with context.model_call():`, including retries.
 """
 import asyncio
@@ -84,7 +85,7 @@ def load_function(entrypoint):
     return function
 
 
-async def run(entrypoint):
+async def run(entrypoint, input_only=False):
     raw = sys.stdin.buffer.read(1024 * 1024 + 1)
     if len(raw) > 1024 * 1024:
         raise ValueError('Request exceeds 1 MiB')
@@ -94,7 +95,7 @@ async def run(entrypoint):
     context = Context(request)
     with contextlib.redirect_stdout(sys.stderr):
         function = load_function(entrypoint)
-        output = function(request['input'], context)
+        output = function(request['input']) if input_only else function(request['input'], context)
         if inspect.isawaitable(output):
             output = await output
     response = dict(protocolVersion=1, scenarioId=context.scenario_id, output=output,
@@ -110,7 +111,17 @@ async def run(entrypoint):
 
 if __name__ == '__main__':
     try:
-        asyncio.run(run(sys.argv[1]))
+        if sys.argv[2:] not in ([], ['--input-only']):
+            raise ValueError('Unknown adapter option; supported: --input-only')
+        asyncio.run(run(sys.argv[1], input_only='--input-only' in sys.argv[2:]))
     except Exception as error:
         print(f'{type(error).__name__}: {error}', file=sys.stderr)
+        if isinstance(error, RuntimeError) and any(message in str(error).lower() for message in (
+                'event loop is already running', 'cannot be called from a running event loop')):
+            print(
+                'Use an async entrypoint and await the agent\'s async API. '
+                'For a synchronous API that starts its own event loop, use '
+                'await asyncio.to_thread(...) inside an async entrypoint.',
+                file=sys.stderr,
+            )
         sys.exit(1)

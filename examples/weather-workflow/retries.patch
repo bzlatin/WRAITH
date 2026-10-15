@@ -1,0 +1,33 @@
+--- a/weather_agent.py
++++ b/weather_agent.py
+@@ -63,6 +63,14 @@
+     return LatLng.model_validate_json(r.content)
+ 
+ 
++async def _forecast_request(client: AsyncClient, url: str, params: dict[str, Any]):
++    """Retry one transient service failure, leaving error handling to the caller."""
++    for attempt in range(2):
++        response = await client.get(url, params=params)
++        if response.status_code != 503 or attempt == 1:
++            return response
++
++
+ @weather_agent.tool
+ async def get_weather(ctx: RunContext[Deps], lat: float, lng: float) -> dict[str, Any]:
+     """Get the weather at a location.
+@@ -74,11 +82,13 @@
+     """
+     # NOTE: the responses here will be random, and are not related to the lat and lng.
+     temp_response, descr_response = await asyncio.gather(
+-        ctx.deps.client.get(
++        _forecast_request(
++            ctx.deps.client,
+             'https://demo-endpoints.pydantic.workers.dev/number',
+             params={'min': 10, 'max': 30},
+         ),
+-        ctx.deps.client.get(
++        _forecast_request(
++            ctx.deps.client,
+             'https://demo-endpoints.pydantic.workers.dev/weather',
+             params={'lat': lat, 'lng': lng},
+         ),

@@ -29,6 +29,35 @@ demo = load("demo", "demo.py")
 
 
 class Packaging(unittest.TestCase):
+    def test_nested_event_loop_diagnostic_and_worker_thread_fix(self):
+        import shlex
+        adapter = ROOT / 'adapters/python/wraith_adapter.py'
+        request = json.dumps({'protocolVersion': 1, 'scenarioId': 'nested-loop', 'input': {}})
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp)
+            agent = directory / 'agent.py'
+            source = "import asyncio\nasync def compute():\n    return {'answer': 'ok'}\ndef sync_evaluate(input, context):\n    pending = compute()\n    try:\n        return asyncio.run(pending)\n    finally:\n        pending.close()\n"
+            agent.write_text(source + 'evaluate = sync_evaluate\n')
+            command = [sys.executable, str(adapter), str(agent) + ':evaluate']
+            failed = subprocess.run(command, input=request, capture_output=True, text=True)
+            self.assertEqual(failed.returncode, 1)
+            self.assertEqual(failed.stdout, '')
+            self.assertIn('asyncio.to_thread', failed.stderr)
+            config = directory / 'wraith.json'
+            config.write_text(json.dumps({'version': 1, 'agent': {'command': shlex.join(command)},
+                                         'tests': [{'id': 'nested-loop', 'input': {}}]}))
+            core = subprocess.run([str(BINARY), '--config', str(config), 'run', '--output', 'json'], capture_output=True, text=True)
+            self.assertEqual(core.returncode, 2, core.stderr)
+            self.assertIn('asyncio.to_thread', json.loads(core.stdout)['scenarios'][0]['run']['error']['message'])
+            agent.write_text(source + 'async def evaluate(input, context):\n    return await asyncio.to_thread(sync_evaluate, input, context)\n')
+            passed = subprocess.run(command, input=request, capture_output=True, text=True)
+            self.assertEqual(passed.returncode, 0, passed.stderr)
+            self.assertEqual(json.loads(passed.stdout)['output'], {'answer': 'ok'})
+            agent.write_text("def evaluate(input, context):\n    raise RuntimeError('dependency unavailable')\n")
+            unrelated = subprocess.run(command, input=request, capture_output=True, text=True)
+            self.assertEqual(unrelated.returncode, 1)
+            self.assertNotIn('asyncio.to_thread', unrelated.stderr)
+
     def test_archive_checksums_metadata_and_reproducible_packaging(self):
         for target in ["aarch64-apple-darwin", "x86_64-pc-windows-msvc"]:
             with tempfile.TemporaryDirectory() as directory:

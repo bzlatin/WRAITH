@@ -1,6 +1,6 @@
 # Wraith
 
-**Regression tests for AI agents.**
+**Before-and-after checks for AI agents.**
 
 A prompt, model, tool, or retrieval change can fix one task and break another.
 Wraith runs the same scenarios before and after a change, then shows what stopped
@@ -13,6 +13,7 @@ protocol. No Wraith account or hosted service is required.
 
 | Change | Check |
 | --- | --- |
+| Approval handling changes | A denied action does not execute |
 | A prompt skips a required lookup | The expected tool was called |
 | Retrieval starts returning an outdated policy | The answer contains the current value and cites the expected source |
 | Generated JSON breaks an application contract | Required fields, allowed IDs, item counts, uniqueness, and numeric ranges |
@@ -21,6 +22,20 @@ protocol. No Wraith account or hosted service is required.
 Reports show failed expectations, baseline/candidate outputs, and recorded activity.
 Harmless output differences stay visible without failing the gate. Wraith checks
 your expectations; it does not automatically judge answer quality.
+
+## When to use it
+
+Use Wraith when you need fixed scenario suites, recorded agent activity, and
+portable before/after evidence across implementations. If your existing integration
+tests already answer the review question, they may be enough. Wraith still needs
+reviewed requirements and an adapter.
+
+The engine has been checked with historical defects and controlled fixtures. In a
+ten-case offline weather study, Wraith and ordinary Python tests detected the same
+fault controls; no new useful regression was caught. Wraith took about seven seconds
+per base/candidate comparison versus two seconds for ordinary tests on the tested Mac.
+[Results and limits](docs/weather-comparison.md) ·
+[Current product assessment](docs/product-assessment.md) · [Verification](docs/verification.md).
 
 ## Try it in five minutes
 
@@ -64,9 +79,12 @@ wraith check
 ```
 
 Each completed run saves JSON evidence and an HTML report. The baseline stays fixed
-until `wraith baseline --replace`. Start with a few real tasks.
+until `wraith baseline --replace`. A passing comparison can retain existing baseline
+failures; reports show them. Start with a few real tasks.
 [The integration guide](docs/getting-started.md) covers examples, instrumentation,
-and live model calls.
+and live model calls. The current source build adds
+[reviewed initialization and typed case-authoring flags](docs/first-use.md), plus
+[native CI comparisons and offline parallel jobs](docs/workflow-value.md).
 
 ## Add it to your workflow
 

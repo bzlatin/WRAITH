@@ -1,0 +1,195 @@
+{
+  "schema": 1,
+  "scope": "two_chronological_batches_of_existing_upstream_prs",
+  "repository": "https://github.com/huggingface/smolagents.git",
+  "base": "96f33faaf028479119ec8d34507b47694cf14e34",
+  "contractSha256": "79d26adfe7ebf439f3087ab9ab7a512aa682b8075e86fe4760aa7db2e17795a1",
+  "scenariosPerVersion": 16,
+  "selectedPullRequests": 10,
+  "executedComparisons": 4,
+  "blockedStaleTestMerges": 6,
+  "reviewedUsefulCatches": 0,
+  "providerRequests": 0,
+  "localCiSeconds": {
+    "platform": "macOS arm64, Python 3.13; debug source binary",
+    "minimum": 4.9449,
+    "median": 5.13795,
+    "maximum": 5.4306,
+    "scope": "Warm dependencies; baseline + candidate + evidence. Excludes setup, installation, build, human work."
+  },
+  "results": [
+    {
+      "revision": "pr-301",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "category": "test_merge_is_stale_or_head_changed",
+      "pullRequest": 301,
+      "url": "https://github.com/huggingface/smolagents/pull/301",
+      "wraithExit": null,
+      "upstreamExit": null,
+      "ciWallSeconds": null,
+      "upstreamCounts": null
+    },
+    {
+      "revision": "pr-511",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "category": "test_merge_is_stale_or_head_changed",
+      "pullRequest": 511,
+      "url": "https://github.com/huggingface/smolagents/pull/511",
+      "wraithExit": null,
+      "upstreamExit": null,
+      "ciWallSeconds": null,
+      "upstreamCounts": null
+    },
+    {
+      "revision": "pr-851",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "category": "test_merge_is_stale_or_head_changed",
+      "pullRequest": 851,
+      "url": "https://github.com/huggingface/smolagents/pull/851",
+      "wraithExit": null,
+      "upstreamExit": null,
+      "ciWallSeconds": null,
+      "upstreamCounts": null
+    },
+    {
+      "revision": "ce4b1a13627d81c638494e8eb26a38a8ee24a9c5",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "category": "both_checks_pass",
+      "pullRequest": 888,
+      "url": "https://github.com/huggingface/smolagents/pull/888",
+      "wraithExit": 0,
+      "upstreamExit": 0,
+      "ciWallSeconds": 5.4306,
+      "upstreamCounts": {
+        "tests": 26,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 25
+      }
+    },
+    {
+      "revision": "4cb7a5cc31de4acf5025f7cf1ce0054a04879f28",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "category": "both_checks_pass",
+      "pullRequest": 963,
+      "url": "https://github.com/huggingface/smolagents/pull/963",
+      "wraithExit": 0,
+      "upstreamExit": 0,
+      "ciWallSeconds": 4.9449,
+      "upstreamCounts": {
+        "tests": 26,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 25
+      }
+    },
+    {
+      "revision": "9ac73e7506fe3df494cfb308f0640af70fe185ca",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "category": "both_checks_pass",
+      "pullRequest": 1439,
+      "url": "https://github.com/huggingface/smolagents/pull/1439",
+      "wraithExit": 0,
+      "upstreamExit": 0,
+      "ciWallSeconds": 5.3262,
+      "upstreamCounts": {
+        "tests": 26,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 25
+      }
+    },
+    {
+      "revision": "pr-1457",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "category": "test_merge_is_stale_or_head_changed",
+      "pullRequest": 1457,
+      "url": "https://github.com/huggingface/smolagents/pull/1457",
+      "wraithExit": null,
+      "upstreamExit": null,
+      "ciWallSeconds": null,
+      "upstreamCounts": null
+    },
+    {
+      "revision": "pr-1458",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "category": "test_merge_is_stale_or_head_changed",
+      "pullRequest": 1458,
+      "url": "https://github.com/huggingface/smolagents/pull/1458",
+      "wraithExit": null,
+      "upstreamExit": null,
+      "ciWallSeconds": null,
+      "upstreamCounts": null
+    },
+    {
+      "revision": "pr-1635",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "category": "test_merge_is_stale_or_head_changed",
+      "pullRequest": 1635,
+      "url": "https://github.com/huggingface/smolagents/pull/1635",
+      "wraithExit": null,
+      "upstreamExit": null,
+      "ciWallSeconds": null,
+      "upstreamCounts": null
+    },
+    {
+      "revision": "19a9aa0c701c3ff2087101c054c544b38f82405e",
+      "parent": "96f33faaf028479119ec8d34507b47694cf14e34",
+      "category": "both_checks_pass",
+      "pullRequest": 1769,
+      "url": "https://github.com/huggingface/smolagents/pull/1769",
+      "wraithExit": 0,
+      "upstreamExit": 0,
+      "ciWallSeconds": 4.9497,
+      "upstreamCounts": {
+        "tests": 26,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "passed": 25
+      }
+    }
+  ],
+  "priorAttempts": {
+    "mainlineSweep": {
+      "selectedChanges": 0,
+      "reason": "Fetched main equals pinned baseline."
+    },
+    "firstPrBatch": {
+      "selectedPullRequests": 5,
+      "staleMerges": 3,
+      "setupFailures": 2,
+      "reason": "Original saved binary lacked native ci check; preserved. A fresh study used the same selection with a capable binary."
+    }
+  },
+  "postEvaluationRelevanceReview": [
+    {
+      "pullRequest": 888,
+      "scope": "Documentation-only run return-value docstring/example change; not a behavioral stress test."
+    },
+    {
+      "pullRequest": 963,
+      "scope": "CodeAgent image handling; frozen cases execute ToolCallingAgent without images."
+    },
+    {
+      "pullRequest": 1439,
+      "scope": "Optional max_images feature; frozen cases leave the option unset and supply no images."
+    },
+    {
+      "pullRequest": 1769,
+      "scope": "Planning/fallback/managed-agent template hooks; frozen cases do not explicitly assert these paths."
+    }
+  ],
+  "limits": [
+    "Historical upstream changes, not prospective discovery or independent adoption.",
+    "Three frozen local prerequisite fixes remain applied; this is not untouched upstream.",
+    "Only one agent/framework and sixteen scripted offline scenarios; no model quality estimate.",
+    "No human time savings, reviewer effort, customer ROI, or demand measured.",
+    "Failure entries require review; a matching unit test can detect the same behavior.",
+    "Selection by file path did not establish that changed behavior was exercised. No line or branch coverage was measured.",
+    "These passes do not establish a false-positive rate or incremental regression prevention."
+  ]
+}

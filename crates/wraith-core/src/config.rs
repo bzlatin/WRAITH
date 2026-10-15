@@ -21,7 +21,7 @@ pub struct Config {
     pub comparison: ComparisonOptions,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct AgentConfig {
     pub command: String,

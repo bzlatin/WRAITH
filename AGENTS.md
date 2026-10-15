@@ -64,7 +64,9 @@ seeing developers run Wraith repeatedly during changes and in CI.
   provider attempt, consume failed attempts, and preserve budget identity through
   failures/interruption. A fresh budget requires an explicit new experiment.
   Helpers cannot cap hidden retries or code that bypasses instrumentation.
-- Project/workflow records use schema 1 separately from run/comparison schema 4.
+- Project settings use schema 1 and workflow records schema 2, separately from
+  run/comparison schema 4. Migrate workflow schema 1 in memory with jobs=1; reject
+  unsupported future versions before execution.
   Store declared model names and credential variable names, never credential values.
 - Reports are self-contained escaped HTML, with failures first and native disclosures.
   Read `DESIGN.md` for report UI rules; keep scripts and remote resources out.
@@ -103,3 +105,68 @@ publication needs its own user request. The generated PR check uses the publishe
 Refresh `THIRD_PARTY_LICENSES.txt` with `scripts/license-notices.py` when dependencies
 change. Read `docs/statistical-gating.md` before changing rate decisions; never turn
 inconclusive evidence into a passing gate. Run `scripts/pilot.py` for RAG changes.
+
+## Automated mock-agent trial
+
+Read `docs/automated-trial.md` before operating `scripts/trial.py`. The standalone
+support application is an offline mock. Keep calibration faults, Codex development
+regressions, and independent product evidence separate. Candidate changes belong
+only in the directory returned by `next`; never edit frozen tests, policy, baseline,
+or old results. Task acceptance is separate from the regression gate. A passing
+queue is insufficient evidence of incremental value without reviewed useful catches.
+
+Read `docs/historical-pilot.md` before operating `scripts/historical-pilot.py`.
+Keep historical reproductions distinct from prospective findings. Run upstream
+tests unchanged and report the selected subset; a later targeted unit test can
+detect the same defect. Preserve incomplete experiments and completed evidence.
+
+Read `docs/application-pilot.md` before operating `scripts/application-pilot.py`.
+Edit only the returned candidate's approved application modules; keep offline
+fixtures and upstream tests frozen. Report developer-selected local changes
+separately from maintainer adoption and retrospective bug reproductions.
+
+Read `docs/coverage-challenge.md` before operating `scripts/coverage-challenge.py`.
+Seeded defects calibrate coverage; do not count them as prospective discoveries.
+Keep witness validation, upstream overlap, controls, and execution errors separate.
+
+Read `docs/first-use.md` before operating `scripts/first-use.py`. Its prepared
+fixtures measure mechanical setup only; do not claim human authoring time or buyer
+validation. Keep market offers, Wraith technical results, and paid demand separate.
+
+Read `docs/live-pilot.md` before operating `scripts/live-pilot.py`. Preparation is
+offline; live execution needs explicit spending authorization. Never reset the
+shared budget, retry an attempted experiment, or turn ten live observations into
+a production-accuracy or causal-regression claim.
+
+Read `docs/feature-queue.md` before operating `scripts/change-pilot.py`. Keep the
+frozen suite and component tests unchanged. Candidate patches implement features,
+not seeded faults; report recorded-model replay separately from new live calls.
+Keep acceptance, test overlap, execution errors, and reviewed useful catches separate.
+
+Read `docs/maintained-agent.md` before operating `scripts/maintained-pilot.py`.
+Keep source-guided existing-defect reproductions separate from blind discoveries.
+The deliberately failing diagnostic baseline is not an approved CI baseline.
+Partial comparisons can pass while retaining debt; require all fixed contracts
+for the combined fix. Edit only returned candidate modules, preserve upstream
+tests, and report optimized/strict-warning controls alongside ordinary tests.
+
+
+Read `docs/workflow-value.md` before operating `scripts/workflow-pilot.py`.
+Keep the original feature development separate from recorded reproduction and
+known-defect calibration. Require a green fixed baseline; never weaken the suite
+for a candidate. Record machine runtime separately from human effort and avoid
+claiming a false-positive rate or customer ROI from repeated deterministic runs.
+
+Read `docs/upstream-study.md` before operating `scripts/upstream-pilot.py`. Freeze
+selection rules before inspecting candidate changes; keep blocked merges and setup
+failures in the denominator. Never replace blocked PRs, resolve prerequisite patch
+conflicts, or retry an incomplete attempt. Recorded reproduction is not new evidence.
+Source-path overlap alone does not establish that changed behavior was tested.
+
+Read `docs/weather-comparison.md` and `docs/product-assessment.md` before operating
+`scripts/weather-study.py`. Keep equal requirements and observation code across
+runners, new-feature acceptance separate from old-behavior checks, and seeded
+controls separate from natural catches. Preserve qualification drafts and completed
+evidence. Report process-isolation differences and machine timing separately from
+human savings. The current decision pauses feature expansion and commercial-service
+work until a concrete repeated workflow benefit is demonstrated.

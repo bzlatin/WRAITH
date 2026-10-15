@@ -53,3 +53,24 @@ and pins published v0.5.0. A harmless wording PR passed; a controlled refund-ans
 regression failed. Both retained JSON/HTML evidence. See [verification.md](verification.md).
 The required GitHub Actions status context is `check`; main requires up-to-date
 branches and applies the requirement to administrators as well.
+
+## Native comparison from existing checkouts (source build)
+
+Current source builds can replace custom run/save/compare scripts with:
+
+```sh
+wraith --config candidate/wraith.yaml ci check \
+  --base-config base/wraith.yaml --jobs 4 \
+  --artifacts .wraith/pr-check --summary "$GITHUB_STEP_SUMMARY"
+```
+
+The trusted base supplies the suite, command, and policy in both directories.
+A failing base stops candidate execution. Install dependencies yourself and use
+exact base/head commits. `--jobs` defaults to one; choose parallelism only for
+independent offline observations. Every check writes a new artifact directory and
+preserves all gate exits. The optional summary appends escaped Markdown with
+failures first; full JSON/HTML remains in the artifacts.
+
+This command is not in v0.5.0. The existing generated workflow keeps using that
+published version; it does not silently require an unreleased binary.
+[Measured integration and limits](workflow-value.md).

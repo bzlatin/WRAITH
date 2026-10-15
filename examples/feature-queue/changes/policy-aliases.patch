@@ -1,0 +1,21 @@
+--- a/agent.py
++++ b/agent.py
+@@ -5,6 +5,7 @@
+ 
+ import json
+ import os
++import re
+ from pathlib import Path
+ import urllib.error
+ import urllib.request
+@@ -188,7 +189,9 @@
+     if name not in {"search_policy", "lookup_order", "issue_refund"}:
+         raise ValueError("Model requested an unknown tool")
+     if name == "search_policy":
+-        query = arguments["query"].lower()
++        query = arguments["query"].casefold()
++        query = re.sub(r"\beta\b", "delivery", query)
++        query = query.replace("coverage period", "warranty")
+         matches = [
+             p
+             for p in POLICIES
