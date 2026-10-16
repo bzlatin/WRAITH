@@ -49,3 +49,18 @@ observations or permission to retry.
 
 Use `npm ci --ignore-scripts --no-audit --no-fund` and `npm test` here when a local
 candidate exists. No package lifecycle scripts are needed for dependency installation.
+
+The owner explicitly approved the next eight-session prepared-test comparison in
+`experiments/code-context/study/ready-tests-protocol.json` (from the repository
+root): two sessions per task/workflow pair, 180 seconds each, no repeated access
+diagnostic. Its budget is separate from the closed nine-session attempt. Follow
+`ready_tests_codex.py`; keep its helper/config, tests and retrieval code frozen.
+Do not retry stopped sessions, extend limits, swap tasks/models or infer revenue
+from technical results. Prepared test commands cover selected upstream tests only.
+
+The prepared-test attempt is stopped: `docs/code-context-ready-tests.md` records
+two denied MCP calls, native fallback and an operator interruption. Four of eight
+slots were consumed; four are closed. Preserve these as failed integration evidence,
+not Wraith performance. The optional `--allow-read-tools` configuration flag grants
+only the three named read tools; it leaves default/global approvals unchanged.
+Host-dispatched MCP calls do not validate model-mediated approval behavior.

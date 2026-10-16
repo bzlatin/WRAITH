@@ -72,8 +72,22 @@ worktree; avoid leaving a global server pointed at another repository. Ordinary
 search remains available when retrieval misses code. The preview does not inject
 context automatically or edit global agent instructions.
 
+For an unattended CLI workflow that allows these three local read tools, print
+explicit per-tool approval settings:
+
+```sh
+wraith-context codex-config --root /absolute/path/to/checkout --allow-read-tools
+```
+
+The option prints `approval_mode = "auto"` for the three named tools only. It
+does not change your settings or the global approval policy. The tools read the
+selected checkout and write local syntax caches. Without this option, ordinary
+client approval behavior applies. `approval_policy = "never"` can reject a tool
+that still needs approval. A startup/catalog check does not establish successful
+model-directed tool use; see the [recorded approval failure](../../docs/code-context-ready-tests.md).
+
 Codex configuration parsing, MCP startup and tool discovery were verified with
-**Codex CLI 0.143.0 on macOS arm64**, using a disposable account-free configuration
+**Codex CLI 0.143.0 and 0.163.0 on macOS arm64**, using a disposable account-free configuration
 and zero model turns. Tool calls were also tested through the official MCP client.
 This establishes connection mechanics, not voluntary agent use or commercial value.
 [Official Codex MCP configuration](https://learn.chatgpt.com/docs/extend/mcp).

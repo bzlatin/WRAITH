@@ -49,9 +49,8 @@ changed and two tasks took longer. These observations do not establish reliable
 savings, independent adoption or paid demand.
 [Full results and limits](docs/code-context-followup.md).
 
-The latest installed-Codex study confirmed model access, then stopped when the
-first native run hit its time limit. It adds no comparative performance evidence.
-[Current assessment and limits](docs/code-context-codex-study.md).
+Actual Codex checks exposed setup and approval issues. Comparative benefit for
+optional MCP use remains unproven. [Current readiness and limits](docs/code-context-ready-tests.md).
 
 Trying it on your own work? Share what helped, what was missing and whether you
 chose to use it again. [Trial feedback](https://github.com/bzlatin/WRAITH/issues/new?template=context-feedback.yml)

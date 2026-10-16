@@ -41,6 +41,13 @@ test('installed standalone preview creates a working demo and connects through M
   assert.equal(fs.readFileSync(path.join(demo,'src/auth/permissions.ts'),'utf8'),original);
   const config = cli('codex-config','--root',demo);
   assert.ok(!config.includes('node_modules'));
+  assert.ok(!config.includes('approval_mode'));
+  const unattended = cli('codex-config','--root',demo,'--allow-read-tools');
+  assert.equal((unattended.match(/approval_mode = "auto"/g)||[]).length,3);
+  for (const name of ['code_context','code_symbols','code_references']) assert.ok(unattended.includes('[mcp_servers.wraith_context.tools.'+name+']'));
+  assert.ok(!unattended.includes('default_tools_approval_mode'));
+  assert.ok(!unattended.includes('approval_policy'));
+  assert.throws(()=>cli('codex-config','--root',demo,'--allow-read-tools','--allow-read-tools'));
   const command = JSON.parse(config.split('\n').find(l=>l.startsWith('command = ')).slice(10));
   const args = JSON.parse(config.split('\n').find(l=>l.startsWith('args = ')).slice(7));
   const client = new Client({name:'preview-test',version:'1'});

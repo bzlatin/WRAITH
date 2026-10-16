@@ -36,3 +36,5 @@ The [original MVP](mvp.md) and [v0.2 implementation plan](implementation-plan.md
 are historical context, not setup instructions or pending work.
 
 - [Repaired-client Codex study](code-context-codex-study.md): successful subscription access, a stopped native run and sandbox test qualification.
+
+- [Prepared-test study and MCP approvals](code-context-ready-tests.md): preserved failed integration, explicit read-tool approval and current readiness.
