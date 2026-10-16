@@ -17,7 +17,7 @@ pub fn escape(text: &str) -> String {
 fn pretty(value: &impl serde::Serialize) -> String {
     escape(&serde_json::to_string_pretty(value).unwrap_or_else(|_| "unavailable".into()))
 }
-fn shell(title: &str, body: &str) -> String {
+pub(crate) fn shell(title: &str, body: &str) -> String {
     format!(
         "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'\"><title>{}</title><style>{}</style></head><body><main>{body}</main></body></html>",
         escape(title),

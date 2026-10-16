@@ -26,29 +26,40 @@ include them.
 
 ## Current decision
 
-[Narrow the scope and pause expansion](product-assessment.md). The engine is usable;
-additional workflow value and demand remain unproven. The latest
-[weather comparison](weather-comparison.md) found equal control detection with
-ordinary tests and higher machine runtime for Wraith in the measured setup.
+The [ingestion-verification decision](index-product-decision.md) authorizes one
+focused improvement after comparing existing tools. The experimental
+`wraith index check` command checks exact chunks/revisions and explicit tombstones
+from sorted exports, with bounded reports and pending/unknown outcomes. An optional
+Qdrant exporter and local demonstration are included. A runnable
+[LlamaIndex document-search workflow](verified-ingestion.md) creates its manifest
+before writes and verifies an isolated collection before promotion. This is not in v0.5.0.
 
-A bounded [public issue audit](public-issue-audit.md) also found no repeated unmet
-workflow that justifies a new integration. Post-evaluation trace access is a lead,
-not an approved feature or evidence of paid demand. The research step is complete;
-there is no further automated validation queue to wait for.
+The original [product assessment](product-assessment.md) and
+[public issue audit](public-issue-audit.md) still do not establish demand for broad
+agent-testing expansion. Previous automated research queues remain complete.
 
-Continue compatibility, reliability fixes and clear documentation. Keep Wraith
-local and framework neutral. Existing tests should supply requirements and helpers
-where possible; avoid maintaining duplicate application test logic.
+## Completed comparison and next decisions
 
-## Conditions for the next feature
+The [existing-pipeline compatibility check](upstream-ingestion.md) is complete.
+The public transformation hook works, but both checkers need the same setup and
+neither demonstrated a maintenance advantage. Routine Linux CI now uses this
+focused check instead of rerunning the full 28-attempt study on every push.
 
-1. Identify a concrete, repeated review or CI need that existing tests do not meet.
-2. Record the benefit and added setup, runtime and maintenance. Review a useful
-   natural catch against the actual requirement when one occurs.
-3. Implement the smallest change justified by that gap, then validate it in the
-   same workflow. Do not add another research framework to manufacture evidence.
+The [repeated-update comparison](repeated-ingestion.md) ran three pinned CPython
+snapshots, duplicate/rename/removal changes and four deliberate controls. Both
+verifiers made matching decisions across 14 steps each. The shared operational
+wrapper handled recovery and retention, but no incremental Rust-checker benefit or
+human-effort reduction was demonstrated on this workload.
 
-A passing synthetic queue, download count or feature list is insufficient. New
-releases still require native tests and archive checks before publication. Hosted
-features and billing remain deferred. With independent feedback deferred, Codex
-can establish engineering behavior but cannot establish adoption or paid demand.
+1. Keep the existing integration and finite CI checks working. Preserve any actual
+   counterexamples; no additional feature queue is justified by these results.
+2. Pause ingestion-feature and commercial-platform expansion until a specific
+   repeated workflow requirement exceeds the integration or equivalent recipe.
+3. Validate native GitHub builds before any future release request. Local macOS
+   validation and CI wiring do not establish Linux/Windows execution.
+4. Require authorized repeat-use evidence and a paid commitment before a hosted
+   service. No customer outreach or release publication is part of this comparison.
+
+Keep the core local and framework neutral. [REA](rea-investigation.md) is a potential
+optional investigation tool; it is neither required nor integrated. Accounts, billing,
+automatic repair and a multi-tenant control plane remain deferred.

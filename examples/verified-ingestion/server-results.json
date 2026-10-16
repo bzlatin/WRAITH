@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "kind": "owned localhost server controls; no natural defect claims",
+  "source": {
+    "files": 200,
+    "bytes": 3954237,
+    "sha256": "3bc5d05c8f259424a02228d37cd34043dc537cb590badcdb30cb0adfbf0ea010",
+    "provenance": {
+      "project": "CPython 3.13.0",
+      "commit": "60403a5409ff2c3f3b07dd2ca91a7a3e096839c7",
+      "archive_sha256": "37c8e18b35e659da6ff4db74caea50ed4170cf66c6d51f97d22e436e338d7b5b",
+      "selection": "first 200 sorted regular Doc/library/**/*.rst files; imported as plain text"
+    }
+  },
+  "phases": [
+    {
+      "stage": "initial",
+      "publisher_exit": 0,
+      "wall_seconds_including_worker_startup": 3.1277327919378877,
+      "alias_changed": true,
+      "readers": null,
+      "retained_collections": 1,
+      "storage_observation": {
+        "logical_bytes": 344067932,
+        "allocated_bytes": 14090240,
+        "files": 62
+      },
+      "verification": {
+        "exit_code": 0,
+        "plain_exit_code": 0,
+        "documents": 200,
+        "chunks": 4725,
+        "export": {
+          "points": 4725,
+          "documents": 200,
+          "read_calls": 12,
+          "stable": true
+        },
+        "seconds": {
+          "prepare_and_ingest": 1.6266799999866635,
+          "export": 0.12655825004912913,
+          "wraith_check_with_reports": 0.02540429204236716,
+          "plain_in_process_no_html": 0.007583957980386913
+        }
+      }
+    },
+    {
+      "stage": "repeat",
+      "publisher_exit": 0,
+      "wall_seconds_including_worker_startup": 3.491750124958344,
+      "alias_changed": true,
+      "readers": {
+        "successful_queries": 256,
+        "errors": 0,
+        "error_types": [],
+        "generations_observed": 2,
+        "latency_ms": {
+          "median": 2.3349999682977796,
+          "p95": 6.061541964299977
+        }
+      },
+      "retained_collections": 2,
+      "storage_observation": {
+        "logical_bytes": 688272584,
+        "allocated_bytes": 48594944,
+        "files": 132
+      },
+      "verification": {
+        "exit_code": 0,
+        "plain_exit_code": 0,
+        "documents": 200,
+        "chunks": 4725,
+        "export": {
+          "points": 4725,
+          "documents": 200,
+          "read_calls": 12,
+          "stable": true
+        },
+        "seconds": {
+          "prepare_and_ingest": 1.800141584011726,
+          "export": 0.1351400000276044,
+          "wraith_check_with_reports": 0.025817667017690837,
+          "plain_in_process_no_html": 0.009165333001874387
+        }
+      }
+    },
+    {
+      "stage": "partial-ack",
+      "publisher_exit": 0,
+      "wall_seconds_including_worker_startup": 3.4282322919461876,
+      "alias_changed": false,
+      "readers": {
+        "successful_queries": 258,
+        "errors": 0,
+        "error_types": [],
+        "generations_observed": 1,
+        "latency_ms": {
+          "median": 2.0042909309267998,
+          "p95": 3.48379195202142
+        }
+      },
+      "retained_collections": 3,
+      "storage_observation": {
+        "logical_bytes": 1032477235,
+        "allocated_bytes": 83099648,
+        "files": 202
+      },
+      "verification": {
+        "exit_code": 1,
+        "plain_exit_code": 1,
+        "documents": 200,
+        "chunks": 4725,
+        "export": {
+          "points": 4724,
+          "documents": 200,
+          "read_calls": 12,
+          "stable": true
+        },
+        "seconds": {
+          "prepare_and_ingest": 1.6865022500278428,
+          "export": 0.2185151670128107,
+          "wraith_check_with_reports": 0.026812749914824963,
+          "plain_in_process_no_html": 0.008069542003795505
+        }
+      }
+    },
+    {
+      "stage": "during-write",
+      "publisher_exit": -9,
+      "wall_seconds_including_worker_startup": 2.5195044580614194,
+      "alias_changed": false,
+      "readers": {
+        "successful_queries": 192,
+        "errors": 0,
+        "error_types": [],
+        "generations_observed": 1,
+        "latency_ms": {
+          "median": 2.353791962377727,
+          "p95": 3.949166974052787
+        }
+      },
+      "retained_collections": 4,
+      "storage_observation": {
+        "logical_bytes": 1309435878,
+        "allocated_bytes": 83415040,
+        "files": 259
+      },
+      "partial_points": 64
+    },
+    {
+      "stage": "before-promotion",
+      "publisher_exit": -9,
+      "wall_seconds_including_worker_startup": 3.2437577090458944,
+      "alias_changed": false,
+      "readers": {
+        "successful_queries": 246,
+        "errors": 0,
+        "error_types": [],
+        "generations_observed": 1,
+        "latency_ms": {
+          "median": 2.1988750668242574,
+          "p95": 4.14400000590831
+        }
+      },
+      "retained_collections": 5,
+      "storage_observation": {
+        "logical_bytes": 1653640502,
+        "allocated_bytes": 138383360,
+        "files": 329
+      },
+      "verification": {
+        "exit_code": 0,
+        "plain_exit_code": 0,
+        "documents": 200,
+        "chunks": 4725,
+        "export": {
+          "points": 4725,
+          "documents": 200,
+          "read_calls": 12,
+          "stable": true
+        },
+        "seconds": {
+          "prepare_and_ingest": 1.7052857090020552,
+          "export": 0.13422529201488942,
+          "wraith_check_with_reports": 0.023909166920930147,
+          "plain_in_process_no_html": 0.007899042102508247
+        }
+      }
+    },
+    {
+      "stage": "after-promotion",
+      "publisher_exit": -9,
+      "wall_seconds_including_worker_startup": 3.448610750027001,
+      "alias_changed": true,
+      "readers": {
+        "successful_queries": 263,
+        "errors": 0,
+        "error_types": [],
+        "generations_observed": 2,
+        "latency_ms": {
+          "median": 2.1042090374976397,
+          "p95": 3.52758402004838
+        }
+      },
+      "retained_collections": 6,
+      "storage_observation": {
+        "logical_bytes": 1997847118,
+        "allocated_bytes": 159002624,
+        "files": 405
+      },
+      "verification": {
+        "exit_code": 0,
+        "plain_exit_code": 0,
+        "documents": 200,
+        "chunks": 4725,
+        "export": {
+          "points": 4725,
+          "documents": 200,
+          "read_calls": 12,
+          "stable": true
+        },
+        "seconds": {
+          "prepare_and_ingest": 1.7361415410414338,
+          "export": 0.12696245906408876,
+          "wraith_check_with_reports": 0.025993374991230667,
+          "plain_in_process_no_html": 0.008115042001008987
+        }
+      }
+    }
+  ],
+  "provider_calls": 0,
+  "environment": {
+    "os": "darwin",
+    "python": "3.13.0",
+    "qdrant_binary_sha256": "036b94e5a39f1ea8f2329c8e528fcea54f83eb9205221a7dc1623c9862acc74d",
+    "wraith_binary_sha256": "1a49152747df7aff2664c1114cd56ce3c87b598f8a047457229a3bc85554f9e3"
+  },
+  "qdrant_version": "1.19.0",
+  "server_restart": {
+    "forced_kill": true,
+    "alias_preserved": true,
+    "full_inventory_exit": 0,
+    "recovery_and_full_audit_seconds": 0.890155708999373
+  },
+  "final_storage": {
+    "logical_bytes": 1997984135,
+    "allocated_bytes": 186200064,
+    "files": 413
+  },
+  "elapsed_seconds": 21.563430874957703,
+  "status": "passed",
+  "date": "2026-10-15",
+  "limits": [
+    "Single macOS arm64 host and a standalone Qdrant 1.19.0 instance; no production traffic or distributed-publisher validation.",
+    "Two concurrent readers use local token-hash query vectors; this does not measure semantic retrieval quality or saturation throughput.",
+    "Deliberate partial writes and process kills are controls, not naturally discovered defects.",
+    "Wraith includes subprocess startup and JSON/HTML; plain reconciliation runs in process without HTML. Shared export cost applies to both.",
+    "Server outage is excluded from query samples; restart control is a separate observed recovery event.",
+    "Logical file sizes include sparse/preallocated files. Allocated-byte samples can change with background compaction; final sample is after clean shutdown following restart.",
+    "No operator-effort, customer adoption, false-positive-rate or commercial-demand measurement."
+  ]
+}

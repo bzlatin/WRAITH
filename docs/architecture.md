@@ -212,3 +212,13 @@ rather than silently using the wrong concurrency. Project settings remain schema
 comparisons record jobs in their separate version-1 `ci.json` envelope.
 Traits, separate policy languages, databases, and additional crates should follow
 demonstrated needs.
+
+## Experimental index reconciliation
+
+`wraith-core::index_audit` merges sorted, versioned JSONL manifests/inventories.
+It uses no provider SDK or database client, bounds each record and the retained
+report, and keeps uncertain coverage distinct from confirmed discrepancies.
+`wraith-cli::index` owns file access, cancellation, immutable JSON/HTML outputs and
+exits. Index export/report schema 1 is independent of agent schema 4; no agent
+artifact migration is introduced. The external Qdrant exporter lives under
+`adapters/index/`. See [the contract](index-audit.md) for attestation boundaries.

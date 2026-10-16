@@ -1,9 +1,16 @@
 # Wraith documentation
 
-Start with the demo, connect a few representative tasks from your agent, and use
-the same suite when reviewing changes.
+Choose ingestion verification for index contents or agent regression checks for
+reviewing behavior changes.
 
 ## Start here
+
+- [Existing pipeline integration](upstream-ingestion.md): official LlamaIndex recipe, pre-write hook, shared setup costs and the utility-only decision.
+- [Repeated update comparison](repeated-ingestion.md): frozen public-document sequence, equivalent guardrails, functional parity and the expansion pause.
+- [Recovery and retention](ingestion-operations.md): read-only inspection of actual selection, saved verification and older index copies.
+- [Qdrant server checks](ingestion-server-checks.md): concurrent readers, interrupted publishers, recovery, and measured rebuild/storage costs.
+- [Verified document search](verified-ingestion.md): runnable LlamaIndex/Qdrant ingestion, checks before promotion, and an offline comparison with a simple script.
+- [Verify ingestion](index-audit.md): experimental exact chunk/revision checks and a read-only Qdrant exporter; source build required.
 
 - [Install](install.md): native binaries, supported platforms, and source builds.
 - [Try the workflow](dogfooding.md): see a passing check and a deliberate regression.
@@ -21,6 +28,9 @@ the same suite when reviewing changes.
 - [Subprocess protocol](protocol.md): connect other languages or custom adapters.
 
 ## Development
+
+- [Ingestion product decision](index-product-decision.md): executed competitor comparison, scope, business hypothesis and limits.
+- [REA fit assessment](rea-investigation.md): optional investigation use cases; no required integration.
 
 - [Automated mock-agent trial](automated-trial.md): Codex-operated changes, test overlap, and a bounded evidence report.
 - [Historical upstream pilot](historical-pilot.md): reproduce an authentic approval bug and compare it with existing tests.

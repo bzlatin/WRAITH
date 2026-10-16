@@ -1,0 +1,104 @@
+[
+  {
+    "case": "complete",
+    "raghealth_findings": 0,
+    "raghealth_coverage": {
+      "live_sources": 1,
+      "missing": 0,
+      "coverage_pct": 100.0
+    },
+    "ragfresh": {
+      "unchanged": [
+        "policy"
+      ],
+      "changed_not_reindexed": [],
+      "deleted_still_indexed": [],
+      "not_yet_indexed": [],
+      "drift_scores": {},
+      "drift_labels": {}
+    },
+    "exact_set_comparison": {
+      "missing": [],
+      "unexpected": []
+    }
+  },
+  {
+    "case": "partial",
+    "raghealth_findings": 0,
+    "raghealth_coverage": {
+      "live_sources": 1,
+      "missing": 0,
+      "coverage_pct": 100.0
+    },
+    "ragfresh": {
+      "unchanged": [
+        "policy"
+      ],
+      "changed_not_reindexed": [],
+      "deleted_still_indexed": [],
+      "not_yet_indexed": [],
+      "drift_scores": {},
+      "drift_labels": {}
+    },
+    "exact_set_comparison": {
+      "missing": [
+        "policy#1"
+      ],
+      "unexpected": []
+    }
+  },
+  {
+    "case": "wrong-same-count",
+    "raghealth_findings": 0,
+    "raghealth_coverage": {
+      "live_sources": 1,
+      "missing": 0,
+      "coverage_pct": 100.0
+    },
+    "ragfresh": {
+      "unchanged": [
+        "policy"
+      ],
+      "changed_not_reindexed": [],
+      "deleted_still_indexed": [],
+      "not_yet_indexed": [],
+      "drift_scores": {},
+      "drift_labels": {}
+    },
+    "exact_set_comparison": {
+      "missing": [
+        "policy#2"
+      ],
+      "unexpected": [
+        "policy#9"
+      ]
+    }
+  },
+  {
+    "case": "missing",
+    "raghealth_findings": 1,
+    "raghealth_coverage": {
+      "live_sources": 1,
+      "missing": 1,
+      "coverage_pct": 0.0
+    },
+    "ragfresh": {
+      "unchanged": [],
+      "changed_not_reindexed": [],
+      "deleted_still_indexed": [],
+      "not_yet_indexed": [
+        "policy"
+      ],
+      "drift_scores": {},
+      "drift_labels": {}
+    },
+    "exact_set_comparison": {
+      "missing": [
+        "policy#0",
+        "policy#1",
+        "policy#2"
+      ],
+      "unexpected": []
+    }
+  }
+]

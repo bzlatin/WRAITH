@@ -1,5 +1,10 @@
 # Product assessment: narrow the scope
 
+This assessment covers the original agent-testing direction. The later
+[index-verification decision](index-product-decision.md) adds one experimental
+capability based on a specific coverage limitation. It does not change these
+study outcomes or establish commercial validation.
+
 **Recommendation: keep Wraith as a small local change-evidence tool, and pause
 feature expansion and commercial-service work.** The engine works. The studies
 have not shown that its extra setup and runtime deliver enough value over existing

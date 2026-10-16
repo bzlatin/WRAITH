@@ -1,0 +1,43 @@
+{
+  "kind": "generated complete inventory, single run per size, warm/cold cache not controlled",
+  "platform": "Darwin arm64",
+  "build": "Rust 1.87 release",
+  "measurement_note": "The first /usr/bin/time attempt was blocked by sandbox sysctl access; these measurements use a fresh process and getrusage for each size.",
+  "excludes": "export generation, Qdrant scan, sorting, network, concurrent writers; not an enterprise-scale benchmark",
+  "results": [
+    {
+      "documents": 10000,
+      "chunks": 30000,
+      "input_bytes": 2980303,
+      "exit_code": 0,
+      "elapsed_seconds": 0.239,
+      "peak_rss_bytes": 4259840,
+      "counts": {
+        "documents": 10000,
+        "expected_chunks": 30000,
+        "observed_chunks": 30000,
+        "passed": 10000,
+        "failed": 0,
+        "pending": 0,
+        "unknown": 0
+      }
+    },
+    {
+      "documents": 100000,
+      "chunks": 300000,
+      "input_bytes": 29800305,
+      "exit_code": 0,
+      "elapsed_seconds": 0.184,
+      "peak_rss_bytes": 4358144,
+      "counts": {
+        "documents": 100000,
+        "expected_chunks": 300000,
+        "observed_chunks": 300000,
+        "passed": 100000,
+        "failed": 0,
+        "pending": 0,
+        "unknown": 0
+      }
+    }
+  ]
+}

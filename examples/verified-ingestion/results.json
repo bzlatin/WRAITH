@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "kind": "local workflow integration observations",
+  "date": "2026-10-15",
+  "environment": {
+    "os": "macOS",
+    "architecture": "arm64",
+    "python": "3.13.0",
+    "wraith_build": "debug, Rust 1.87.0"
+  },
+  "packages": {
+    "llama-index-core": "0.14.25",
+    "llama-index-vector-stores-qdrant": "0.10.4",
+    "qdrant-client": "1.19.1"
+  },
+  "corpus": "35 then-current Wraith documentation files; later documentation edits change this corpus",
+  "results": [
+    {
+      "phase": "docs-initial",
+      "input_sha256": "6eedd5bc8b95dbc13106c07973cdd34e805e434f1af3d2199f2ae37d9e751a60",
+      "documents": 35,
+      "chunks": 235,
+      "exit_code": 0,
+      "plain_exit_code": 0,
+      "provider_calls": 0,
+      "export": {
+        "points": 235,
+        "documents": 35,
+        "read_calls": 3,
+        "stable": true
+      },
+      "seconds": {
+        "prepare_and_ingest": 0.18411620799452066,
+        "export": 0.012896958040073514,
+        "wraith_check_with_reports": 0.052927207900211215,
+        "plain_in_process_no_html": 0.0009290419984608889
+      },
+      "promotion_confirmed": true
+    },
+    {
+      "phase": "docs-repeat",
+      "input_sha256": "6eedd5bc8b95dbc13106c07973cdd34e805e434f1af3d2199f2ae37d9e751a60",
+      "documents": 35,
+      "chunks": 235,
+      "exit_code": 0,
+      "plain_exit_code": 0,
+      "provider_calls": 0,
+      "export": {
+        "points": 235,
+        "documents": 35,
+        "read_calls": 3,
+        "stable": true
+      },
+      "seconds": {
+        "prepare_and_ingest": 0.1753405419876799,
+        "export": 0.010952999931760132,
+        "wraith_check_with_reports": 0.027590250014327466,
+        "plain_in_process_no_html": 0.0008083339780569077
+      },
+      "promotion_confirmed": true
+    }
+  ],
+  "search": {
+    "query": "minimum samples inconclusive comparison",
+    "returned_documents": [
+      "dogfooding.md",
+      "sampling.md",
+      "statistical-gating.md"
+    ]
+  },
+  "controls": {
+    "integration_tests_passed": 9,
+    "kind": "deliberate fault controls and normal application transitions",
+    "naturally_discovered_ingestion_defects": 0
+  },
+  "limits": [
+    "One local machine, no repetitions sufficient for statistical inference.",
+    "Wraith subprocess includes JSON and HTML; plain script runs in process without HTML.",
+    "Stage times exclude Python imports; client read_calls are not HTTP request counts.",
+    "Local database has exclusive process ownership; no server/concurrent-reader/crash-durability validation.",
+    "No human-effort, customer-adoption or revenue measurements."
+  ]
+}

@@ -1,0 +1,2 @@
+# Optional example/exporter only. Not part of the Wraith binary.
+qdrant-client==1.19.1

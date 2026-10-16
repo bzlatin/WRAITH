@@ -1,0 +1,2 @@
+{"schema_version": 1, "kind": "manifest", "scope": "demo/support", "generation": "job-42", "complete": true, "stable": true, "record_count": 1}
+{"tenant": "demo", "document_id": "policy", "state": "present", "settled": true, "revision": "8", "expected_chunks": ["0", "1", "2"], "job_id": "ingest-42"}

@@ -1,112 +1,99 @@
 # Wraith
 
-**Before-and-after checks for AI agents.**
+**Catch incomplete AI search indexes before they go live.**
 
-A prompt, model, tool, or retrieval change can fix one task and break another.
-Wraith runs the same scenarios before and after a change, then shows what stopped
-passing and why. Use it locally during development and on pull requests.
+AI applications search small pieces of your documents, called chunks. Wraith checks
+that a loading job stored the chunks it promised, at the intended versions. The
+example workflow keeps the previous index selected when the new one fails its check.
+It runs locally and produces reports and exit codes for your existing workflow.
 
-Connect Python or TypeScript functions, or other languages through a JSON subprocess
-protocol. No Wraith account or hosted service is required.
-
-## What you can catch
-
-| Change | Check |
+| Workflow | Availability |
 | --- | --- |
-| Approval handling changes | A denied action does not execute |
-| A prompt skips a required lookup | The expected tool was called |
-| Retrieval starts returning an outdated policy | The answer contains the current value and cites the expected source |
-| Generated JSON breaks an application contract | Required fields, allowed IDs, item counts, uniqueness, and numeric ranges |
-| A change increases resource use | Recorded latency, token usage, or reported cost stays within your limits |
+| Verify ingestion manifests against a serving index | Experimental source build |
+| Run fixed agent scenarios and compare changes | Released in v0.5.0 |
 
-Reports show failed expectations, baseline/candidate outputs, and recorded activity.
-Harmless output differences stay visible without failing the gate. Wraith checks
-your expectations; it does not automatically judge answer quality.
+## Verify an ingestion job
 
-## When to use it
+A successful job can leave missing chunks, outdated revisions, or data that should
+have been deleted. `wraith index check` compares intended chunk IDs and revisions
+with the actual index export. Findings name the document, affected chunks, and job.
+Incomplete exports and unfinished ingestion return an inconclusive result.
 
-Use Wraith when you need fixed scenario suites, recorded agent activity, and
-portable before/after evidence across implementations. If your existing integration
-tests already answer the review question, they may be enough. Wraith still needs
-reviewed requirements and an adapter.
+From this source checkout, with Rust 1.87+:
 
-The engine has been checked with historical defects and controlled fixtures. In a
-ten-case offline weather study, Wraith and ordinary Python tests detected the same
-fault controls; no new useful regression was caught. Wraith took about seven seconds
-per base/candidate comparison versus two seconds for ordinary tests on the tested Mac.
-[Results and limits](docs/weather-comparison.md) ·
-[Current product assessment](docs/product-assessment.md) · [Verification](docs/verification.md).
+```sh
+cargo run --locked -p wraith-cli -- index check \
+  --manifest examples/index-audit/manifest.jsonl \
+  --inventory examples/index-audit/partial.jsonl
+```
 
-## Try it in five minutes
+Expect exit 1: chunk `1` is missing. Replace `partial.jsonl` with `complete.jsonl`
+to see a passing check. Add `--html .wraith/ingestion/report.html` for a local report.
+This example needs no database, Python, API key, or model calls.
 
-Download [install.py](https://github.com/bzlatin/WRAITH/releases/download/v0.5.0/install.py)
-and install the native binary:
+Use the check after ingestion or before promoting a new index generation. It needs
+an authoritative manifest created before writes and consistent exports. It does
+not judge answer quality or automatically repair data.
+[Try the LlamaIndex document-search workflow](docs/verified-ingestion.md) ·
+[Connect Qdrant or another index](docs/index-audit.md) ·
+[Inspect recovery and old indexes](docs/ingestion-operations.md) ·
+[Research and current limits](docs/index-product-decision.md).
+
+## Check an agent change
+
+The released workflow runs the same scenarios before and after a prompt, model,
+tool, or retrieval change. Reports show failed expectations, both outputs, and
+recorded activity. You define what must stay correct; harmless output differences
+remain visible without failing the gate.
+
+Download [install.py](https://github.com/bzlatin/WRAITH/releases/download/v0.5.0/install.py),
+then install the native binary and try the offline demo in an empty directory:
 
 ```sh
 python3 install.py --version 0.5.0
-```
-
-Add the printed directory to PATH. In an empty directory:
-
-```sh
+# Add the printed installation directory to PATH.
 wraith init --demo
 wraith doctor
 wraith baseline
 wraith check
 ```
 
-Open `.wraith/index.html` in your browser. The demo needs Python 3.10+ and no API
-key. Native packages support macOS, Linux, and Windows without Rust. On Windows,
-use `python` instead of `python3`. [Installation details](docs/install.md) ·
-[Try a deliberate failure](docs/dogfooding.md).
+Open `.wraith/index.html`. The demo needs Python 3.10+ and no API key. Native packages
+support macOS, Linux, and Windows; use `python` on Windows.
+[Installation](docs/install.md) · [Try a deliberate failure](docs/dogfooding.md).
+**The published v0.5.0 binary does not include `index check`.**
 
-## Use your own agent
+Connect Python or TypeScript functions with `wraith init --entrypoint agent.py:evaluate`,
+or another language through the JSON subprocess protocol. Review the generated
+inputs and expectations, save a baseline, then use `wraith check` during changes.
+The baseline stays fixed until explicitly replaced.
+[Integration guide](docs/getting-started.md) · [Offline PR checks](docs/ci-setup.md).
 
-Export a function accepting `(input, context)` and returning JSON:
+## Evidence and privacy
 
-```sh
-wraith init --entrypoint agent.py:evaluate
-# TypeScript: wraith init --entrypoint agent.ts:evaluate
-```
+The LlamaIndex/Qdrant example blocks incomplete candidate indexes and inspects
+recovery evidence without deleting data. A repeated-update comparison used public
+CPython documents: Wraith and plain reconciliation made matching decisions in all
+14 steps per checker. This supports the integration's technical utility; the study
+did not establish an additional operational benefit from the Rust checker.
+[An upstream LlamaIndex recipe](docs/upstream-ingestion.md) also passed four normal
+transitions with both checkers, using a public transformation hook. Wraith remains
+an optional local utility; commercial expansion is paused pending a concrete advantage.
+[Results and limits](docs/repeated-ingestion.md) · [Recovery](docs/ingestion-operations.md) · [Tool comparison](docs/index-product-decision.md).
 
-Review the generated inputs and expectations, then:
+Earlier agent studies demonstrated configured regression detection, without proving
+a workflow advantage over ordinary tests. Repeat adoption and paid demand remain
+unvalidated. [Product assessment](docs/product-assessment.md).
 
-```sh
-wraith doctor
-wraith baseline
-# Change your prompt, model, tools, or retrieval.
-wraith check
-```
+Wraith uploads nothing and collects no telemetry. Your agent or configured database
+exporter may contact services. Reports can contain application data; keep `.wraith/`
+ignored and review artifacts before sharing. No account is required.
 
-Each completed run saves JSON evidence and an HTML report. The baseline stays fixed
-until `wraith baseline --replace`. A passing comparison can retain existing baseline
-failures; reports show them. Start with a few real tasks.
-[The integration guide](docs/getting-started.md) covers examples, instrumentation,
-and live model calls. The current source build adds
-[reviewed initialization and typed case-authoring flags](docs/first-use.md), plus
-[native CI comparisons and offline parallel jobs](docs/workflow-value.md).
+## Documentation
 
-## Add it to your workflow
-
-`wraith ci init` generates an offline GitHub PR check against the exact base commit
-and its policy. Bootstrap your suite and review dependency setup first.
-[CI setup](docs/ci-setup.md).
-
-Use [sampling and statistical gates](docs/statistical-gating.md) for variable outputs.
-Inconclusive results block CI. Live runs require opt-in; budgets count instrumented
-attempts, including failures, but cannot cap hidden SDK retries.
-
-Wraith uploads nothing and collects no telemetry. Your agent may contact services;
-outputs and diagnostics may contain application data. Keep `.wraith/` ignored and
-review reports before sharing them.
-
-## Documentation and examples
-
-[Documentation](docs/README.md) · [Configuration](docs/configuration.md) ·
-[Structured checks](docs/structured-output.md) · [Protocol](docs/protocol.md)
-
-Try the offline [RAG fixture](docs/dogfooding.md#test-a-retrieval-change) or the
-[pinned PydanticAI and LangGraph examples](examples/external-agents/README.md).
+[All guides](docs/README.md) · [Ingestion verification](docs/index-audit.md) ·
+[Agent configuration](docs/configuration.md) · [Structured checks](docs/structured-output.md) ·
+[Statistical gates](docs/statistical-gating.md) · [Protocol](docs/protocol.md) ·
 [Contribute](CONTRIBUTING.md) · [Report a bug](https://github.com/bzlatin/WRAITH/issues).
 
 Apache-2.0. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_LICENSES.txt).

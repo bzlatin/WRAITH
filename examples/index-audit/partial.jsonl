@@ -1,0 +1,2 @@
+{"schema_version": 1, "kind": "inventory", "scope": "demo/support", "generation": "job-42", "complete": true, "stable": true, "record_count": 1}
+{"tenant": "demo", "document_id": "policy", "chunks": [{"id": "0", "revision": "8"}, {"id": "2", "revision": "8"}]}

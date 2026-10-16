@@ -1,0 +1,4 @@
+# Optional offline example; not included in the native binary.
+llama-index-core==0.14.25
+llama-index-vector-stores-qdrant==0.10.4
+qdrant-client==1.19.1

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "completed": true,
+  "source_commit": "619d74664e8404612038bc15a1a40c686037277c",
+  "source_sha256": "2d66879a7aeece066dc782d3e1029d4af957547a91df50218d539c5831a7b31c",
+  "steps": [
+    {
+      "step": "initial",
+      "wraith_exit": 0,
+      "plain_exit": 0,
+      "prewrite_witness": true,
+      "documents": 2,
+      "chunks": 9,
+      "wraith_seconds_json_html": 0.05194299994036555,
+      "plain_seconds_in_process_json": 0.0003340418916195631
+    },
+    {
+      "step": "repeat",
+      "wraith_exit": 0,
+      "plain_exit": 0,
+      "prewrite_witness": true,
+      "documents": 2,
+      "chunks": 9,
+      "wraith_seconds_json_html": 0.02602591714821756,
+      "plain_seconds_in_process_json": 0.00037037511356174946
+    },
+    {
+      "step": "revision",
+      "wraith_exit": 0,
+      "plain_exit": 0,
+      "prewrite_witness": true,
+      "documents": 2,
+      "chunks": 9,
+      "wraith_seconds_json_html": 0.027125291991978884,
+      "plain_seconds_in_process_json": 0.00030454201623797417
+    },
+    {
+      "step": "rename",
+      "wraith_exit": 0,
+      "plain_exit": 0,
+      "prewrite_witness": true,
+      "documents": 2,
+      "chunks": 9,
+      "wraith_seconds_json_html": 0.026226083049550653,
+      "plain_seconds_in_process_json": 0.00036741700023412704
+    }
+  ],
+  "provider_calls": 0,
+  "natural_defects_found": 0,
+  "shared_requirements": [
+    "source revisions and identities",
+    "last transformation hook",
+    "uncached full rebuild without docstore",
+    "isolated collection and visibility barrier",
+    "export and evidence storage",
+    "caller-owned publication"
+  ],
+  "decision": "No integration or decision advantage demonstrated; retain utility and pause SaaS expansion",
+  "platform": "macOS arm64, Python 3.13, Qdrant client 1.19.1, LlamaIndex core 0.14.25, Qdrant integration 0.10.4",
+  "limitations": [
+    "Official documentation recipe, not independent application adoption",
+    "Cloud provider transforms and tokenizer substituted offline",
+    "No natural ingestion defects discovered",
+    "Different output work and process boundaries; timings do not measure human effort",
+    "Qualification attempts 001 and 002 retained incomplete: runner context manager and write witness errors",
+    "No enterprise scale, paid demand or maintenance savings demonstrated"
+  ]
+}

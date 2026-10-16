@@ -1,0 +1,952 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "kind": "frozen repeated-ingestion verifier comparison",
+  "protocol_sha256": "09086b0de29863b1a3015e0a90284fded80ebba2de850d9a32a175aa93d37fd5",
+  "inputs": {
+    "release0": {
+      "documents": 200,
+      "bytes": 3954237,
+      "sha256": "1496f601dd4a9d971ace1eecbe7eb0791c1d850de2513da28f9f17214b918830"
+    },
+    "release1": {
+      "documents": 200,
+      "bytes": 3750046,
+      "sha256": "b061cdd9b20174c9b6cbc4f77b280a0540d0cd77afb55f09c35dc39a8f25b963"
+    },
+    "release2": {
+      "documents": 200,
+      "bytes": 3735096,
+      "sha256": "dae76aac2931dece5497cf1690a6afbcb0ea5e5b257248a24fb873fa2dc554b2"
+    }
+  },
+  "provider_calls": 0,
+  "phases": [
+    {
+      "lane": "wraith",
+      "phase": "release-0",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4725,
+      "planned_chunks": 4725,
+      "delta": {
+        "added": 200,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.026627125102095306,
+      "retirement_review_count": 0,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.9782831249758601,
+        "prepare_and_ingest": 1.7711559999734163,
+        "export": 0.13145995896775275,
+        "verification": 0.042990250047296286,
+        "inspection": 0.004927875008434057
+      },
+      "export_reads": 12,
+      "html_report": true
+    },
+    {
+      "lane": "reference",
+      "phase": "release-0",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4725,
+      "planned_chunks": 4725,
+      "delta": {
+        "added": 200,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.026627125102095306,
+      "retirement_review_count": 0,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8654375419719145,
+        "prepare_and_ingest": 1.7029969580471516,
+        "export": 0.12321079208049923,
+        "verification": 0.010997707955539227,
+        "inspection": 0.005945999990217388
+      },
+      "export_reads": 12,
+      "html_report": false
+    },
+    {
+      "lane": "reference",
+      "phase": "release-1",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4465,
+      "planned_chunks": 4465,
+      "delta": {
+        "added": 17,
+        "removed": 17,
+        "changed": 31
+      },
+      "shared_source_preparation_seconds": 0.021242749993689358,
+      "retirement_review_count": 0,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8086672499775887,
+        "prepare_and_ingest": 1.5761659580748528,
+        "export": 0.18010245892219245,
+        "verification": 0.014285666984505951,
+        "inspection": 0.006904875044710934
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "wraith",
+      "phase": "release-1",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4465,
+      "planned_chunks": 4465,
+      "delta": {
+        "added": 17,
+        "removed": 17,
+        "changed": 31
+      },
+      "shared_source_preparation_seconds": 0.021242749993689358,
+      "retirement_review_count": 0,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8662277079420164,
+        "prepare_and_ingest": 1.5941560419742018,
+        "export": 0.16062216693535447,
+        "verification": 0.04869395901914686,
+        "inspection": 0.009305624989792705
+      },
+      "export_reads": 11,
+      "html_report": true
+    },
+    {
+      "lane": "wraith",
+      "phase": "unchanged-repeat",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4465,
+      "planned_chunks": 4465,
+      "delta": {
+        "added": 0,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.021971457987092435,
+      "retirement_review_count": 1,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.9020479581085965,
+        "prepare_and_ingest": 1.6224096249789,
+        "export": 0.18587995797861367,
+        "verification": 0.046535708010196686,
+        "inspection": 0.011185625102370977
+      },
+      "export_reads": 11,
+      "html_report": true
+    },
+    {
+      "lane": "reference",
+      "phase": "unchanged-repeat",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4465,
+      "planned_chunks": 4465,
+      "delta": {
+        "added": 0,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.021971457987092435,
+      "retirement_review_count": 1,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.7699415000388399,
+        "prepare_and_ingest": 1.5378865409875289,
+        "export": 0.18100470793433487,
+        "verification": 0.010163292055949569,
+        "inspection": 0.01181108399759978
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "reference",
+      "phase": "release-2",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 1,
+        "removed": 1,
+        "changed": 31
+      },
+      "shared_source_preparation_seconds": 0.02288829197641462,
+      "retirement_review_count": 2,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.882557832985185,
+        "prepare_and_ingest": 1.657891791081056,
+        "export": 0.1687755830353126,
+        "verification": 0.01347649993840605,
+        "inspection": 0.013606499996967614
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "wraith",
+      "phase": "release-2",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 1,
+        "removed": 1,
+        "changed": 31
+      },
+      "shared_source_preparation_seconds": 0.02288829197641462,
+      "retirement_review_count": 2,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.878044957993552,
+        "prepare_and_ingest": 1.597181124961935,
+        "export": 0.21079249994363636,
+        "verification": 0.026785667054355145,
+        "inspection": 0.016501291072927415
+      },
+      "export_reads": 11,
+      "html_report": true
+    },
+    {
+      "lane": "wraith",
+      "phase": "rollback-release-1",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4465,
+      "planned_chunks": 4465,
+      "delta": {
+        "added": 1,
+        "removed": 1,
+        "changed": 31
+      },
+      "shared_source_preparation_seconds": 0.025532917003147304,
+      "retirement_review_count": 3,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8443071249639615,
+        "prepare_and_ingest": 1.6238840830046684,
+        "export": 0.1488080839626491,
+        "verification": 0.02540341706480831,
+        "inspection": 0.016835750080645084
+      },
+      "export_reads": 11,
+      "html_report": true
+    },
+    {
+      "lane": "reference",
+      "phase": "rollback-release-1",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4465,
+      "planned_chunks": 4465,
+      "delta": {
+        "added": 1,
+        "removed": 1,
+        "changed": 31
+      },
+      "shared_source_preparation_seconds": 0.025532917003147304,
+      "retirement_review_count": 3,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8087346669053659,
+        "prepare_and_ingest": 1.5220174579881132,
+        "export": 0.23241541697643697,
+        "verification": 0.01153316698037088,
+        "inspection": 0.01780599995981902
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "reference",
+      "phase": "duplicate-content",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 201,
+      "selected_documents": 201,
+      "selected_points": 4472,
+      "planned_chunks": 4472,
+      "delta": {
+        "added": 1,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.025319874985143542,
+      "retirement_review_count": 4,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8321049580117688,
+        "prepare_and_ingest": 1.62562479195185,
+        "export": 0.15019941597711295,
+        "verification": 0.01308791700284928,
+        "inspection": 0.020098333014175296
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "wraith",
+      "phase": "duplicate-content",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 201,
+      "selected_documents": 201,
+      "selected_points": 4472,
+      "planned_chunks": 4472,
+      "delta": {
+        "added": 1,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.025319874985143542,
+      "retirement_review_count": 4,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.836806207895279,
+        "prepare_and_ingest": 1.6152839999413118,
+        "export": 0.14479662501253188,
+        "verification": 0.027027665986679494,
+        "inspection": 0.020622291951440275
+      },
+      "export_reads": 11,
+      "html_report": true
+    },
+    {
+      "lane": "wraith",
+      "phase": "rename-document",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 201,
+      "selected_documents": 201,
+      "selected_points": 4472,
+      "planned_chunks": 4472,
+      "delta": {
+        "added": 1,
+        "removed": 1,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.026996291941031814,
+      "retirement_review_count": 5,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8407982920762151,
+        "prepare_and_ingest": 1.5715175420045853,
+        "export": 0.18492475000675768,
+        "verification": 0.0414441250031814,
+        "inspection": 0.02076345798559487
+      },
+      "export_reads": 11,
+      "html_report": true
+    },
+    {
+      "lane": "reference",
+      "phase": "rename-document",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 201,
+      "selected_documents": 201,
+      "selected_points": 4472,
+      "planned_chunks": 4472,
+      "delta": {
+        "added": 1,
+        "removed": 1,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.026996291941031814,
+      "retirement_review_count": 5,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8079438329441473,
+        "prepare_and_ingest": 1.592274208087474,
+        "export": 0.1668177080573514,
+        "verification": 0.012357916915789247,
+        "inspection": 0.021458333008922637
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "reference",
+      "phase": "remove-five",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 196,
+      "selected_documents": 196,
+      "selected_points": 4417,
+      "planned_chunks": 4417,
+      "delta": {
+        "added": 0,
+        "removed": 5,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.021341125015169382,
+      "retirement_review_count": 6,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.867043707985431,
+        "prepare_and_ingest": 1.6280128330690786,
+        "export": 0.17426720808725804,
+        "verification": 0.016115000005811453,
+        "inspection": 0.02525274991057813
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "wraith",
+      "phase": "remove-five",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 196,
+      "selected_documents": 196,
+      "selected_points": 4417,
+      "planned_chunks": 4417,
+      "delta": {
+        "added": 0,
+        "removed": 5,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.021341125015169382,
+      "retirement_review_count": 6,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8826482499716803,
+        "prepare_and_ingest": 1.5820310829440132,
+        "export": 0.2103982080006972,
+        "verification": 0.044822540949098766,
+        "inspection": 0.026789458002895117
+      },
+      "export_reads": 11,
+      "html_report": true
+    },
+    {
+      "lane": "wraith",
+      "phase": "restore-release-2",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 5,
+        "removed": 1,
+        "changed": 31
+      },
+      "shared_source_preparation_seconds": 0.02147774992045015,
+      "retirement_review_count": 7,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8438809999497607,
+        "prepare_and_ingest": 1.6253155830781907,
+        "export": 0.1463127910392359,
+        "verification": 0.025601333007216454,
+        "inspection": 0.028522167005576193
+      },
+      "export_reads": 11,
+      "html_report": true
+    },
+    {
+      "lane": "reference",
+      "phase": "restore-release-2",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 5,
+        "removed": 1,
+        "changed": 31
+      },
+      "shared_source_preparation_seconds": 0.02147774992045015,
+      "retirement_review_count": 7,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.9041527910158038,
+        "prepare_and_ingest": 1.7335425410419703,
+        "export": 0.11860479100141674,
+        "verification": 0.010127624962478876,
+        "inspection": 0.029027416021563113
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "reference",
+      "phase": "partial-write",
+      "kind": "control",
+      "expected_gate": 1,
+      "observed_gate": 1,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 0,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.02095054101664573,
+      "retirement_review_count": 7,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8050205829786137,
+        "prepare_and_ingest": 1.607024041004479,
+        "export": 0.17332279193215072,
+        "verification": 0.013263416942209005,
+        "inspection": 0.03097166703082621
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "wraith",
+      "phase": "partial-write",
+      "kind": "control",
+      "expected_gate": 1,
+      "observed_gate": 1,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 0,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.02095054101664573,
+      "retirement_review_count": 7,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8711487499531358,
+        "prepare_and_ingest": 1.6419858749723062,
+        "export": 0.18901620898395777,
+        "verification": 0.02612620801664889,
+        "inspection": 0.028567083063535392
+      },
+      "export_reads": 11,
+      "html_report": true
+    },
+    {
+      "lane": "wraith",
+      "phase": "missing-revision",
+      "kind": "control",
+      "expected_gate": 3,
+      "observed_gate": 3,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 0,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.019879666971974075,
+      "retirement_review_count": 7,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.8611017079092562,
+        "prepare_and_ingest": 1.6342347089666873,
+        "export": 0.16256262501701713,
+        "verification": 0.04552275000605732,
+        "inspection": 0.030772625003010035
+      },
+      "export_reads": 11,
+      "html_report": true
+    },
+    {
+      "lane": "reference",
+      "phase": "missing-revision",
+      "kind": "control",
+      "expected_gate": 3,
+      "observed_gate": 3,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 0,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.019879666971974075,
+      "retirement_review_count": 7,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.7862844999181107,
+        "prepare_and_ingest": 1.563246125006117,
+        "export": 0.20123999996576458,
+        "verification": 0.010302416980266571,
+        "inspection": 0.03344091691542417
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "reference",
+      "phase": "lost-receipt",
+      "kind": "control",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_verified_receipt_missing",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 0,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.023812250001356006,
+      "retirement_review_count": 8,
+      "execution_control": "OSError",
+      "seconds": {
+        "job_total": 2.011029209010303,
+        "prepare_and_ingest": 1.8167965419124812,
+        "export": 0.14157395903021097,
+        "verification": 0.01565758406650275,
+        "inspection": 0.03468487493228167
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "wraith",
+      "phase": "lost-receipt",
+      "kind": "control",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_verified_receipt_missing",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 0,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.023812250001356006,
+      "retirement_review_count": 8,
+      "execution_control": "OSError",
+      "seconds": {
+        "job_total": 1.870386749971658,
+        "prepare_and_ingest": 1.6779518750263378,
+        "export": 0.11818291700910777,
+        "verification": 0.024303457932546735,
+        "inspection": 0.03710720804519951
+      },
+      "export_reads": 11,
+      "html_report": true
+    },
+    {
+      "lane": "wraith",
+      "phase": "empty-feed",
+      "kind": "control",
+      "expected_gate": 3,
+      "observed_gate": 3,
+      "misdiagnoses": 0,
+      "recovery": "selected_verified_receipt_missing",
+      "source_documents": 0,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 0,
+      "delta": {
+        "added": 0,
+        "removed": 200,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 6.554194260388613e-05,
+      "retirement_review_count": 8,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 0.330929416930303,
+        "prepare_and_ingest": 0.29714549996424466,
+        "export": 0.007224125089123845,
+        "verification": 0.024301499943248928,
+        "inspection": 0.04384620790369809
+      },
+      "export_reads": 3,
+      "html_report": true
+    },
+    {
+      "lane": "reference",
+      "phase": "empty-feed",
+      "kind": "control",
+      "expected_gate": 3,
+      "observed_gate": 3,
+      "misdiagnoses": 0,
+      "recovery": "selected_verified_receipt_missing",
+      "source_documents": 0,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 0,
+      "delta": {
+        "added": 0,
+        "removed": 200,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 6.554194260388613e-05,
+      "retirement_review_count": 8,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 0.28775841707829386,
+        "prepare_and_ingest": 0.279331750003621,
+        "export": 0.005932375090196729,
+        "verification": 0.0005361249204725027,
+        "inspection": 0.042219583061523736
+      },
+      "export_reads": 3,
+      "html_report": false
+    },
+    {
+      "lane": "reference",
+      "phase": "resume-release-2",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 200,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.02222041692584753,
+      "retirement_review_count": 8,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.95013662497513,
+        "prepare_and_ingest": 1.7596823340281844,
+        "export": 0.13877708301879466,
+        "verification": 0.012599791982211173,
+        "inspection": 0.04034058400429785
+      },
+      "export_reads": 11,
+      "html_report": false
+    },
+    {
+      "lane": "wraith",
+      "phase": "resume-release-2",
+      "kind": "normal",
+      "expected_gate": 0,
+      "observed_gate": 0,
+      "misdiagnoses": 0,
+      "recovery": "selected_with_receipt",
+      "source_documents": 200,
+      "selected_documents": 200,
+      "selected_points": 4445,
+      "planned_chunks": 4445,
+      "delta": {
+        "added": 200,
+        "removed": 0,
+        "changed": 0
+      },
+      "shared_source_preparation_seconds": 0.02222041692584753,
+      "retirement_review_count": 8,
+      "execution_control": null,
+      "seconds": {
+        "job_total": 1.7586262499680743,
+        "prepare_and_ingest": 1.5614323749905452,
+        "export": 0.11678858299273998,
+        "verification": 0.030041999998502433,
+        "inspection": 0.04397954198066145
+      },
+      "export_reads": 11,
+      "html_report": true
+    }
+  ],
+  "mechanical_setup": {
+    "server_and_empty_histories_seconds": 0.13707037502899766,
+    "source_snapshot_load_seconds": 0.0888190830592066,
+    "dependency_install_seconds": null,
+    "human_authoring_seconds": null,
+    "shared_integration_requirements": [
+      "trusted pre-write chunk manifest",
+      "identity/revision payload fields",
+      "quiescent candidate generation",
+      "job evidence directory",
+      "alias promotion ownership"
+    ],
+    "native_binary_used_only_by": "wraith lane"
+  },
+  "comparison": "same operational wrapper; only checker differs",
+  "storage_observation": {
+    "logical_bytes": 9368573014,
+    "allocated_bytes": 836354048,
+    "files": 1912
+  },
+  "totals": {
+    "wraith": {
+      "attempts": 14,
+      "normal_steps": 10,
+      "misdiagnoses": 0,
+      "verification_seconds": 0.4796005820389837,
+      "job_seconds": 24.56523749860935,
+      "median_inspection_seconds": 0.023776457994244993
+    },
+    "reference": {
+      "attempts": 14,
+      "normal_steps": 10,
+      "misdiagnoses": 0,
+      "verification_seconds": 0.16450412769336253,
+      "job_seconds": 24.386813415796496,
+      "median_inspection_seconds": 0.023355541459750384
+    }
+  },
+  "decision": "functional parity on the frozen workload; no incremental operational benefit demonstrated for the Rust checker over reconciliation in the shared wrapper",
+  "date": "2026-10-15",
+  "environment": {
+    "os": "macOS",
+    "architecture": "arm64",
+    "python": "3.13.0",
+    "qdrant": "1.19.0",
+    "wraith": "release, Rust 1.87.0"
+  },
+  "public_snapshot_selection": "first 200 sorted regular Doc/library/**/*.rst files from each release, imported as plain text; selection changes are not a count of upstream file deletions",
+  "provenance": {
+    "3.13.0": {
+      "commit": "60403a5409ff2c3f3b07dd2ca91a7a3e096839c7",
+      "archive_sha256": "37c8e18b35e659da6ff4db74caea50ed4170cf66c6d51f97d22e436e338d7b5b"
+    },
+    "3.13.1": {
+      "commit": "067145177975eadd61a0c907d0d177f7b6a5a3de",
+      "archive_sha256": "0b6d65938149865c981de9ee61626998479b154e92895022493a04d5c0db80d7"
+    },
+    "3.13.2": {
+      "commit": "4f8bb3947cfbc20f970ff9d9531e1132a9e95396",
+      "archive_sha256": "8bf75c04592f43fcfcf25aa8019f1d473f0d12436a603b922c4657862a72e076"
+    }
+  },
+  "cases": {
+    "per_lane": 14,
+    "normal_transitions_per_lane": 10,
+    "deliberate_controls_per_lane": 4,
+    "expected_blocks_per_lane": {
+      "partial_write": 1,
+      "missing_revision_inconclusive": 1,
+      "empty_feed_inconclusive": 1
+    },
+    "receipt_failure_controls_per_lane": 1,
+    "naturally_discovered_ingestion_defects": 0,
+    "misdiagnoses_in_completed_sequence": 0,
+    "functional_parity": true
+  },
+  "limits": [
+    "Finite scripted workload, not independent developer adoption or a production false-positive estimate.",
+    "Shared ingestion, publication, hash binding and inspection deliberately isolate the verifier; do not attribute their benefits uniquely to the Rust checker.",
+    "Reference only supports trusted application exports in this workload; no comparison of arbitrary untrusted inputs, larger-scale memory bounds or report UX.",
+    "Wraith emits JSON and HTML; reference emits JSON. Verification times include different work and do not estimate human effort or causal performance.",
+    "Source preparation and server setup are mechanical observations; dependency installation, network time and human authoring effort are unmeasured.",
+    "Intentional publication of an empty corpus remains unsupported by this full-rebuild example; empty-feed control conservatively keeps the previous index.",
+    "All index data and evidence are retained; retirement is a read-only review list. No deletion, paid model requests, customer outreach or revenue study.",
+    "Only macOS executed locally. Linux CI is configured but has not run on GitHub."
+  ]
+}

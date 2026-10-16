@@ -37,6 +37,46 @@ jobs:
         run: python3 -m unittest discover -s tests -v
       - name: Offline RAG pilot
         run: python3 scripts/pilot.py --repeats 1
+      - name: Local Qdrant ingestion verification
+        if: runner.os == 'Linux'
+        run: |
+          python3 -m pip install --disable-pip-version-check -r examples/index-audit/requirements.txt
+          python3 examples/index-audit/demo.py --wraith target/debug/wraith --output .wraith/index-ci
+      - name: Verified LlamaIndex ingestion workflow
+        if: runner.os == 'Linux'
+        run: |
+          python3 -m pip install --disable-pip-version-check -r examples/verified-ingestion/requirements.txt
+          python3 examples/verified-ingestion/tests/test_workflow.py --wraith target/debug/wraith -v
+          python3 examples/verified-ingestion/search.py --db .wraith/search-ci ingest --source examples/verified-ingestion/documents --output .wraith/ingestion-ci/first --wraith target/debug/wraith --compare-plain
+          python3 examples/verified-ingestion/search.py --db .wraith/search-ci query 'refund payment'
+          python3 examples/verified-ingestion/search.py --db .wraith/search-ci inspect --history .wraith/ingestion-ci --json .wraith/ingestion-ci/inspection.json
+      - name: Qdrant server interruption and reader checks
+        if: runner.os == 'Linux'
+        timeout-minutes: 5
+        run: |
+          python3 examples/verified-ingestion/fetch_fixtures.py --output .wraith/qdrant-server-bin
+          python3 examples/verified-ingestion/server_check.py --qdrant-binary .wraith/qdrant-server-bin/qdrant --source examples/verified-ingestion/documents --output .wraith/ingestion-server-ci --wraith target/debug/wraith
+      - name: Upstream ingestion extension compatibility
+        if: runner.os == 'Linux'
+        timeout-minutes: 2
+        run: |
+          python3 examples/verified-ingestion/upstream_check.py --prepare .wraith/upstream-ci-source
+          python3 examples/verified-ingestion/upstream_check.py --upstream .wraith/upstream-ci-source --wraith target/debug/wraith --output .wraith/upstream-ci
+      - name: Preserve ingestion evidence
+        if: always() && runner.os == 'Linux'
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: ingestion-evidence
+          path: |
+            .wraith/index-ci/
+            .wraith/ingestion-ci/
+            .wraith/ingestion-server-ci/
+            .wraith/upstream-ci/
+            !.wraith/ingestion-server-ci/server/storage/**
+            !.wraith/ingestion-server-ci/server/snapshots/**
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 14
       - name: TypeScript compilation
         working-directory: examples/typescript-agent
         run: |

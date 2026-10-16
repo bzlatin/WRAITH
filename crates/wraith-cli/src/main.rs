@@ -1,6 +1,7 @@
 mod cases;
 mod ci;
 mod ci_check;
+mod index;
 mod project;
 mod render;
 mod report;
@@ -27,6 +28,11 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
+    /// Verify an ingestion manifest against a serving-index export (experimental).
+    Index {
+        #[command(subcommand)]
+        command: index::Commands,
+    },
     /// Create a configuration and a deterministic example agent.
     Init {
         #[arg(long)]
@@ -146,6 +152,7 @@ enum Output {
 
 async fn execute(cli: Cli, cancellation: Cancellation) -> Result<u8, Error> {
     match cli.command {
+        Commands::Index { command } => index::execute(command, cancellation).await,
         Commands::Init {
             entrypoint,
             language,

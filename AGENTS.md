@@ -170,3 +170,68 @@ controls separate from natural catches. Preserve qualification drafts and comple
 evidence. Report process-isolation differences and machine timing separately from
 human savings. The current decision pauses feature expansion and commercial-service
 work until a concrete repeated workflow benefit is demonstrated.
+
+## Experimental ingestion verification
+
+Read `docs/index-product-decision.md` and `docs/index-audit.md` before changing
+`wraith index check` or `adapters/index/`. Keep database SDKs outside Rust core.
+Index exports/reports use their own schema 1. Exact identities are scoped by tenant
+and document; content equality must not collapse source identities.
+
+Expected manifests must come from intended ingestion, never from observed output.
+Incomplete scans, missing revision/manifest data and concurrent writes cannot pass.
+An absent source entry is not a deletion tombstone. Quiescence is an explicit
+exporter attestation; equal counts do not establish snapshot consistency. Keep
+read-only checks separate from repair, retrieval exposure and compliance claims.
+Run the index Rust tests and `scripts/tests/test_index_export.py`; validate optional
+Qdrant changes with the local demo. Controlled defects and scale measurements are
+engineering evidence, not adoption or revenue. The original broad expansion pause
+remains in effect outside this bounded capability.
+
+For `examples/verified-ingestion/`, read `docs/verified-ingestion.md`. The optional
+LlamaIndex integration is a full local rebuild: create expectations before writes,
+keep candidate collections separate, promote only after exit 0, and retain failed
+attempts. Do not enable writes to arbitrary or existing servers, or claim concurrent-reader
+safety from local Qdrant tests. The owned loopback server runner has its own explicit scope. Run its separate `tests/test_workflow.py --wraith <source-binary>`
+with the pinned optional dependencies. Keep plain-script results and injected faults
+distinct from natural findings, human savings and adoption.
+
+Read `docs/ingestion-server-checks.md` before operating `server_check.py`. It starts
+its own disposable loopback server and uses only deliberate controls. Never point
+it at an existing database or claim distributed publisher safety. Preserve completed
+and incomplete run directories; do not overwrite old results. Keep killed-publisher
+orchestration separate from the missing-chunk gate and from naturally found defects.
+Report logical file lengths separately from allocated blocks; neither is customer ROI.
+The optional fixture downloader pins public binary/archive hashes. No server binary
+or downloaded corpus belongs in Git. Linux CI wiring does not establish a successful
+GitHub execution until it has actually run.
+
+Read `docs/ingestion-operations.md` before changing the optional recovery inspector.
+It is read-only and its retirement list is for review, never deletion authorization.
+Protect every actual alias, retained rollback copies, unfinished-job references and
+unbound/invalid evidence. Historical build verification is not live-content health.
+Keep old evidence untouched: new job records and evidence hashes use integration
+schema 1, separately from native workflow/run/report schemas. Do not retroactively
+bind legacy history. Compare trusted-input script answers and validation limits
+honestly; controlled recovery cases do not prove adoption or human time savings.
+Run the stdlib inspection tests and the owned-server controls when decisions change.
+
+Read `docs/repeated-ingestion.md` before running `repeat_workflow.py`. Freeze and
+preserve protocol, inputs, completed and incomplete results. Both lanes share the
+operational wrapper; only the checker changes. Never attribute shared recovery,
+hash validation or retention rules uniquely to Rust. The reference's trusted-export
+scope and JSON-only output differ from native validation/HTML; report those limits.
+Job/verification metadata explicitly labels the verifier; reject conflicting or
+unknown labels. The ordinary CLI keeps Wraith as its verifier. Public-release
+snapshot membership changes are not necessarily upstream file deletions. Keep
+normal transitions, deliberate faults and inconclusive outcomes separate. Current
+results justify keeping the integration and pausing further feature/SaaS expansion.
+
+Read `docs/upstream-ingestion.md` before changing the optional LlamaIndex manifest
+hook or `upstream_check.py`. Use public transformation hooks, not framework patches.
+The hook is for uncached synchronous single-worker rebuilds without a docstore;
+reject skip modes. Capture source revisions before writes and append capture last.
+Keep the hash-pinned upstream recipe and license, offline provider substitutions,
+qualification errors and ordinary source changes explicit. Both checkers share
+the capture/export work. Routine CI uses this focused compatibility check; do not
+repeat full product studies on every push or claim maintenance savings from LOC.
