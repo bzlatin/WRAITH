@@ -43,7 +43,7 @@ test('installed standalone preview creates a working demo and connects through M
   assert.ok(!config.includes('node_modules'));
   assert.ok(!config.includes('approval_mode'));
   const unattended = cli('codex-config','--root',demo,'--allow-read-tools');
-  assert.equal((unattended.match(/approval_mode = "auto"/g)||[]).length,3);
+  assert.equal((unattended.match(/approval_mode = "approve"/g)||[]).length,3);
   for (const name of ['code_context','code_symbols','code_references']) assert.ok(unattended.includes('[mcp_servers.wraith_context.tools.'+name+']'));
   assert.ok(!unattended.includes('default_tools_approval_mode'));
   assert.ok(!unattended.includes('approval_policy'));

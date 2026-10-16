@@ -159,3 +159,11 @@ The controller refuses to overwrite the output. It verifies the original result
 hashes and public aggregate; changing old evidence causes an error rather than a
 new success. Raw traces remain local. The public audit contains counts/hashes,
 no machine paths, credentials or model conversation text.
+
+## Subsequent integration result
+
+A separately approved [MCP preflight and comparison](code-context-integrated-study.md)
+verified actual model-directed context with per-tool `approve`. The earlier `auto`
+setting still denied access. One Hono pair completed; the next Zod session passed
+its selected tests but timed out before a completed turn, stopping the comparison.
+The full benefit assessment remains incomplete; old evidence and allowances stay closed.

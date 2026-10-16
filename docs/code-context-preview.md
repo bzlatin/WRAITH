@@ -112,3 +112,11 @@ frozen sources, complete/incomplete evidence and unused request capacity stay fi
 The subsequently approved [repaired-client study](code-context-codex-study.md)
 confirmed subscription access but stopped on its first native timeout. It does
 not establish a development-benefit comparison or independent adoption.
+
+## Subsequent integration result
+
+A separately approved [MCP preflight and comparison](code-context-integrated-study.md)
+verified actual model-directed context with per-tool `approve`. The earlier `auto`
+setting still denied access. One Hono pair completed; the next Zod session passed
+its selected tests but timed out before a completed turn, stopping the comparison.
+The full benefit assessment remains incomplete; old evidence and allowances stay closed.

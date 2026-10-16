@@ -38,3 +38,5 @@ are historical context, not setup instructions or pending work.
 - [Repaired-client Codex study](code-context-codex-study.md): successful subscription access, a stopped native run and sandbox test qualification.
 
 - [Prepared-test study and MCP approvals](code-context-ready-tests.md): preserved failed integration, explicit read-tool approval and current readiness.
+
+- [Actual Codex MCP study](code-context-integrated-study.md): working model-directed context, one completed pair, preserved timeout and an incomplete benefit assessment.

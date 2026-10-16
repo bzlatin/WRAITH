@@ -59,3 +59,11 @@ unattended MCP workflow still needs the integrated preflight above. The product
 benefit requirement remains incomplete. Keep the source utility available with
 these limits, and keep hosted work, scaling claims and monetization promises
 paused. No independent repeat use or paid commitment has been observed.
+
+## Subsequent integration result
+
+A separately approved [MCP preflight and comparison](code-context-integrated-study.md)
+verified actual model-directed context with per-tool `approve`. The earlier `auto`
+setting still denied access. One Hono pair completed; the next Zod session passed
+its selected tests but timed out before a completed turn, stopping the comparison.
+The full benefit assessment remains incomplete; old evidence and allowances stay closed.

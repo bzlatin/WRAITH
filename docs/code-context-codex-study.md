@@ -80,3 +80,11 @@ demand remain unproven.
 
 Any further live experiment requires a new approval and budget. The old stopped
 attempts and this nine-session experiment remain closed.
+
+## Subsequent integration result
+
+A separately approved [MCP preflight and comparison](code-context-integrated-study.md)
+verified actual model-directed context with per-tool `approve`. The earlier `auto`
+setting still denied access. One Hono pair completed; the next Zod session passed
+its selected tests but timed out before a completed turn, stopping the comparison.
+The full benefit assessment remains incomplete; old evidence and allowances stay closed.

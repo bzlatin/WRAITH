@@ -19,7 +19,7 @@ function codexConfig(argv) {
   if (allowReads) {
     result += '# Allow these three local read tools without a per-call prompt.\n';
     for (const tool of ['code_context','code_symbols','code_references']) {
-      result += '\n[mcp_servers.wraith_context.tools.'+tool+']\napproval_mode = "auto"\n';
+      result += '\n[mcp_servers.wraith_context.tools.'+tool+']\napproval_mode = "approve"\n';
     }
   }
   return result;

@@ -64,3 +64,7 @@ slots were consumed; four are closed. Preserve these as failed integration evide
 not Wraith performance. The optional `--allow-read-tools` configuration flag grants
 only the three named read tools; it leaves default/global approvals unchanged.
 Host-dispatched MCP calls do not validate model-mediated approval behavior.
+
+The owner approved the fresh 12-session experiment in `experiments/code-context/study/integrated-codex-protocol.json`: up to four configuration-only model-directed MCP setup checks, followed by eight frozen 180-second development comparisons. Freeze successful configuration before task runs; all attempts consume the shared cap, no task retries, no API keys, and earlier allowances remain closed. Preserve every setup variant and stopped record.
+
+This 12-session attempt is now closed: read `docs/code-context-integrated-study.md`. Two setup and three coding sessions consumed five slots; seven unused slots are closed. Per-tool `approve` works for actual model-directed calls; `auto` did not. Hono completed in both lanes, then Zod timed out after passing tests; five coding runs are not run. The full comparison/goal remains incomplete. Preserve all evidence, do not rerun, tune retrieval, expand hosted work or infer paid demand. The packaging helper now emits the working `approve` value only with the explicit flag.

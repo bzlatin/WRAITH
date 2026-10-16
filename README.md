@@ -49,8 +49,11 @@ changed and two tasks took longer. These observations do not establish reliable
 savings, independent adoption or paid demand.
 [Full results and limits](docs/code-context-followup.md).
 
-Actual Codex checks exposed setup and approval issues. Comparative benefit for
-optional MCP use remains unproven. [Current readiness and limits](docs/code-context-ready-tests.md).
+The actual Codex MCP integration now works. In the one completed comparison,
+both workflows passed 56 Hono tests; native search took 28.25 seconds and Wraith
+took 44.12 seconds. A later Wraith run passed 162 Zod tests but timed out before
+its final response, stopping the study. **A workflow advantage remains unproven.**
+[Actual Codex results and limits](docs/code-context-integrated-study.md).
 
 Trying it on your own work? Share what helped, what was missing and whether you
 chose to use it again. [Trial feedback](https://github.com/bzlatin/WRAITH/issues/new?template=context-feedback.yml)

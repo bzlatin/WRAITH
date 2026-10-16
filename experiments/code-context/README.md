@@ -71,8 +71,11 @@ estimated provider cost was 14.7% lower, but median cost barely changed and two
 tasks took longer. These observations do not establish reliable savings or demand.
 [Results and methodology](../../docs/code-context-followup.md).
 
-The subsequent actual Codex comparison was blocked by account/model compatibility
-before coding began. [Assessment and stop decision](../../docs/code-context-codex-assessment.md).
+The actual Codex integration now returns model-directed MCP context. Its one
+completed Hono pair passed the same 56 tests, but Wraith took 44.12 seconds versus
+28.25 for native search. The next Wraith session passed 162 Zod tests but timed out
+before a final response; the comparison stopped. A workflow advantage is still
+unproven. [Latest results and decision](../../docs/code-context-integrated-study.md).
 
 Try it on your own task and tell us what helped, what was missing and whether you
 chose to use it again. [Trial feedback](https://github.com/bzlatin/WRAITH/issues/new?template=context-feedback.yml)

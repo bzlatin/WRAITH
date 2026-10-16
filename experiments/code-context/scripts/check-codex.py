@@ -57,7 +57,7 @@ def main():
                 resolved = client.call('config/read',dict(includeLayers=False),timeout=20)
                 settings = resolved['config']['mcp_servers']['wraith_context']['tools']
                 modes = {name:settings[name]['approval_mode'] for name in tools}
-                if any(mode!='auto' for mode in modes.values()): raise ValueError('Explicit read-tool approval configuration did not resolve')
+                if any(mode!='approve' for mode in modes.values()): raise ValueError('Explicit read-tool approval configuration did not resolve')
                 record['read_tool_approval_modes'] = modes
             if args.call_tool:
                 thread = client.call('thread/start',dict(cwd=str(args.root.resolve()),ephemeral=True,
