@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "experiment": "code-context-2026-10-16",
+  "platform_tested": "macOS arm64; Node.js 22.19.0; Python 3.13.0",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "requests_reserved": 135,
+  "authorized_cap": 180,
+  "protocol_sha256": "eb10a462e164a476cc5a32e3e49e0bdc1b68612722dcd9c6b671b0166f1c2b45",
+  "tasks_sha256": "e332f0de96c9867dbb050da5b5bbdb3c5fab8cf34a28751f83f1f2b380d8ca63",
+  "candidate_sha256": {
+    "cli.cjs": "81a6138f3c5cc135159acdb31c00a2219eab3eb6ebb4e1fe21d10415fde01e10",
+    "lib/index.cjs": "1b41a1d4ab45845df0ab90ad41ae5e5d7c49df277e21fe5f3e6261a31e16cc07",
+    "lib/repository.cjs": "75d4b5accc24a0173d420cd3f52ec9b2c4024c0cb7c97878532007669f23f24b"
+  },
+  "results": [
+    {
+      "task": "hono-historical",
+      "lane": "native",
+      "status": "request_limit",
+      "acceptance": "failed",
+      "requests_attempted": 15,
+      "requests_completed": 15,
+      "task_loop_seconds": 27.645,
+      "task_and_final_check_seconds": 28.086,
+      "mcp_startup_seconds": 0.0,
+      "input_tokens": 131934,
+      "cached_input_tokens": 111872,
+      "output_tokens": 2794,
+      "list_price_estimate_usd": "0.036010"
+    },
+    {
+      "task": "hono-historical",
+      "lane": "serena",
+      "status": "request_limit",
+      "acceptance": "passed",
+      "requests_attempted": 15,
+      "requests_completed": 15,
+      "task_loop_seconds": 26.044,
+      "task_and_final_check_seconds": 26.482,
+      "mcp_startup_seconds": 1.176,
+      "input_tokens": 133805,
+      "cached_input_tokens": 113664,
+      "output_tokens": 3051,
+      "list_price_estimate_usd": "0.037360"
+    },
+    {
+      "task": "hono-historical",
+      "lane": "candidate",
+      "status": "request_limit",
+      "acceptance": "failed",
+      "requests_attempted": 15,
+      "requests_completed": 15,
+      "task_loop_seconds": 18.318,
+      "task_and_final_check_seconds": 18.828,
+      "mcp_startup_seconds": 0.278,
+      "input_tokens": 117285,
+      "cached_input_tokens": 94720,
+      "output_tokens": 1411,
+      "list_price_estimate_usd": "0.030377"
+    },
+    {
+      "task": "zod-historical",
+      "lane": "serena",
+      "status": "request_limit",
+      "acceptance": "failed",
+      "requests_attempted": 15,
+      "requests_completed": 15,
+      "task_loop_seconds": 18.591,
+      "task_and_final_check_seconds": 19.451,
+      "mcp_startup_seconds": 1.136,
+      "input_tokens": 125024,
+      "cached_input_tokens": 107008,
+      "output_tokens": 1250,
+      "list_price_estimate_usd": "0.027163"
+    },
+    {
+      "task": "zod-historical",
+      "lane": "candidate",
+      "status": "request_limit",
+      "acceptance": "failed",
+      "requests_attempted": 15,
+      "requests_completed": 15,
+      "task_loop_seconds": 15.17,
+      "task_and_final_check_seconds": 16.028,
+      "mcp_startup_seconds": 0.26,
+      "input_tokens": 136507,
+      "cached_input_tokens": 117760,
+      "output_tokens": 695,
+      "list_price_estimate_usd": "0.026020"
+    },
+    {
+      "task": "zod-historical",
+      "lane": "native",
+      "status": "request_limit",
+      "acceptance": "failed",
+      "requests_attempted": 15,
+      "requests_completed": 15,
+      "task_loop_seconds": 20.953,
+      "task_and_final_check_seconds": 21.822,
+      "mcp_startup_seconds": 0.0,
+      "input_tokens": 143562,
+      "cached_input_tokens": 123648,
+      "output_tokens": 1702,
+      "list_price_estimate_usd": "0.031868"
+    },
+    {
+      "task": "trpc-historical",
+      "lane": "candidate",
+      "status": "model_finished",
+      "acceptance": "passed",
+      "requests_attempted": 15,
+      "requests_completed": 15,
+      "task_loop_seconds": 19.415,
+      "task_and_final_check_seconds": 20.303,
+      "mcp_startup_seconds": 0.268,
+      "input_tokens": 129123,
+      "cached_input_tokens": 110848,
+      "output_tokens": 1520,
+      "list_price_estimate_usd": "0.028860"
+    },
+    {
+      "task": "trpc-historical",
+      "lane": "native",
+      "status": "model_finished",
+      "acceptance": "passed",
+      "requests_attempted": 15,
+      "requests_completed": 15,
+      "task_loop_seconds": 18.48,
+      "task_and_final_check_seconds": 19.358,
+      "mcp_startup_seconds": 0.0,
+      "input_tokens": 114244,
+      "cached_input_tokens": 99584,
+      "output_tokens": 1651,
+      "list_price_estimate_usd": "0.025893"
+    },
+    {
+      "task": "trpc-historical",
+      "lane": "serena",
+      "status": "request_limit",
+      "acceptance": "failed",
+      "requests_attempted": 15,
+      "requests_completed": 15,
+      "task_loop_seconds": 20.906,
+      "task_and_final_check_seconds": 21.759,
+      "mcp_startup_seconds": 1.198,
+      "input_tokens": 121587,
+      "cached_input_tokens": 103680,
+      "output_tokens": 1978,
+      "list_price_estimate_usd": "0.030107"
+    }
+  ],
+  "pricing": {
+    "schema_version": 1,
+    "source": "https://developers.openai.com/api/docs/pricing",
+    "checked_date": "2026-10-16",
+    "model": "gpt-5.4-mini-2026-03-17",
+    "tier": "standard",
+    "usd_per_million_tokens": {
+      "uncached_input": "0.75",
+      "cached_input": "0.075",
+      "output": "4.50"
+    },
+    "interpretation": "List-price estimate from provider-reported usage, not an invoice, account billing reconciliation or a hard dollar spending cap. No regional processing, priority or batch pricing assumed."
+  },
+  "decision": "Stop commercial expansion: no demonstrated material task-completion advantage over the free baselines.",
+  "limitations": [
+    "Three source-guided historical fixes; one model observation per lane/task.",
+    "Fifteen model requests per run; unfinished tasks remain failures in this bounded comparison.",
+    "Selected unchanged upstream acceptance files under explicit external configuration, not full repository CI or type checking.",
+    "Different tool interfaces/schemas; comparison measures the complete configured tool choice, not isolated retrieval algorithms.",
+    "Task loop plus final-check timing excludes MCP startup; this is machine time, not human effort.",
+    "List-price estimates use observed usage and current published rates; no actual bill reconciled.",
+    "No independent repeat users, paid demand, Sourcebot or Augment benchmark; process-tree RSS unavailable."
+  ],
+  "worktree_controls": {
+    "schema_version": 1,
+    "results": [
+      {
+        "repository": "zod",
+        "state": "primary",
+        "classification": "deliberate dirty-worktree control",
+        "native_pass": true,
+        "candidate_pass": true,
+        "serena_pass": true
+      },
+      {
+        "repository": "zod",
+        "state": "parallel",
+        "classification": "deliberate dirty-worktree control",
+        "native_pass": true,
+        "candidate_pass": true,
+        "serena_pass": true
+      },
+      {
+        "repository": "trpc",
+        "state": "primary",
+        "classification": "deliberate dirty-worktree control",
+        "native_pass": true,
+        "candidate_pass": true,
+        "serena_pass": true
+      },
+      {
+        "repository": "trpc",
+        "state": "parallel",
+        "classification": "deliberate dirty-worktree control",
+        "native_pass": true,
+        "candidate_pass": true,
+        "serena_pass": true
+      },
+      {
+        "repository": "hono",
+        "state": "primary",
+        "classification": "deliberate dirty-worktree control",
+        "native_pass": true,
+        "candidate_pass": true,
+        "serena_pass": true
+      },
+      {
+        "repository": "hono",
+        "state": "parallel",
+        "classification": "deliberate dirty-worktree control",
+        "native_pass": true,
+        "candidate_pass": true,
+        "serena_pass": true
+      }
+    ],
+    "interpretation": "Seeded isolation control, not a natural defect, agent-completion result or adoption evidence."
+  }
+}

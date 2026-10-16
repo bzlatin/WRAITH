@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "selection": "First eligible fix(...) in newest-first non-merge 250-commit history of each originally pinned repository. Exactly one TS/TSX production module and one TS/TSX test, no other files. Exclude localization paths and production/test modules used in the original live study. Subjects and path metadata only inspected for selection; no replacement after qualification failures.",
+  "tasks": [
+    {
+      "id": "hono-context-followup",
+      "repository": "hono",
+      "fix_commit": "d54720da80134a180f5fe2dd98a7676cfc8f08b4",
+      "base_commit": "ae401f080004872678100e890fd3398d3df09e67",
+      "task": "fix(serve-static): respect q-values in Accept-Encoding for precompressed files (#5436)",
+      "approved_edit_paths": [
+        "src/middleware/serve-static/index.ts"
+      ],
+      "acceptance_test_paths": [
+        "src/middleware/serve-static/index.test.ts"
+      ],
+      "acceptance_sha256": {
+        "src/middleware/serve-static/index.test.ts": "8da91701c2b79b14024bf4e0ef759e4973566ff07f59cb57131a2119f1d18552"
+      },
+      "classification": "Source-guided historical reproduction, new to the agent study; no prospective discovery or independent adoption"
+    },
+    {
+      "id": "zod-context-followup",
+      "repository": "zod",
+      "fix_commit": "36f17960d1defca5d0896d9424f4e1059fbbf081",
+      "base_commit": "22bed613281143efa3815fe26ab666c6c56586af",
+      "task": "fix(v4): stop the memoizer from pinning a finished parse (#6572)",
+      "approved_edit_paths": [
+        "packages/zod/src/v4/core/memoizer.ts"
+      ],
+      "acceptance_test_paths": [
+        "packages/zod/src/v4/classic/tests/cyclic-data.test.ts"
+      ],
+      "acceptance_sha256": {
+        "packages/zod/src/v4/classic/tests/cyclic-data.test.ts": "ca50d363e84275e3a0ad3f0fcd9f6acfe679e6e74fe3cde2b9e9928c16099338"
+      },
+      "classification": "Source-guided historical reproduction, new to the agent study; no prospective discovery or independent adoption"
+    },
+    {
+      "id": "trpc-context-followup",
+      "repository": "trpc",
+      "fix_commit": "6a118b0be9bc9ba4a899c545edbcfdacfc504fad",
+      "base_commit": "6408c54ba9bea7b18c39be3a7abd79c8841a2333",
+      "task": "fix(server): match lazy router keys on a path boundary in getProcedureAtPath (#7474)",
+      "approved_edit_paths": [
+        "packages/server/src/unstable-core-do-not-import/router.ts"
+      ],
+      "acceptance_test_paths": [
+        "packages/server/src/unstable-core-do-not-import/router.test.ts"
+      ],
+      "acceptance_sha256": {
+        "packages/server/src/unstable-core-do-not-import/router.test.ts": "52b562fcd8ec5339afc17d0df0b05409cff7675e223a1a7bf80954791766d909"
+      },
+      "classification": "Source-guided historical reproduction, new to the agent study; no prospective discovery or independent adoption"
+    }
+  ]
+}

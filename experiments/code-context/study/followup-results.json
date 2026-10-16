@@ -1,0 +1,601 @@
+{
+  "schema_version": 1,
+  "experiment": "code-context-delivery-2026-10-16",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "tested_platform": "macOS arm64; Node.js 22.19.0; Python 3.13.0",
+  "complete": true,
+  "authorized_cap": 180,
+  "requests_reserved": 47,
+  "results": [
+    {
+      "task": "hono-context-followup",
+      "lane": "native",
+      "status": "model_finished",
+      "acceptance": "passed",
+      "requests_attempted": 11,
+      "requests_completed": 11,
+      "input_tokens": 76996,
+      "cached_input_tokens": 64000,
+      "output_tokens": 1733,
+      "list_price_estimate_usd": "0.0223455",
+      "automatic_context_delivered": false,
+      "context_seconds": 0.0,
+      "task_and_final_check_seconds": 19.929,
+      "worktree_setup_seconds": 0.115,
+      "tool_errors": 0,
+      "tool_calls": 10
+    },
+    {
+      "task": "hono-context-followup",
+      "lane": "context",
+      "status": "model_finished",
+      "acceptance": "passed",
+      "requests_attempted": 8,
+      "requests_completed": 8,
+      "input_tokens": 53091,
+      "cached_input_tokens": 43264,
+      "output_tokens": 2168,
+      "list_price_estimate_usd": "0.02037105",
+      "automatic_context_delivered": true,
+      "context_seconds": 1.429,
+      "task_and_final_check_seconds": 24.118,
+      "worktree_setup_seconds": 0.114,
+      "tool_errors": 0,
+      "tool_calls": 7
+    },
+    {
+      "task": "zod-context-followup",
+      "lane": "context",
+      "status": "model_finished",
+      "acceptance": "passed",
+      "requests_attempted": 6,
+      "requests_completed": 6,
+      "input_tokens": 50769,
+      "cached_input_tokens": 39680,
+      "output_tokens": 1067,
+      "list_price_estimate_usd": "0.01609425",
+      "automatic_context_delivered": true,
+      "context_seconds": 1.857,
+      "task_and_final_check_seconds": 15.817,
+      "worktree_setup_seconds": 0.167,
+      "tool_errors": 0,
+      "tool_calls": 5
+    },
+    {
+      "task": "zod-context-followup",
+      "lane": "native",
+      "status": "model_finished",
+      "acceptance": "passed",
+      "requests_attempted": 9,
+      "requests_completed": 9,
+      "input_tokens": 41124,
+      "cached_input_tokens": 33024,
+      "output_tokens": 1688,
+      "list_price_estimate_usd": "0.0161478",
+      "automatic_context_delivered": false,
+      "context_seconds": 0.0,
+      "task_and_final_check_seconds": 21.546,
+      "worktree_setup_seconds": 0.165,
+      "tool_errors": 0,
+      "tool_calls": 8
+    },
+    {
+      "task": "trpc-context-followup",
+      "lane": "native",
+      "status": "model_finished",
+      "acceptance": "passed",
+      "requests_attempted": 8,
+      "requests_completed": 8,
+      "input_tokens": 37583,
+      "cached_input_tokens": 25856,
+      "output_tokens": 740,
+      "list_price_estimate_usd": "0.01406445",
+      "automatic_context_delivered": false,
+      "context_seconds": 0.0,
+      "task_and_final_check_seconds": 12.301,
+      "worktree_setup_seconds": 0.251,
+      "tool_errors": 0,
+      "tool_calls": 7
+    },
+    {
+      "task": "trpc-context-followup",
+      "lane": "context",
+      "status": "model_finished",
+      "acceptance": "passed",
+      "requests_attempted": 5,
+      "requests_completed": 5,
+      "input_tokens": 22562,
+      "cached_input_tokens": 16384,
+      "output_tokens": 554,
+      "list_price_estimate_usd": "0.0083553",
+      "automatic_context_delivered": true,
+      "context_seconds": 1.8,
+      "task_and_final_check_seconds": 14.933,
+      "worktree_setup_seconds": 0.234,
+      "tool_errors": 0,
+      "tool_calls": 4
+    }
+  ],
+  "decision": {
+    "passed": {
+      "native": 3,
+      "context": 3
+    },
+    "jointly_passed_tasks": 3,
+    "median_cost_reduction_on_jointly_passed_pairs": "0.0033162412217144131089064764",
+    "continuation_threshold_met": false,
+    "next_action": "Stop expansion at the local utility; no automatic reruns, hosted work or feature queue"
+  },
+  "tested_manifest": {
+    "schema_version": 1,
+    "experiment": "code-context-delivery-2026-10-16",
+    "candidate_sha256": {
+      "cli.cjs": "81a6138f3c5cc135159acdb31c00a2219eab3eb6ebb4e1fe21d10415fde01e10",
+      "lib/index.cjs": "ae455a5b6c101cee1c66bfbebdea9c10b654c9f541174710d39f5e33dce03427",
+      "lib/repository.cjs": "75d4b5accc24a0173d420cd3f52ec9b2c4024c0cb7c97878532007669f23f24b"
+    },
+    "boundary_sha256": {
+      "context_followup.py": "109fe9a095a5822e47e4a4ad99f2b2a19214db4031e1b127ef016a28cdcdefba",
+      "acceptance.py": "19a64b66ab1fa3a88f8374347bcd588b62870ebdc39ec3619692483b6f6a1665",
+      "agent_compare.py": "8abd00cc5d72b822620c49911cb6c099acc92bd6fc76cf7356c3f663996e7604",
+      "mcp_client.py": "ea92456f3d232ed866a1240cf37c959725af2348ad87162eb548a526f0dd744d",
+      "context_audit.py": "c88252dff3ef17e82133b4d9e2d8c6c7b35adbb564e604a5f584863cf6a4f0b6",
+      "followup-protocol.json": "32abd18bceaf861d0b6b876321bfebe789fd6e16a0d8fbc06f7e22f814e557b5",
+      "followup-tasks.json": "42c83e0be640e1815d5d784560623a726b5eec36c5a1d5736c85dffb692e1c0e"
+    },
+    "qualification": {
+      "hono-context-followup": true,
+      "zod-context-followup": true,
+      "trpc-context-followup": true
+    }
+  },
+  "source_result_sha256": {
+    "hono-context-followup-native": "bd707052b141baa77fb2b34328c8ad306b507bebe099f09656deccd2b198f372",
+    "hono-context-followup-context": "d3de0b2541601ca67872b87af748003b32760b9b854761cd77e3700f5b3a3fd0",
+    "zod-context-followup-context": "418a4b21d43b27f61e09a4dc951832e6d6969b34f353d25e6ebe4bb664e6f4f5",
+    "zod-context-followup-native": "396de294824b710fecfa4e2f6ace6bc86d2e6ad7879bf56804bb8e6f779174db",
+    "trpc-context-followup-native": "24a4cd214b8c7dd73c26ff911d2d208e05fd916c9eeb67ed8bb0e8731575fe67",
+    "trpc-context-followup-context": "6ccb4e0af8f8425c1230d66d98ba069209c7a21fa8a04ad08b11d064bcae7fd2"
+  },
+  "pricing": {
+    "schema_version": 1,
+    "source": "https://developers.openai.com/api/docs/pricing",
+    "checked_date": "2026-10-16",
+    "model": "gpt-5.4-mini-2026-03-17",
+    "tier": "standard",
+    "usd_per_million_tokens": {
+      "uncached_input": "0.75",
+      "cached_input": "0.075",
+      "output": "4.50"
+    },
+    "interpretation": "List-price estimate from provider-reported usage, not an invoice, account billing reconciliation or a hard dollar spending cap. No regional processing, priority or batch pricing assumed."
+  },
+  "total_list_price_estimate_usd": "0.09737835",
+  "limitations": [
+    "Three source-guided historical fixes, one observation per approach/task; no statistical or causal generalization.",
+    "Automatic delivery is the treatment; optional MCP adoption was measured separately in the original experiment.",
+    "Both approaches received approved production/test paths and the same tools and 30-request limit.",
+    "Context generation is included in machine time; its serialized input is included in provider token usage.",
+    "Selected unchanged test files under external configuration; not full CI or type checking.",
+    "List-price token estimate, not an invoice; no human-time, independent repeat-use or paid-demand evidence."
+  ],
+  "diagnostic_before": [
+    {
+      "task": "hono-historical",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 1144,
+      "production": [
+        {
+          "path": "src/helper/route/index.ts",
+          "file_returned": true,
+          "witness_hunks": 1,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ],
+      "tests": [
+        {
+          "path": "src/helper/route/index.test.ts",
+          "file_returned": true,
+          "witness_hunks": 1,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ]
+    },
+    {
+      "task": "zod-historical",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 5572,
+      "production": [
+        {
+          "path": "packages/zod/src/v4/core/schemas.ts",
+          "file_returned": false,
+          "witness_hunks": 1,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ],
+      "tests": [
+        {
+          "path": "packages/zod/src/v4/classic/tests/union.test.ts",
+          "file_returned": false,
+          "witness_hunks": 1,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ]
+    },
+    {
+      "task": "trpc-historical",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 3376,
+      "production": [
+        {
+          "path": "packages/server/src/unstable-core-do-not-import/stream/jsonl.ts",
+          "file_returned": true,
+          "witness_hunks": 2,
+          "intersected_hunks": 1,
+          "all_hunks_intersected": false
+        }
+      ],
+      "tests": [
+        {
+          "path": "packages/server/src/unstable-core-do-not-import/stream/jsonl.test.ts",
+          "file_returned": true,
+          "witness_hunks": 2,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ]
+    }
+  ],
+  "diagnostic_after": [
+    {
+      "task": "hono-historical",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 5521,
+      "production": [
+        {
+          "path": "src/helper/route/index.ts",
+          "file_returned": true,
+          "witness_hunks": 1,
+          "intersected_hunks": 1,
+          "all_hunks_intersected": true
+        }
+      ],
+      "tests": [
+        {
+          "path": "src/helper/route/index.test.ts",
+          "file_returned": true,
+          "witness_hunks": 1,
+          "intersected_hunks": 1,
+          "all_hunks_intersected": true
+        }
+      ]
+    },
+    {
+      "task": "zod-historical",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 11829,
+      "production": [
+        {
+          "path": "packages/zod/src/v4/core/schemas.ts",
+          "file_returned": true,
+          "witness_hunks": 1,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ],
+      "tests": [
+        {
+          "path": "packages/zod/src/v4/classic/tests/union.test.ts",
+          "file_returned": true,
+          "witness_hunks": 1,
+          "intersected_hunks": 1,
+          "all_hunks_intersected": true
+        }
+      ]
+    },
+    {
+      "task": "trpc-historical",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 7632,
+      "production": [
+        {
+          "path": "packages/server/src/unstable-core-do-not-import/stream/jsonl.ts",
+          "file_returned": true,
+          "witness_hunks": 2,
+          "intersected_hunks": 2,
+          "all_hunks_intersected": true
+        }
+      ],
+      "tests": [
+        {
+          "path": "packages/server/src/unstable-core-do-not-import/stream/jsonl.test.ts",
+          "file_returned": true,
+          "witness_hunks": 2,
+          "intersected_hunks": 1,
+          "all_hunks_intersected": false
+        }
+      ]
+    }
+  ],
+  "fresh_before": [
+    {
+      "task": "hono-context-followup",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 423,
+      "production": [
+        {
+          "path": "src/middleware/serve-static/index.ts",
+          "file_returned": true,
+          "witness_hunks": 2,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ],
+      "tests": [
+        {
+          "path": "src/middleware/serve-static/index.test.ts",
+          "file_returned": true,
+          "witness_hunks": 1,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ]
+    },
+    {
+      "task": "zod-context-followup",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 652,
+      "production": [
+        {
+          "path": "packages/zod/src/v4/core/memoizer.ts",
+          "file_returned": true,
+          "witness_hunks": 10,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ],
+      "tests": [
+        {
+          "path": "packages/zod/src/v4/classic/tests/cyclic-data.test.ts",
+          "file_returned": false,
+          "witness_hunks": 2,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ]
+    },
+    {
+      "task": "trpc-context-followup",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 2747,
+      "production": [
+        {
+          "path": "packages/server/src/unstable-core-do-not-import/router.ts",
+          "file_returned": true,
+          "witness_hunks": 1,
+          "intersected_hunks": 1,
+          "all_hunks_intersected": true
+        }
+      ],
+      "tests": [
+        {
+          "path": "packages/server/src/unstable-core-do-not-import/router.test.ts",
+          "file_returned": false,
+          "witness_hunks": 1,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ]
+    }
+  ],
+  "fresh_after": [
+    {
+      "task": "hono-context-followup",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 6348,
+      "production": [
+        {
+          "path": "src/middleware/serve-static/index.ts",
+          "file_returned": true,
+          "witness_hunks": 2,
+          "intersected_hunks": 1,
+          "all_hunks_intersected": false
+        }
+      ],
+      "tests": [
+        {
+          "path": "src/middleware/serve-static/index.test.ts",
+          "file_returned": true,
+          "witness_hunks": 1,
+          "intersected_hunks": 1,
+          "all_hunks_intersected": true
+        }
+      ]
+    },
+    {
+      "task": "zod-context-followup",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 5190,
+      "production": [
+        {
+          "path": "packages/zod/src/v4/core/memoizer.ts",
+          "file_returned": true,
+          "witness_hunks": 10,
+          "intersected_hunks": 2,
+          "all_hunks_intersected": false
+        }
+      ],
+      "tests": [
+        {
+          "path": "packages/zod/src/v4/classic/tests/cyclic-data.test.ts",
+          "file_returned": true,
+          "witness_hunks": 2,
+          "intersected_hunks": 1,
+          "all_hunks_intersected": false
+        }
+      ]
+    },
+    {
+      "task": "trpc-context-followup",
+      "status": "complete",
+      "citations_valid": true,
+      "snippet_bytes": 3501,
+      "production": [
+        {
+          "path": "packages/server/src/unstable-core-do-not-import/router.ts",
+          "file_returned": true,
+          "witness_hunks": 1,
+          "intersected_hunks": 1,
+          "all_hunks_intersected": true
+        }
+      ],
+      "tests": [
+        {
+          "path": "packages/server/src/unstable-core-do-not-import/router.test.ts",
+          "file_returned": false,
+          "witness_hunks": 1,
+          "intersected_hunks": 0,
+          "all_hunks_intersected": false
+        }
+      ]
+    }
+  ],
+  "original_optional_tool_use": {
+    "schema_version": 1,
+    "scope": "Observed optional tool adoption in the original completed experiment",
+    "rows": [
+      {
+        "task": "hono-historical",
+        "lane": "candidate",
+        "status": "request_limit",
+        "acceptance": "failed",
+        "tool_calls": 15,
+        "tool_errors": 2,
+        "context_calls": 0,
+        "symbol_calls": 0,
+        "reference_calls": 0,
+        "edited": false,
+        "source_result_sha256": "09f72421c64e536f8a87d5a8a9533cc364e706ff8757867310177f49e4467398"
+      },
+      {
+        "task": "hono-historical",
+        "lane": "native",
+        "status": "request_limit",
+        "acceptance": "failed",
+        "tool_calls": 15,
+        "tool_errors": 2,
+        "context_calls": 0,
+        "symbol_calls": 0,
+        "reference_calls": 0,
+        "edited": true,
+        "source_result_sha256": "049a6b3999b82135c51c58afd82ba867446fc3e11138538f0e33e806ac18c539"
+      },
+      {
+        "task": "hono-historical",
+        "lane": "serena",
+        "status": "request_limit",
+        "acceptance": "passed",
+        "tool_calls": 15,
+        "tool_errors": 2,
+        "context_calls": 0,
+        "symbol_calls": 0,
+        "reference_calls": 0,
+        "edited": true,
+        "source_result_sha256": "bc402c10734159dfd69c9b0a60218f503ba3d3466fa306a1d4c619ed3a93e91a"
+      },
+      {
+        "task": "trpc-historical",
+        "lane": "candidate",
+        "status": "model_finished",
+        "acceptance": "passed",
+        "tool_calls": 14,
+        "tool_errors": 1,
+        "context_calls": 0,
+        "symbol_calls": 1,
+        "reference_calls": 0,
+        "edited": true,
+        "source_result_sha256": "e656a375ecca5fa95b58cd094eed3431bafb6f1ac5feb60d9b0575893a71d90e"
+      },
+      {
+        "task": "trpc-historical",
+        "lane": "native",
+        "status": "model_finished",
+        "acceptance": "passed",
+        "tool_calls": 14,
+        "tool_errors": 1,
+        "context_calls": 0,
+        "symbol_calls": 0,
+        "reference_calls": 0,
+        "edited": true,
+        "source_result_sha256": "1444d13db6d9765f1cd1e45d2a9482b6667b0686b9aa34d7bc2c368f72be1021"
+      },
+      {
+        "task": "trpc-historical",
+        "lane": "serena",
+        "status": "request_limit",
+        "acceptance": "failed",
+        "tool_calls": 15,
+        "tool_errors": 5,
+        "context_calls": 0,
+        "symbol_calls": 0,
+        "reference_calls": 0,
+        "edited": true,
+        "source_result_sha256": "29f96251e94cb9ba04293282eb0ab03c73a9399cb7f9e794fa4fd8a9d65ac68d"
+      },
+      {
+        "task": "zod-historical",
+        "lane": "candidate",
+        "status": "request_limit",
+        "acceptance": "failed",
+        "tool_calls": 15,
+        "tool_errors": 3,
+        "context_calls": 0,
+        "symbol_calls": 0,
+        "reference_calls": 0,
+        "edited": false,
+        "source_result_sha256": "a71308ea74ec6f24b91798b63c1612add64e63fa2b0e65017a0a1a839333a780"
+      },
+      {
+        "task": "zod-historical",
+        "lane": "native",
+        "status": "request_limit",
+        "acceptance": "failed",
+        "tool_calls": 15,
+        "tool_errors": 0,
+        "context_calls": 0,
+        "symbol_calls": 0,
+        "reference_calls": 0,
+        "edited": false,
+        "source_result_sha256": "faffcfd1d8c5304668ba38ce0c348ce71dd5aca57b70f1077786b136cfc43638"
+      },
+      {
+        "task": "zod-historical",
+        "lane": "serena",
+        "status": "request_limit",
+        "acceptance": "failed",
+        "tool_calls": 15,
+        "tool_errors": 2,
+        "context_calls": 0,
+        "symbol_calls": 0,
+        "reference_calls": 0,
+        "edited": false,
+        "source_result_sha256": "863e08bb4954d9a9073c70534682f891519b6312c83b146cf4e7501b099f6d2c"
+      }
+    ]
+  }
+}

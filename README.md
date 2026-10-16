@@ -1,94 +1,75 @@
 # Wraith
 
-**Regression tests for AI agents.**
+**Local code context for coding agents.** Experimental source preview.
 
-A prompt, model, tool, or retrieval change can fix one task and break another.
-Wraith runs the same scenarios before and after a change, then shows what stopped
-passing and why. Use it locally during development and on pull requests.
+Give your agent relevant TypeScript and JavaScript code from the checkout you're
+changing. Wraith Context returns definitions, source snippets and candidate tests
+with file/line citations and source hashes. Use it to locate an access rule, API
+handler or existing test before asking an agent to make a change.
 
-Connect Python or TypeScript functions, or other languages through a JSON subprocess
-protocol. No Wraith account or hosted service is required.
+Runs locally with no account, GPU, embedding service or model key. Connect it to
+Codex through MCP or query it from your terminal. The tool sends no telemetry;
+your coding agent may send retrieved snippets to its model provider.
 
-## What you can catch
+## Try the preview
 
-| Change | Check |
-| --- | --- |
-| A prompt skips a required lookup | The expected tool was called |
-| Retrieval starts returning an outdated policy | The answer contains the current value and cites the expected source |
-| Generated JSON breaks an application contract | Required fields, allowed IDs, item counts, uniqueness, and numeric ranges |
-| A change increases resource use | Recorded latency, token usage, or reported cost stays within your limits |
-
-Reports show failed expectations, baseline/candidate outputs, and recorded activity.
-Harmless output differences stay visible without failing the gate. Wraith checks
-your expectations; it does not automatically judge answer quality.
-
-## Try it in five minutes
-
-Download [install.py](https://github.com/bzlatin/WRAITH/releases/download/v0.5.0/install.py)
-and install the native binary:
+With **Node.js 22.12+, npm and Git**, from this source checkout:
 
 ```sh
-python3 install.py --version 0.5.0
+npm --prefix experiments/code-context run preview:install
+wraith-context demo --directory ./context-demo
 ```
 
-Add the printed directory to PATH. In an empty directory:
+Use the full command path printed by the installer if it is not on PATH. The demo
+creates a new TypeScript repository with an access policy, API caller and tests.
+It makes no model calls. No code-context release or npm package is published yet.
+
+Connect your checkout to Codex:
 
 ```sh
-wraith init --demo
-wraith doctor
-wraith baseline
-wraith check
+wraith-context codex-config --root /absolute/path/to/your/checkout
 ```
 
-Open `.wraith/index.html` in your browser. The demo needs Python 3.10+ and no API
-key. Native packages support macOS, Linux, and Windows without Rust. On Windows,
-use `python` instead of `python3`. [Installation details](docs/install.md) ·
-[Try a deliberate failure](docs/dogfooding.md).
+Copy the printed table into your local Codex configuration and restart Codex.
+Ask it to use `code_context` for your task. Optional tools are not automatically
+called, and retrieval can miss important code. References are lexical candidates;
+this is not a complete call graph or a test-coverage guarantee.
 
-## Use your own agent
+[Five-minute guide](experiments/code-context/GUIDE.md#connect-codex) ·
+[Commands, privacy and uninstall](experiments/code-context/GUIDE.md) ·
+[Preview details](experiments/code-context/README.md) ·
+[How it works and evidence](docs/code-context-how-it-works.md).
 
-Export a function accepting `(input, context)` and returning JSON:
+## What we have measured
 
-```sh
-wraith init --entrypoint agent.py:evaluate
-# TypeScript: wraith init --entrypoint agent.ts:evaluate
-```
+On three historical fixes in Hono, Zod and tRPC, automatic initial context used
+**19 model requests versus 28** with ordinary search. Both approaches passed all
+selected tests. Total estimated model cost was 14.7% lower, but median cost barely
+changed and two tasks took longer. These observations do not establish reliable
+savings, independent adoption or paid demand.
+[Full results and limits](docs/code-context-followup.md).
 
-Review the generated inputs and expectations, then:
+A later installed-Codex comparison stopped on account/model compatibility errors
+before any coding runs. It adds no evidence of agent improvement.
+[Current assessment](docs/code-context-codex-assessment.md).
 
-```sh
-wraith doctor
-wraith baseline
-# Change your prompt, model, tools, or retrieval.
-wraith check
-```
+Trying it on your own work? Share what helped, what was missing and whether you
+chose to use it again. [Trial feedback](https://github.com/bzlatin/WRAITH/issues/new?template=context-feedback.yml)
+· [Setup problem](https://github.com/bzlatin/WRAITH/issues/new?template=context-install.yml).
+Feedback is voluntary. Keep private code and credentials out of public issues.
 
-Each completed run saves JSON evidence and an HTML report. The baseline stays fixed
-until `wraith baseline --replace`. Start with a few real tasks.
-[The integration guide](docs/getting-started.md) covers examples, instrumentation,
-and live model calls.
+## Existing Wraith tools
 
-## Add it to your workflow
+The code-context preview is a separate Node.js tool under `experiments/code-context/`.
+It does not change the Rust CLI or its release contracts.
 
-`wraith ci init` generates an offline GitHub PR check against the exact base commit
-and its policy. Bootstrap your suite and review dependency setup first.
-[CI setup](docs/ci-setup.md).
+| Tool | Availability | Guide |
+| --- | --- | --- |
+| Run fixed agent scenarios and compare changes | Released Rust CLI v0.5.0 | [Install](docs/install.md) · [Get started](docs/getting-started.md) |
 
-Use [sampling and statistical gates](docs/statistical-gating.md) for variable outputs.
-Inconclusive results block CI. Live runs require opt-in; budgets count instrumented
-attempts, including failures, but cannot cap hidden SDK retries.
+The published v0.5.0 binary does not include code context.
+Existing workflows remain supported. [All documentation](docs/README.md) ·
+[Contributing](CONTRIBUTING.md).
 
-Wraith uploads nothing and collects no telemetry. Your agent may contact services;
-outputs and diagnostics may contain application data. Keep `.wraith/` ignored and
-review reports before sharing them.
-
-## Documentation and examples
-
-[Documentation](docs/README.md) · [Configuration](docs/configuration.md) ·
-[Structured checks](docs/structured-output.md) · [Protocol](docs/protocol.md)
-
-Try the offline [RAG fixture](docs/dogfooding.md#test-a-retrieval-change) or the
-[pinned PydanticAI and LangGraph examples](examples/external-agents/README.md).
-[Contribute](CONTRIBUTING.md) · [Report a bug](https://github.com/bzlatin/WRAITH/issues).
-
-Apache-2.0. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_LICENSES.txt).
+Apache-2.0. [License](LICENSE) · [Rust notices](THIRD_PARTY_LICENSES.txt) ·
+[Code-context notices](experiments/code-context/THIRD_PARTY_NOTICES.txt).

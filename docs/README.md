@@ -3,6 +3,10 @@
 Start with the demo, connect a few representative tasks from your agent, and use
 the same suite when reviewing changes.
 
+For the separate local code-context source preview, read the
+[setup guide](../experiments/code-context/GUIDE.md), [implementation and evidence](code-context-how-it-works.md)
+[preview decision](code-context-preview.md) and [installed Codex assessment](code-context-codex-assessment.md). The Rust release does not include this tool.
+
 ## Start here
 
 - [Install](install.md): native binaries, supported platforms, and source builds.

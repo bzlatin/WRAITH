@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "tasks": [
+    {
+      "id": "hono-actual-codex",
+      "repository": "hono",
+      "fix_commit": "ae401f080004872678100e890fd3398d3df09e67",
+      "base_commit": "2013fed5b21719bb1e6f44ce7f49757660946856",
+      "task": "fix(css): keep the descendant combinator before a pseudo-class when minifying (#5451)",
+      "approved_edit_paths": [
+        "src/helper/css/common.ts"
+      ],
+      "acceptance_test_paths": [
+        "src/helper/css/index.test.tsx",
+        "src/helper/css/common.case.test.tsx"
+      ],
+      "acceptance_sha256": {
+        "src/helper/css/index.test.tsx": "041ead9e944d5a1f671ba6d742044a5015e89197acd82b28945cc722d32126ee",
+        "src/helper/css/common.case.test.tsx": "01e3e4b519fe2023f922336eb2358002f2b62e6e2ff547a83644733cb9378284"
+      },
+      "classification": "Historical reproduction; new task paths, not blind discovery or customer evidence"
+    },
+    {
+      "id": "zod-actual-codex",
+      "repository": "zod",
+      "fix_commit": "dcbcf0529ca1e5424541d5d4b58e0a7b79507f51",
+      "base_commit": "277613a61a11f299d9897ddd88490002a995f746",
+      "task": "fix(compile): unwind the doc indent when a child generator throws (#6570)",
+      "approved_edit_paths": [
+        "packages/zod/src/v4/core/doc.ts"
+      ],
+      "acceptance_test_paths": [
+        "packages/zod/src/v4/core/tests/compile.test.ts",
+        "packages/zod/src/v4/core/tests/compile-global.test.ts"
+      ],
+      "acceptance_sha256": {
+        "packages/zod/src/v4/core/tests/compile.test.ts": "452032d26a30259f8baeeffb9dd5d9d755b147aeaf566620d423e3e8caf5ee66",
+        "packages/zod/src/v4/core/tests/compile-global.test.ts": "373f03a87b6a9340ff8f1ea3091969ca87cd551cb9965a08628847e7e5f14942"
+      },
+      "classification": "Historical reproduction; new task paths, not blind discovery or customer evidence"
+    }
+  ]
+}

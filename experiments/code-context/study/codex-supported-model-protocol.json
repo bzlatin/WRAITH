@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "experiment": "actual-codex-mcp-supported-2026-10-16",
+  "authorization": "Configuration repair within the owner-authorized original ceiling of eight subscription sessions: one unsupported-model attempt already consumed, at most six new sessions, one slot deliberately unused. No API calls, old API budgets or completed attempts reused.",
+  "model": "gpt-5.5",
+  "reasoning_effort": "medium",
+  "maximum_sessions": 6,
+  "session_timeout_seconds": 120,
+  "repetitions_per_task_lane": {
+    "hono": 2,
+    "zod": 1
+  },
+  "selection": "Two next metadata-eligible historical fixes from the pinned Hono and Zod histories after excluding every production/test path used in either previous agent study: Hono ae401f080004872678100e890fd3398d3df09e67 and Zod dcbcf0529ca1e5424541d5d4b58e0a7b79507f51. Subjects and paths were inspected; new production patches have not been inspected. No replacements for failed qualification.",
+  "order": [
+    [
+      "hono",
+      "native",
+      1
+    ],
+    [
+      "hono",
+      "context",
+      1
+    ],
+    [
+      "zod",
+      "context",
+      1
+    ],
+    [
+      "zod",
+      "native",
+      1
+    ],
+    [
+      "hono",
+      "context",
+      2
+    ],
+    [
+      "hono",
+      "native",
+      2
+    ]
+  ],
+  "randomization": "Balanced crossover: first lane per task selected by random.Random(20261016).choice(['native','context']); reverse lane and task order in repetition two. Fixed before qualification/model calls.",
+  "qualification": "Reuse hash-verified qualification of the same unchanged Hono/Zod tests from the original attempt, including preserved runner setup errors and corrected test configuration. No task replacement or new production-patch inspection.",
+  "delivery": "Identical task subject, native tools, permissions and testing instructions. Context lane adds the installed preview's three MCP tools and an instruction to call code_context with the task before editing; native lane uses native search. This compares configured workflows, not voluntary adoption or the retrieval algorithm alone. No initial context is injected.",
+  "isolation": "Fresh detached worktree per session, ephemeral Codex, ignored user config and rules, no AGENTS instructions, no web search, no other MCP servers, no nested agents, workspace-write sandbox, clean environment without provider keys. Tests and upstream dependencies are fixed. No access to commit history/future patch permitted by task instructions.",
+  "containment": "One attempt per session, hard wall-clock process-group deadline including MCP setup; no resumes/retries. Stop further model sessions on failed authentication, turn failure, process error or timeout. Preserve attempted and unattempted records. Codex's internal provider attempts cannot be capped or billed by this harness; report sessions, not a fabricated request cap.",
+  "metrics": [
+    "all task outcomes and qualification failures",
+    "unchanged selected upstream tests",
+    "changes outside approved production module",
+    "actual MCP tool calls and failures",
+    "Codex reported input/cached/output tokens",
+    "whole-session elapsed time including setup"
+  ],
+  "decision": "Technical integration passes only if every context session completes, calls code_context successfully and respects frozen tests/edit scope. A development-benefit signal additionally needs no reduction in accepted task count and at least 20% lower median elapsed time across all three matched pairs, with both repositories represented. Report per-task results, token differences and failures regardless. Six corrected-configuration sessions on two known historical tasks plus the failed original setup cannot establish statistical significance, unseen-task accuracy, human savings, independent repeat use, scaling or paid demand. Failed or incomplete criteria mean keep a source utility and pause further feature/SaaS work; do not extend the study to obtain a win.",
+  "commercial": "Publish honest source-preview evidence. Independent return use and a concrete paid commitment remain required before a hosted-service investment. No automated test guarantees profitability.",
+  "preflight_correction": "Before qualification or model calls, corrected the written order to match the recorded random seed. The original draft is retained locally as preflight-draft.json; no outcomes were observed.",
+  "qualification_setup_repair": "Initial qualification failed because the external harness ran an imported Hono helper as a standalone suite and omitted Zod source aliases. Preserve qualification-runner-errors; repair only the runner to match upstream helper exclusion and source package mapping, then requalify the same tasks and unchanged tests. No candidate patches or model outcomes have been observed. No subsequent qualification retry or task replacement.",
+  "preflight_model_repair": "Original attempt stopped on unsupported gpt-6.1-sol before a development response. Codex 0.143.0 built-in model/list in an empty disposable configuration lists gpt-5.5 as default. Freeze this six-session repair before observing any agent patch. Preserve original one execution_error and seven not_run_after_stop records. This is a corrected configuration, not a retry of the original experiment or a hidden successful installation."
+}

@@ -1,0 +1,41 @@
+name: Code context — setup problem
+description: Report a problem installing or connecting the local code-context preview.
+title: "[Context setup] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is for the separate Node.js code-context preview. Share a minimal public example or redacted error. Do not paste credentials, environment dumps, private source code or full configuration files.
+  - type: input
+    id: platform
+    attributes:
+      label: Operating system and architecture
+      placeholder: macOS arm64
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Preview, Node.js and Codex versions
+      description: Run wraith-context --preview-version, node --version and codex --version.
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Where did setup stop?
+      options:
+        - Installation
+        - Offline demo
+        - Codex connection
+        - Querying my repository
+        - Uninstall
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Command, expected result and actual result
+      description: Replace local usernames and private repository paths with placeholders. Include the smallest relevant error.
+    validations:
+      required: true

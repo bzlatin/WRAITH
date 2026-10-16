@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "frozen_date": "2026-10-16",
+  "purpose": "Bounded competitive investigation before a local candidate, distinct from adoption or paid demand",
+  "repositories": [
+    {"name": "zod", "url": "https://github.com/colinhacks/zod.git", "commit": "680d19f7d1e042e55934209caeb79bc843b94f44", "symbol": "parseAsync", "question": "Find asynchronous parsing implementations and existing tests of asynchronous parsing."},
+    {"name": "trpc", "url": "https://github.com/trpc/trpc.git", "commit": "10e2ef98f7842b94eb3026e4f9bcfe62cc39b088", "symbol": "createCallerFactory", "question": "Find server-side caller creation and existing tests for caller behavior."},
+    {"name": "hono", "url": "https://github.com/honojs/hono.git", "commit": "08807ce12aa3aa27c8c5adf63e677bbab6bceda9", "symbol": "compose", "question": "Find middleware composition and existing tests of next/error handling."}
+  ],
+  "selection": "Three public TypeScript codebases with tests and multiple packages or independently configured subprojects. Symbols selected from known public APIs before candidate implementation. No replacement for a setup failure.",
+  "serena": {"url": "https://github.com/oraios/serena.git", "commit": "d9e4c796fae0207ba6848d1df4b331122a5567b5", "transport": "stdio", "mode": "read-only"},
+  "lanes": ["git/ripgrep native search", "pinned current Serena", "candidate only after documented checkpoint"],
+  "controls": ["two worktrees with conflicting dirty symbol contents", "edit/rename/delete refresh", "ignored secret and symlink confinement", "broken index/cache cannot report authoritative empty references"],
+  "offline_metrics": ["setup outcomes and interventions", "wall-clock indexing/query time", "captured output bytes", "peak process memory where measured", "exact citation witnesses", "worktree isolation and refresh decisions"],
+  "offline_limits": "Lookups are a small source-informed mechanical workload, not blind bug discoveries, agent task completion, token savings or human effort. Native search remains a legitimate alternative.",
+  "agent_stage": {"status": "requires fresh explicit request budget and frozen held-out code-change tasks", "comparison": "same model, task inputs, permissions and limits; counterbalanced order; unchanged upstream acceptance tests", "target": "material end-to-end advantage, e.g. 20% median actual provider cost or elapsed time without observed loss of accepted task completion", "limits": "A small trial does not establish equivalence, significance, general savings or paid demand."},
+  "stop": "Stop before candidate if no plausible repeated workflow advantage; stop after bounded candidate if held-out tasks do not show material benefit. No hosted platform before independent repeat use and paid commitment."
+}

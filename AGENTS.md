@@ -3,6 +3,34 @@
 Wraith is a local Rust agent regression-testing engine. Its purpose is to show what
 an agent change broke, using the same scenarios before and after the change.
 
+## Separate code-context investigation
+
+Read `docs/code-context-study.md` and `experiments/code-context/AGENTS.md` before
+working on the owner-authorized local TypeScript context prototype. It is separate
+from the Rust CLI. Its frozen three-task live comparison did not meet the product
+continuation threshold; no hosted-service queue is justified. Preserve the pinned
+sources, unchanged upstream tests, original candidate hashes and all attempts.
+Do not tune against completed results and claim a new held-out win. The 180-request
+experiment used 135 attempts; leftover capacity is not authorization to rerun it.
+New live work needs an explicitly approved new experiment and budget. Mechanical
+controls, historical reproductions, independent use and paid demand remain distinct.
+Read `docs/code-context-followup.md` for the separately authorized automatic-delivery
+follow-up. Its new budget used 47/180 requests; neither experiment's remaining
+capacity may be reused. The revised candidate was frozen before querying the three
+new tasks; all six runs passed their selected tests, but the median-cost threshold
+was not met. Preserve both experiments and intermediate offline diagnostics. No
+automatic further feature, benchmark or hosted-service queue is authorized.
+The owner subsequently authorized the bounded self-service preview described in
+`docs/code-context-preview.md`: packaging, one verified Codex integration, demo,
+documentation and feedback templates. This overrides the packaging pause only.
+Keep retrieval implementation and completed studies unchanged. Distinguish preview
+readiness from independent repeat use and paid demand. Do not publish, send outreach
+or start new model calls unless separately authorized.
+The owner then authorized a source-preview PR and the installed Codex assessment
+in `docs/code-context-codex-assessment.md`. Preserve its three account/model setup
+failures and all not-run records. No coding session completed; five unused slots
+are closed. Do not turn the finite goal into recurring live tests or a hosted queue.
+
 ## Product and architecture
 
 - Keep the core framework neutral. Provider SDKs and application logic belong in

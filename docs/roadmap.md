@@ -2,6 +2,16 @@
 
 Priorities follow [product validation](product-direction.md), without a fixed release calendar.
 
+## Local code-context preview
+
+The owner authorized a separate [source preview](code-context-preview.md) under
+`experiments/code-context/`, one installed Codex MCP comparison, and a public PR.
+The retrieval tool works locally; prior studies did not meet their continuation
+threshold. Preserve those results. Independent repeat use and paid demand remain
+unknown. The [installed Codex study](code-context-codex-assessment.md) stopped on
+account/model errors before coding. Keep the free utility available; do not build a hosted service or add
+features to avoid the adoption decision. Existing Rust release contracts stay fixed.
+
 ## Available in v0.5
 
 - Python/TypeScript function adapters, guided setup, and `doctor` diagnostics.

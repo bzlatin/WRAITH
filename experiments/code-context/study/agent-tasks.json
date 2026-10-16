@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "selection": "Newest bounded one-production-file/one-test-file bug-fix commit in each pinned history; Hono selected helper-route commit because newest router fix spans several acceptance files. Chosen and frozen before candidate implementation.",
+  "tasks": [
+    {
+      "id": "hono-historical",
+      "repository": "hono",
+      "fix_commit": "e77c7c8eb9fea50a496ba10010063998b55d7a6b",
+      "base_commit": "d54720da80134a180f5fe2dd98a7676cfc8f08b4",
+      "task": "basePath() must handle regex route parameters consistently with router matching, while retaining existing route-helper behavior.",
+      "approved_edit_paths": [
+        "src/helper/route/index.ts"
+      ],
+      "acceptance_test_paths": [
+        "src/helper/route/index.test.ts"
+      ],
+      "acceptance_sha256": {
+        "src/helper/route/index.test.ts": "fa348627d09ad6d0fc403c646dfb0c0b1a78a9754c2d6ec15c5e7f666393c8b4"
+      },
+      "classification": "source-guided historical bug reproduction; tests from upstream fix, unchanged; not prospective discovery"
+    },
+    {
+      "id": "zod-historical",
+      "repository": "zod",
+      "fix_commit": "680d19f7d1e042e55934209caeb79bc843b94f44",
+      "base_commit": "40a5dba080b065cc430e5b0e64a8058d68c1660d",
+      "task": "A union whose option fails only a schema check must report the rejection correctly instead of producing an empty invalid-union error.",
+      "approved_edit_paths": [
+        "packages/zod/src/v4/core/schemas.ts"
+      ],
+      "acceptance_test_paths": [
+        "packages/zod/src/v4/classic/tests/union.test.ts"
+      ],
+      "acceptance_sha256": {
+        "packages/zod/src/v4/classic/tests/union.test.ts": "db2a869a381822d585cb4e914af492ea81eefc9c16351b0848b4fc820e725ace"
+      },
+      "classification": "source-guided historical bug reproduction; tests from upstream fix, unchanged; not prospective discovery"
+    },
+    {
+      "id": "trpc-historical",
+      "repository": "trpc",
+      "fix_commit": "8b649ad874a8fe97c73962d4617912231b975736",
+      "base_commit": "fcc6bca0ece2762e393e6d8c8527bbaa17a878d2",
+      "task": "A JSONL consumer must reject pending stream reads if its input stream ends prematurely, rather than leaving them pending indefinitely.",
+      "approved_edit_paths": [
+        "packages/server/src/unstable-core-do-not-import/stream/jsonl.ts"
+      ],
+      "acceptance_test_paths": [
+        "packages/server/src/unstable-core-do-not-import/stream/jsonl.test.ts"
+      ],
+      "acceptance_sha256": {
+        "packages/server/src/unstable-core-do-not-import/stream/jsonl.test.ts": "689a60b3cab7283126d51f104b27ecd16a1cda2ce64f3670314e23b9d625e739"
+      },
+      "classification": "source-guided historical bug reproduction; tests from upstream fix, unchanged; not prospective discovery"
+    }
+  ]
+}
