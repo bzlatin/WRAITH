@@ -55,8 +55,8 @@ human-effort reduction was demonstrated on this workload.
    counterexamples; no additional feature queue is justified by these results.
 2. Pause ingestion-feature and commercial-platform expansion until a specific
    repeated workflow requirement exceeds the integration or equivalent recipe.
-3. Validate native GitHub builds before any future release request. Local macOS
-   validation and CI wiring do not establish Linux/Windows execution.
+3. Native GitHub builds and tests now [pass on all three operating systems](verification.md#experimental-ingestion-source).
+   Keep that validation before a future release; no new release is requested here.
 4. Require authorized repeat-use evidence and a paid commitment before a hosted
    service. No customer outreach or release publication is part of this comparison.
 

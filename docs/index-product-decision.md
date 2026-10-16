@@ -138,8 +138,9 @@ across seven comparisons, with no unexpected failures in its 71 negative cases.
 These counts describe controlled checks, not a production false-positive estimate.
 The HTML report was inspected in a browser and report escaping/immutability are
 covered by integration tests. The modified-source secret scan found no leaks.
-Linux/Windows execution of these changes remains for CI; the workflow adds a
-Linux local-Qdrant demo but has not been dispatched in this change.
+Subsequent [native GitHub validation](verification.md#experimental-ingestion-source)
+passed on Linux, macOS and Windows. Optional SDK and owned-server controls passed
+on Linux using the small bundled corpus; they were not run on Windows by CI.
 
 A generated, complete export with 100,000 documents / 300,000 chunks (29.8 MB)
 was checked in 0.184 seconds with about 4.2 MiB peak child RSS in one local release

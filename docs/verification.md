@@ -27,6 +27,29 @@ Anonymous installer download, checksum verification, and installation passed on
 macOS arm64. The installed binary passed `init`, `doctor`, `baseline`, a deliberately
 failing `check`, and a passing `check`, without model calls.
 
+## Experimental ingestion source
+
+The [source matrix](https://github.com/bzlatin/WRAITH/actions/runs/38916348654)
+passed for implementation commit `df116c7d7b63c29751a75ef3d72ba7843d753c6c`:
+
+- Native formatting, Clippy, builds, Rust tests, Python tooling tests and offline
+  adapter demos on Ubuntu 24.04, macOS 14 and Windows 2022.
+- Rust 1.87 compatibility checks, dependency notices and workflow lint.
+- Linux-only Qdrant local demo, 14 optional workflow tests, actual server interruption,
+  reader/recovery controls and the four-transition upstream recipe check.
+
+[Recorded job results and downloaded summary hashes](../examples/verified-ingestion/ci-results.json).
+Local macOS arm64 checks also passed 66 Rust tests, 84 Python tooling tests and
+14 optional workflow tests. The complete source secret scan found no leaks.
+GitHub artifacts retain JSON/HTML evidence for 14 days; a downloaded copy is kept
+locally. The optional SDK/server CI uses small bundled documents, not the larger
+CPython corpus. Windows does not run Unix-only interruption tests.
+
+This validates source builds, not a new native package release. Ingestion remains
+absent from v0.5.0. [Repeated updates](repeated-ingestion.md) and
+[upstream compatibility](upstream-ingestion.md) establish technical behavior;
+they have not shown lower operator effort, independent adoption or paid demand.
+
 ## Regression fixtures
 
 - **RAG:** 21 comparisons produced 0/213 false alarms and 0/39 missed controlled

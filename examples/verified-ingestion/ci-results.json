@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "validated_commit": "df116c7d7b63c29751a75ef3d72ba7843d753c6c",
+  "run_url": "https://github.com/bzlatin/WRAITH/actions/runs/38916348654",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "test (windows-2022)",
+      "conclusion": "success",
+      "url": "https://github.com/bzlatin/WRAITH/actions/runs/38916348654/job/117024689130"
+    },
+    {
+      "name": "workflows",
+      "conclusion": "success",
+      "url": "https://github.com/bzlatin/WRAITH/actions/runs/38916348654/job/117024689500"
+    },
+    {
+      "name": "test (macos-14)",
+      "conclusion": "success",
+      "url": "https://github.com/bzlatin/WRAITH/actions/runs/38916348654/job/117024689589"
+    },
+    {
+      "name": "msrv",
+      "conclusion": "success",
+      "url": "https://github.com/bzlatin/WRAITH/actions/runs/38916348654/job/117024689618"
+    },
+    {
+      "name": "test (ubuntu-24.04)",
+      "conclusion": "success",
+      "url": "https://github.com/bzlatin/WRAITH/actions/runs/38916348654/job/117024690959"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "index-ci/summary.json",
+      "sha256": "dbbb3dd747b58b6a8a16fb3eb74e0da43008d283b2277ff8660a0da54208c927"
+    },
+    {
+      "path": "upstream-ci/summary.json",
+      "sha256": "f67af129fd62a18e7b33f6218d45d6d8c2464441bf2f8513d314fea77785db16"
+    },
+    {
+      "path": "ingestion-server-ci/summary.json",
+      "sha256": "c1a48e0dfb003e3a66b5f03a838c69047ca804d7c53d383fd03286fc89fc7443"
+    }
+  ],
+  "scope": {
+    "native_builds_tests": "ubuntu-24.04, macos-14, windows-2022",
+    "rust_msrv": "1.87.0 check",
+    "optional_sdk_and_server_controls": "Linux only; small bundled documents",
+    "upstream_recipe": "4 normal transitions; both verifiers pass; pre-write witness passes",
+    "local_macos_arm64": "66 Rust tests, 84 Python tooling tests, 14 optional workflow tests"
+  },
+  "limitations": [
+    "Source CI, not a new binary release or package-matrix run",
+    "SDK integration not exercised on Windows/macOS by GitHub",
+    "Controls and recipe compatibility do not establish demand or time savings",
+    "Original downloaded evidence retained locally; GitHub artifacts have 14-day retention"
+  ]
+}

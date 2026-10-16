@@ -80,6 +80,10 @@ and preserves incomplete results. It makes no model calls. Routine Linux CI runs
 this focused compatibility check; the longer [repeated-update comparison](repeated-ingestion.md)
 remains a separate, manually invoked reproduction.
 
+The [native GitHub matrix](verification.md#experimental-ingestion-source) passed,
+including this compatibility check on Linux. Native builds/tests also passed on
+macOS and Windows; the optional SDK check runs only on Linux in CI.
+
 ## Decision
 
 The integration is feasible, but neither this recipe nor the repeated-update study
