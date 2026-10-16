@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "model_turns_started": 0,
+  "scope": "Selected unchanged Hono (56) and Zod (162) tests; same prepared command under host and Codex :workspace sandbox; no full upstream CI.",
+  "records": [
+    {
+      "repository": "hono",
+      "state": "base",
+      "host": "failed",
+      "sandbox": "failed",
+      "seconds": 0.778475624974817,
+      "expected": "failed"
+    },
+    {
+      "repository": "hono",
+      "state": "fixed",
+      "host": "passed",
+      "sandbox": "passed",
+      "seconds": 0.6323961669113487,
+      "expected": "passed"
+    },
+    {
+      "repository": "zod",
+      "state": "base",
+      "host": "failed",
+      "sandbox": "failed",
+      "seconds": 1.1082129168789834,
+      "expected": "failed"
+    },
+    {
+      "repository": "zod",
+      "state": "fixed",
+      "host": "passed",
+      "sandbox": "passed",
+      "seconds": 1.1958765001036227,
+      "expected": "passed"
+    }
+  ]
+}

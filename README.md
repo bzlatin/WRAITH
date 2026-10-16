@@ -49,9 +49,9 @@ changed and two tasks took longer. These observations do not establish reliable
 savings, independent adoption or paid demand.
 [Full results and limits](docs/code-context-followup.md).
 
-A later installed-Codex comparison stopped on account/model compatibility errors
-before any coding runs. It adds no evidence of agent improvement.
-[Current assessment](docs/code-context-codex-assessment.md).
+The latest installed-Codex study confirmed model access, then stopped when the
+first native run hit its time limit. It adds no comparative performance evidence.
+[Current assessment and limits](docs/code-context-codex-study.md).
 
 Trying it on your own work? Share what helped, what was missing and whether you
 chose to use it again. [Trial feedback](https://github.com/bzlatin/WRAITH/issues/new?template=context-feedback.yml)

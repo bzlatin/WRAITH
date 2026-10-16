@@ -34,3 +34,5 @@ For the separate local code-context source preview, read the
 
 The [original MVP](mvp.md) and [v0.2 implementation plan](implementation-plan.md)
 are historical context, not setup instructions or pending work.
+
+- [Repaired-client Codex study](code-context-codex-study.md): successful subscription access, a stopped native run and sandbox test qualification.

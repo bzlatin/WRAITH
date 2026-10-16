@@ -108,3 +108,7 @@ other people require the owner's request.
 Ordinary use: [README](../experiments/code-context/README.md) and
 [setup guide](../experiments/code-context/GUIDE.md). Previous experiments, their
 frozen sources, complete/incomplete evidence and unused request capacity stay fixed.
+
+The subsequently approved [repaired-client study](code-context-codex-study.md)
+confirmed subscription access but stopped on its first native timeout. It does
+not establish a development-benefit comparison or independent adoption.

@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "experiment": "installed-codex-repaired-client-2026-10-16",
+  "status": "stopped",
+  "shared_cap": 9,
+  "attempted_sessions": 2,
+  "unused_slots_closed": 7,
+  "scope": "Actual Codex 0.163.0, ChatGPT sign-in, gpt-6.1-sol, medium reasoning; bounded historical reproductions",
+  "records": [
+    {
+      "case": "00-access",
+      "status": "completed",
+      "slot": 1,
+      "seconds": 4.27567308396101,
+      "exit_code": 0,
+      "error": null,
+      "events_sha256": "69055394701c15832382484c1aecfa7134c7b0ac250d90848ea600ba324e535c",
+      "mcp_calls": [],
+      "command_count": 0,
+      "usage": [
+        {
+          "input_tokens": 15666,
+          "cached_input_tokens": 9600,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 6,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "turn_completed": true,
+      "turn_failed": false
+    },
+    {
+      "status": "timeout",
+      "slot": 2,
+      "seconds": 120.01312479097396,
+      "exit_code": -9,
+      "error": null,
+      "events_sha256": "cd8ab20f081826ff2d0c7158d910e194fae29b47363bd65805754940b8d7450b",
+      "mcp_calls": [],
+      "command_count": 10,
+      "usage": [],
+      "turn_completed": false,
+      "turn_failed": false,
+      "execution_status": "timeout",
+      "patch_sha256": "8af666849d8e09318f5c2df917e01e5561ef5806f018ffa1e2d0faac7ba3ad28",
+      "acceptance": "passed",
+      "accepted": false,
+      "successful_code_context": false,
+      "case": "01-hono-native-1",
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 1
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "02-hono-context-1",
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 1
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "03-zod-context-1",
+      "repository": "zod",
+      "lane": "context",
+      "repetition": 1
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "04-zod-native-1",
+      "repository": "zod",
+      "lane": "native",
+      "repetition": 1
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "05-zod-native-2",
+      "repository": "zod",
+      "lane": "native",
+      "repetition": 2
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "06-zod-context-2",
+      "repository": "zod",
+      "lane": "context",
+      "repetition": 2
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "07-hono-context-2",
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 2
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "08-hono-native-2",
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 2
+    }
+  ],
+  "comparison": "Incomplete: first native development session timed out; no Wraith development session ran. Do not infer comparative speed, tokens, cost or quality.",
+  "partial_patch": "The interrupted native patch passed all 56 frozen Hono tests externally, but the session did not complete and is not an accepted task.",
+  "usage_limits": "Access diagnostic completed with usage; interrupted development has no completed-turn usage. Missing usage is not zero consumption or evidence of lower cost."
+}

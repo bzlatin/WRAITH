@@ -31,6 +31,15 @@ in `docs/code-context-codex-assessment.md`. Preserve its three account/model set
 failures and all not-run records. No coding session completed; five unused slots
 are closed. Do not turn the finite goal into recurring live tests or a hosted queue.
 
+The owner subsequently approved CLI repair and a fresh nine-session actual Codex
+experiment (`experiments/code-context/study/repaired-codex-protocol.json`). This
+explicitly authorizes only its one access check and eight frozen development
+sessions through ChatGPT. Old studies remain closed; the new immutable budget
+consumes failures. Keep tool correctness, development benefit and demand distinct.
+Read `docs/code-context-codex-study.md`: the access check succeeded, the first native
+run timed out, and the remaining seven slots are closed. The later sandbox checks
+are offline qualification, not permission to retry the experiment.
+
 ## Product and architecture
 
 - Keep the core framework neutral. Provider SDKs and application logic belong in

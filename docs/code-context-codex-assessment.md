@@ -148,3 +148,8 @@ separate approval: at most nine ChatGPT subscription sessions, comprising one
 (two fresh sessions per task/workflow pair on the same frozen Hono/Zod inputs).
 Stop on diagnostic failure or execution error, retain every outcome, and make no
 API-key fallback or automatic extension. Paid demand remains unknown.
+
+The owner subsequently approved the nine-session study. Its access check succeeded,
+then its first native development run timed out; the remaining seven runs were
+not started. See the [separate study report](code-context-codex-study.md) and its
+offline test-command correction. The original records above remain unchanged.

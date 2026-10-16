@@ -17,6 +17,18 @@ closed with five slots unused. Preserve all variants; do not retry, substitute
 another model, reuse old API budgets or claim a successful development comparison.
 This authorization covers the source branch/PR, not outreach or a binary/npm release.
 
+The owner then authorized CLI repair and explicitly approved the new nine-session
+experiment in `study/repaired-codex-protocol.json`: one read-only access check and
+eight actual Codex sessions across the same two frozen tasks. Its new append-only
+reservation budget is separate; previous allowances remain closed. Read the
+protocol before operating `study/repaired_codex.py`; preserve interrupted evidence
+and never retry, substitute models or turn this into a recurring queue. The study
+compares instructed MCP use, not voluntary adoption or paid demand.
+Read `docs/code-context-codex-study.md`: access succeeded, the first native run
+timed out, and the remaining seven slots are closed. Preserve its partial patch
+and zero completed comparisons. The offline sandbox qualification adds no live
+observations or permission to retry.
+
 - Run the pinned competitor comparison before writing a candidate retrieval engine.
   Keep setup failures and all completed/incomplete attempts. Freeze workload before
   candidate development; never weaken checks to declare a win.
