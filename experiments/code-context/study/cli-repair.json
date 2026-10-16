@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "previous_cli": "0.143.0",
+  "updated_cli": "0.163.0",
+  "auth_method": "chatgpt",
+  "configured_model": "gpt-6.1-sol",
+  "configured_model_in_catalog": true,
+  "mcp_tools": [
+    "code_context",
+    "code_references",
+    "code_symbols"
+  ],
+  "mcp_startup": "passed",
+  "model_turns_started": 0,
+  "provider_api_key_environment_forwarded": false,
+  "repair": "Updated official npm CLI; per-process mcp_servers={} prevents standalone parsing of desktop-only transports. User configuration and credentials were not changed.",
+  "limits": "No successful inference has been tested; model catalog is not a completed turn. Old study remains closed; no unused allowance is refunded or reused."
+}

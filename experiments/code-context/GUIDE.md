@@ -124,9 +124,13 @@ and shadowed names. Candidate tests do not prove coverage.
   `bin` directory to PATH. No shell profile is edited automatically.
 - **No MCP tools:** restart Codex, check the generated executable/bundle paths,
   and confirm you are using a trusted project if configuration is project-local.
-- **Model unavailable:** check your Codex sign-in and account access. A CLI model
-  catalog entry does not guarantee account eligibility. Wraith cannot enable a
+- **Model unavailable:** update the CLI and check your ChatGPT sign-in against the
+  [current models](https://learn.chatgpt.com/docs/models). Old catalogs can list
+  retired models. A catalog entry does not guarantee a successful model response. Wraith cannot enable a
   model; do not switch to API billing as an automatic workaround.
+- **Invalid MCP transport in standalone CLI:** shared desktop settings can contain
+  app-only transports. For an isolated scripted run, `codex exec --ignore-user-config`
+  avoids loading them; explicitly supply any MCP configuration that run needs.
 - **Wrong repository:** regenerate the table with the current worktree root and
   restart the server. Each configuration points at one fixed root.
 - **Irrelevant context:** use a concrete identifier or task description and keep

@@ -115,5 +115,36 @@ run without a built Rust binary/toolchain in this checkout; the successful nativ
 CI jobs supply that verification. No new release was published. These engineering
 results do not resolve the blocked development-benefit comparison or commercial demand.
 
-The Codex goal remains active while the actual development comparison is incomplete.
+The Codex goal is blocked while the actual development comparison is incomplete.
 Finishing packaging and writing this assessment does not satisfy that requirement.
+
+## CLI repair after the stopped study
+
+The owner authorized repairing CLI access before requesting another study. The
+study had used Codex 0.143.0; the desktop app was already using a 0.163 build.
+Updating the official npm CLI to stable **0.163.0** preserved ChatGPT sign-in.
+An authenticated `account/read` reported ChatGPT, and `model/list` returned
+`gpt-6.1-sol` as default. The installed Wraith server started and exposed all three
+MCP tools under the updated CLI. These checks started **zero model turns**.
+The [sanitized repair record](../experiments/code-context/study/cli-repair.json)
+contains no credential values, account identifiers or machine paths.
+
+The earlier fallback selection trusted a stale client catalog. Current
+[official model guidance](https://learn.chatgpt.com/docs/models) says GPT-5.5
+retired from ChatGPT-authenticated Codex on October 14, 2026. The old failures
+were insufficient to diagnose a loss of account entitlement. A newer catalog
+entry still does not prove a successful inference response.
+
+A second setup issue was the shared desktop configuration's app-only MCP transport.
+The standalone CLI could not parse it even when that server was disabled. The
+metadata check used a per-process `mcp_servers={}` override; a future isolated
+`codex exec` uses `--ignore-user-config`. No desktop settings, shell profiles or
+credentials were edited. The disposable Wraith connection check also passed.
+
+The three stopped attempts and their closed allowances remain unchanged. No new
+comparison or inference smoke test has run. The proposed next experiment needs
+separate approval: at most nine ChatGPT subscription sessions, comprising one
+30-second read-only compatibility check and eight 120-second development sessions
+(two fresh sessions per task/workflow pair on the same frozen Hono/Zod inputs).
+Stop on diagnostic failure or execution error, retain every outcome, and make no
+API-key fallback or automatic extension. Paid demand remains unknown.
