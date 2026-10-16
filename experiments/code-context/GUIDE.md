@@ -146,9 +146,9 @@ npm run build
 ```
 
 `npm test` includes standalone installation/demo/MCP/uninstall controls. The demo
-tests are plain Node tests and run during creation. CI is configured for macOS,
-Linux and Windows, but only local macOS execution is verified here. Windows skips
-the symlink-specific control. No new release publication is implied by CI wiring.
+tests are plain Node tests and run during creation. The [preview CI run](https://github.com/bzlatin/WRAITH/actions/runs/38977555527)
+passed the Node tests and build on macOS, Linux and Windows. Windows skips the
+symlink-specific control. Local testing used macOS. No new release was published.
 
 Optional Codex connection verification from the repo root:
 

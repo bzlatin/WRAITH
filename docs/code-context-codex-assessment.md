@@ -95,3 +95,25 @@ Local CPU operation avoids a model/GPU service in the retrieval path. It does no
 establish performance on enterprise repositories, permission isolation, availability,
 support cost or profitable unit economics. Enterprise scaling and revenue remain
 unproven. Do not promise unlimited usage or build a hosted service from these tests.
+
+## Publication and CI
+
+[Source-preview PR #5](https://github.com/bzlatin/WRAITH/pull/5) is open on
+`codex/context-source-preview`, based directly on `main`. It excludes the older
+unmerged ingestion implementation and financial experiment. At source commit
+`e4968f1979cc94c9e0a16a055895998041217b59`, the
+[push CI run](https://github.com/bzlatin/WRAITH/actions/runs/38977555527) passed:
+
+- Node preview tests and bundle build on Linux, macOS and Windows.
+- Python study-boundary tests on Linux/macOS; this POSIX controller is skipped on Windows.
+- Existing Rust build/test/packaging checks, MSRV and workflow lint.
+
+Locally, the exact publication worktree passed 15 Node tests, 14 Python study tests,
+a fresh locked dependency install and bundle build. Its Markdown links and privacy
+pattern scan passed. A local invocation of the older Rust packaging tests could not
+run without a built Rust binary/toolchain in this checkout; the successful native
+CI jobs supply that verification. No new release was published. These engineering
+results do not resolve the blocked development-benefit comparison or commercial demand.
+
+The Codex goal remains active while the actual development comparison is incomplete.
+Finishing packaging and writing this assessment does not satisfy that requirement.
