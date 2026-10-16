@@ -3,6 +3,10 @@
 Start with the demo, connect a few representative tasks from your agent, and use
 the same suite when reviewing changes.
 
+For the separate local code-context source preview, read the
+[setup guide](../experiments/code-context/GUIDE.md), [implementation and evidence](code-context-how-it-works.md)
+[preview decision](code-context-preview.md) and [installed Codex assessment](code-context-codex-assessment.md). The Rust release does not include this tool.
+
 ## Start here
 
 - [Install](install.md): native binaries, supported platforms, and source builds.
@@ -30,3 +34,9 @@ the same suite when reviewing changes.
 
 The [original MVP](mvp.md) and [v0.2 implementation plan](implementation-plan.md)
 are historical context, not setup instructions or pending work.
+
+- [Repaired-client Codex study](code-context-codex-study.md): successful subscription access, a stopped native run and sandbox test qualification.
+
+- [Prepared-test study and MCP approvals](code-context-ready-tests.md): preserved failed integration, explicit read-tool approval and current readiness.
+
+- [Actual Codex MCP study](code-context-integrated-study.md): working model-directed context, one completed pair, preserved timeout and an incomplete benefit assessment.

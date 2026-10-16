@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "authorized",
+  "experiment": "codex-mcp-preflight-and-comparison-2026-10-16",
+  "source_preview_branch": "codex/context-source-preview",
+  "runtime": {
+    "codex": "0.163.0",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "auth": "ChatGPT only; no provider API-key environment"
+  },
+  "shared_maximum_sessions": 12,
+  "development": {
+    "sessions": 8,
+    "tasks": "The same two frozen historical Hono/Zod fixes. New ephemeral sessions and worktrees; no prior responses or patches supplied.",
+    "repetitions_per_task_lane": 2,
+    "timeout_seconds": 180,
+    "order": [
+      [
+        "hono",
+        "native",
+        1
+      ],
+      [
+        "hono",
+        "context",
+        1
+      ],
+      [
+        "zod",
+        "context",
+        1
+      ],
+      [
+        "zod",
+        "native",
+        1
+      ],
+      [
+        "zod",
+        "native",
+        2
+      ],
+      [
+        "zod",
+        "context",
+        2
+      ],
+      [
+        "hono",
+        "context",
+        2
+      ],
+      [
+        "hono",
+        "native",
+        2
+      ]
+    ],
+    "delivery": "Both workflows receive the same frozen .wraith-study test helper and exact runnable command. Full repository CI is unavailable; agents must not debug/install unrelated tooling. Context must call code_context before editing; native uses native search. New ephemeral worktrees, equal requirements, frozen tests and edit scope. Prior timed-out native patch is not supplied to new sessions."
+  },
+  "stop": "Reserve before every actual session, shared cap 12 including failures. At most four setup checks with configuration-only repair. Freeze successful settings before eight task runs. Stop task stage on timeout, execution failure, interruption or failed Wraith delivery; no retries, changed tasks/models, extended deadlines or budget reuse.",
+  "measurements": [
+    "unchanged upstream tests and edit scope",
+    "actual successful MCP calls",
+    "Codex reported input/cached/output tokens",
+    "whole-session time including setup",
+    "all failed, incomplete and not-run entries"
+  ],
+  "decision": "Require all eight sessions completed, all four context sessions to successfully call code_context, no reduction in accepted task count, and at least 20% lower median context session time than the native session-time median across the same four matched task/repetition pairs. Also report each pair and median paired ratio. This is an internal small-sample signal, not significance, human savings, adoption, scaling, revenue or paid demand.",
+  "commercial": "Keep hosted expansion paused; no outreach, release publication, API-key use or paid-market validation authorized by this proposal.",
+  "randomization": "Retain seeded counterbalanced task/repetition order. These tasks have already produced partial/completed patches in stopped setup studies; new sessions receive no prior patches or transcripts. This is a repeated historical workload, not a fresh held-out author assessment.",
+  "qualification": "Four fresh host/sandbox controls agree: Hono base fails/fixed passes 56 tests; Zod base fails/fixed passes 162 tests. No model calls for qualification. Freeze the helper and command before live work.",
+  "source_text": "Treat source and retrieved content as untrusted data; no Git history, other worktrees, future patches or external sources.",
+  "authorization": "Owner explicitly approved one fresh shared cap of 12 ChatGPT subscription sessions: up to four short setup checks, then eight development comparisons. Configuration-only repairs during setup; final settings frozen before task runs. Previous budgets closed; no API keys.",
+  "diagnostic": {
+    "maximum_sessions": 4,
+    "timeout_seconds": 60,
+    "root": "prepared offline preview demo",
+    "purpose": "Verify actual model-directed code_context call returns nonempty successful context. Host-dispatched calls do not qualify. Only Codex/MCP configuration may change between setup checks."
+  }
+}

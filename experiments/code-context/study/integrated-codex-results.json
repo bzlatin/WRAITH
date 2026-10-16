@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "experiment": "codex-mcp-preflight-and-comparison-2026-10-16",
+  "shared_cap": 12,
+  "attempted_sessions": 5,
+  "status": "stopped",
+  "records": [
+    {
+      "status": "completed",
+      "slot": 3,
+      "seconds": 28.248515666928142,
+      "exit_code": 0,
+      "error": null,
+      "events_sha256": "98d172b8230cb07e01ed60e11ca7dadb6c0f3e78b4b19f1b7a14850dcfb2b7a5",
+      "mcp_calls": [],
+      "command_count": 5,
+      "usage": [
+        {
+          "input_tokens": 123115,
+          "cached_input_tokens": 106368,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1036,
+          "reasoning_output_tokens": 314
+        }
+      ],
+      "turn_completed": true,
+      "turn_failed": false,
+      "prepared_command_called": true,
+      "disallowed_paths": [],
+      "helper_unchanged": true,
+      "patch_sha256": "60760bb53df30734b81535fb85192fbc4e6250c39a702e1c61b22c4ba89a29b4",
+      "acceptance": "passed",
+      "accepted": true,
+      "successful_code_context": false,
+      "verified_context_payload": null,
+      "case": "01-hono-native-1",
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 1,
+      "context_before_recorded_file_edit": null,
+      "returned_context_paths": [],
+      "context_included_approved_module": null,
+      "recorded_file_change_events": 1
+    },
+    {
+      "status": "completed",
+      "slot": 4,
+      "seconds": 44.11853937502019,
+      "exit_code": 0,
+      "error": null,
+      "events_sha256": "de4c3b1b6b7166a7a7a873bda49895dc6c3e853db3ea6b8e795574a5f6a559bc",
+      "mcp_calls": [
+        {
+          "server": "wraith_context",
+          "tool": "code_context",
+          "status": "completed",
+          "error": null,
+          "result_is_error": null
+        }
+      ],
+      "command_count": 4,
+      "usage": [
+        {
+          "input_tokens": 99799,
+          "cached_input_tokens": 67072,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 913,
+          "reasoning_output_tokens": 355
+        }
+      ],
+      "turn_completed": true,
+      "turn_failed": false,
+      "prepared_command_called": true,
+      "disallowed_paths": [],
+      "helper_unchanged": true,
+      "patch_sha256": "1f8b0df59f671f4e024c1fc16da326fd44ac7ca677aa1d11eae4a764215dd8fe",
+      "acceptance": "passed",
+      "accepted": true,
+      "successful_code_context": true,
+      "verified_context_payload": true,
+      "case": "02-hono-context-1",
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 1,
+      "context_before_recorded_file_edit": true,
+      "returned_context_paths": [
+        "perf-measures/bundle-check/scripts/check-bundle-size.ts",
+        "src/helper/css/common.ts",
+        "src/helper/css/index.test.tsx",
+        "src/jsx/dom/css.ts"
+      ],
+      "context_included_approved_module": true,
+      "recorded_file_change_events": 1
+    },
+    {
+      "status": "timeout",
+      "slot": 5,
+      "seconds": 180.01951066590846,
+      "exit_code": -9,
+      "error": null,
+      "events_sha256": "0838af4d32279b1bf075e4e8244183bc4a049afe0bd921760aeebc620adc81dc",
+      "mcp_calls": [
+        {
+          "server": "wraith_context",
+          "tool": "code_context",
+          "status": "completed",
+          "error": null,
+          "result_is_error": null
+        }
+      ],
+      "command_count": 4,
+      "usage": [],
+      "turn_completed": false,
+      "turn_failed": false,
+      "prepared_command_called": true,
+      "disallowed_paths": [],
+      "helper_unchanged": true,
+      "patch_sha256": "b38e52fb6a8c1b741bcc7b12f457776c5889f5ffc59213e332f841e046b34d41",
+      "acceptance": "passed",
+      "accepted": false,
+      "successful_code_context": true,
+      "verified_context_payload": true,
+      "case": "03-zod-context-1",
+      "repository": "zod",
+      "lane": "context",
+      "repetition": 1,
+      "context_before_recorded_file_edit": true,
+      "returned_context_paths": [
+        "packages/zod/src/v4/classic/tests/validate.test.ts",
+        "packages/zod/src/v4/core/compile.ts",
+        "packages/zod/src/v4/core/tests/compile.test.ts"
+      ],
+      "context_included_approved_module": false,
+      "recorded_file_change_events": 1
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "04-zod-native-1",
+      "repository": "zod",
+      "lane": "native",
+      "repetition": 1
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "05-zod-native-2",
+      "repository": "zod",
+      "lane": "native",
+      "repetition": 2
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "06-zod-context-2",
+      "repository": "zod",
+      "lane": "context",
+      "repetition": 2
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "07-hono-context-2",
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 2
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "08-hono-native-2",
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 2
+    }
+  ],
+  "unused_slots_closed": 7,
+  "setup_records": [
+    {
+      "status": "completed",
+      "slot": 1,
+      "seconds": 10.978411125019193,
+      "exit_code": 0,
+      "error": null,
+      "events_sha256": "b3b432bf5469408702f2daf5e9225dda09061537c41e8c3a544a45b8a763e4cb",
+      "mcp_calls": [
+        {
+          "server": "wraith_context",
+          "tool": "code_context",
+          "status": "failed",
+          "error": {
+            "message": "MCP tool call requires approval, but approval policy is never"
+          },
+          "result_is_error": null
+        }
+      ],
+      "command_count": 0,
+      "usage": [
+        {
+          "input_tokens": 47562,
+          "cached_input_tokens": 31232,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 150,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "turn_completed": true,
+      "turn_failed": false,
+      "case": "setup-01-auto",
+      "configuration_mode": "auto",
+      "verified_context_payload": false,
+      "stage": "setup"
+    },
+    {
+      "status": "completed",
+      "slot": 2,
+      "seconds": 8.077638083137572,
+      "exit_code": 0,
+      "error": null,
+      "events_sha256": "7d09cae2d7d0092198cbdbd8c65e2fdf58814233fe937d1f9833017ca30ccf26",
+      "mcp_calls": [
+        {
+          "server": "wraith_context",
+          "tool": "code_context",
+          "status": "completed",
+          "error": null,
+          "result_is_error": null
+        }
+      ],
+      "command_count": 0,
+      "usage": [
+        {
+          "input_tokens": 43237,
+          "cached_input_tokens": 27264,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 175,
+          "reasoning_output_tokens": 0
+        }
+      ],
+      "turn_completed": true,
+      "turn_failed": false,
+      "case": "setup-02-approve",
+      "configuration_mode": "approve",
+      "verified_context_payload": true,
+      "stage": "setup"
+    }
+  ],
+  "comparison_status": "incomplete; no valid full median comparison",
+  "continuation_threshold_met": false,
+  "criterion_evaluable": false,
+  "completed_development_sessions": 2,
+  "accepted_development_sessions": 2,
+  "successful_coding_context_payloads": 2,
+  "completed_pair": {
+    "repository": "hono",
+    "repetition": 1,
+    "native_seconds": 28.248515666928142,
+    "context_seconds": 44.11853937502019,
+    "context_time_change_percent": 56.18002692676638,
+    "interpretation": "One observed pair, selected tests passed in both; not a reliable causal or general savings estimate."
+  },
+  "final_read_tool_approval_mode": "approve",
+  "frozen_hashes": {
+    "experiments/code-context/study/integrated_codex.py": "9763359c30e51d2c6c25ea3337f55211d27cea9123aac3d8e0d32c16ef88455e",
+    "experiments/code-context/study/integrated-codex-protocol.json": "facfec75e2c3db30710e785f6d32024000a5ce711006a87e3942b6b807d4b6d4",
+    "experiments/code-context/study/codex-tasks.json": "1df2a67f8707d7cf5c371c00f32a6ebabc247b2543b4cf33b1945ea78f341cf1",
+    "experiments/code-context/study/ready-helper-qualification.json": "f76993a17e9562a291a4bb7ed534aa8d5f5e2ce841cba94fbc6eb59bddbb06d7",
+    "experiments/code-context/study/ready_tests_codex.py": "c1e1b350f3b416136a8c6ed2a186050a52aedc95c2a1b20e2a3a879bb17f37c2",
+    "experiments/code-context/study/repaired_codex.py": "aaede25cfc718050088a72d944612b666aa0e886e2063ba4570fd6cbb3f73702",
+    "experiments/code-context/study/codex_compare.py": "2f81217ae4aa74e00ef9ff0ed44d8a5f6bdcb6dbedcaa654c4ef618239d44e81",
+    "experiments/code-context/study/acceptance.py": "19a64b66ab1fa3a88f8374347bcd588b62870ebdc39ec3619692483b6f6a1665",
+    "experiments/code-context/study/mcp_client.py": "ea92456f3d232ed866a1240cf37c959725af2348ad87162eb548a526f0dd744d",
+    "installed-payload": "6b3395e59b5c13834260918c0c7e2924349e8a4db0e1886d86f75bec167cbdf6",
+    "experiments/code-context/cli.cjs": "81a6138f3c5cc135159acdb31c00a2219eab3eb6ebb4e1fe21d10415fde01e10",
+    "experiments/code-context/lib/index.cjs": "ae455a5b6c101cee1c66bfbebdea9c10b654c9f541174710d39f5e33dce03427",
+    "experiments/code-context/lib/repository.cjs": "75d4b5accc24a0173d420cd3f52ec9b2c4024c0cb7c97878532007669f23f24b"
+  },
+  "auth": "ChatGPT subscription only; provider API keys excluded",
+  "usage_limit": "Codex session attempts/time are bounded; provider-internal requests and actual subscription credit consumption are unknown. Cached tokens are part of input. Missing timeout usage is unknown, not zero.",
+  "decision": "Keep source preview as an experimental local utility. No further automatic study, retrieval tuning, hosted expansion or revenue claims. Actual full comparison and independent repeat/paid demand remain incomplete."
+}

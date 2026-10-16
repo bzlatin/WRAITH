@@ -3,6 +3,43 @@
 Wraith is a local Rust agent regression-testing engine. Its purpose is to show what
 an agent change broke, using the same scenarios before and after the change.
 
+## Separate code-context investigation
+
+Read `docs/code-context-study.md` and `experiments/code-context/AGENTS.md` before
+working on the owner-authorized local TypeScript context prototype. It is separate
+from the Rust CLI. Its frozen three-task live comparison did not meet the product
+continuation threshold; no hosted-service queue is justified. Preserve the pinned
+sources, unchanged upstream tests, original candidate hashes and all attempts.
+Do not tune against completed results and claim a new held-out win. The 180-request
+experiment used 135 attempts; leftover capacity is not authorization to rerun it.
+New live work needs an explicitly approved new experiment and budget. Mechanical
+controls, historical reproductions, independent use and paid demand remain distinct.
+Read `docs/code-context-followup.md` for the separately authorized automatic-delivery
+follow-up. Its new budget used 47/180 requests; neither experiment's remaining
+capacity may be reused. The revised candidate was frozen before querying the three
+new tasks; all six runs passed their selected tests, but the median-cost threshold
+was not met. Preserve both experiments and intermediate offline diagnostics. No
+automatic further feature, benchmark or hosted-service queue is authorized.
+The owner subsequently authorized the bounded self-service preview described in
+`docs/code-context-preview.md`: packaging, one verified Codex integration, demo,
+documentation and feedback templates. This overrides the packaging pause only.
+Keep retrieval implementation and completed studies unchanged. Distinguish preview
+readiness from independent repeat use and paid demand. Do not publish, send outreach
+or start new model calls unless separately authorized.
+The owner then authorized a source-preview PR and the installed Codex assessment
+in `docs/code-context-codex-assessment.md`. Preserve its three account/model setup
+failures and all not-run records. No coding session completed; five unused slots
+are closed. Do not turn the finite goal into recurring live tests or a hosted queue.
+
+The owner subsequently approved CLI repair and a fresh nine-session actual Codex
+experiment (`experiments/code-context/study/repaired-codex-protocol.json`). This
+explicitly authorizes only its one access check and eight frozen development
+sessions through ChatGPT. Old studies remain closed; the new immutable budget
+consumes failures. Keep tool correctness, development benefit and demand distinct.
+Read `docs/code-context-codex-study.md`: the access check succeeded, the first native
+run timed out, and the remaining seven slots are closed. The later sandbox checks
+are offline qualification, not permission to retry the experiment.
+
 ## Product and architecture
 
 - Keep the core framework neutral. Provider SDKs and application logic belong in
@@ -103,3 +140,22 @@ publication needs its own user request. The generated PR check uses the publishe
 Refresh `THIRD_PARTY_LICENSES.txt` with `scripts/license-notices.py` when dependencies
 change. Read `docs/statistical-gating.md` before changing rate decisions; never turn
 inconclusive evidence into a passing gate. Run `scripts/pilot.py` for RAG changes.
+
+The owner explicitly approved the next eight-session prepared-test comparison in
+`experiments/code-context/study/ready-tests-protocol.json` (from the repository
+root): two sessions per task/workflow pair, 180 seconds each, no repeated access
+diagnostic. Its budget is separate from the closed nine-session attempt. Follow
+`ready_tests_codex.py`; keep its helper/config, tests and retrieval code frozen.
+Do not retry stopped sessions, extend limits, swap tasks/models or infer revenue
+from technical results. Prepared test commands cover selected upstream tests only.
+
+The prepared-test attempt is stopped: `docs/code-context-ready-tests.md` records
+two denied MCP calls, native fallback and an operator interruption. Four of eight
+slots were consumed; four are closed. Preserve these as failed integration evidence,
+not Wraith performance. The optional `--allow-read-tools` configuration flag grants
+only the three named read tools; it leaves default/global approvals unchanged.
+Host-dispatched MCP calls do not validate model-mediated approval behavior.
+
+The owner approved the fresh 12-session experiment in `experiments/code-context/study/integrated-codex-protocol.json`: up to four configuration-only model-directed MCP setup checks, followed by eight frozen 180-second development comparisons. Freeze successful configuration before task runs; all attempts consume the shared cap, no task retries, no API keys, and earlier allowances remain closed. Preserve every setup variant and stopped record.
+
+This 12-session attempt is now closed: read `docs/code-context-integrated-study.md`. Two setup and three coding sessions consumed five slots; seven unused slots are closed. Per-tool `approve` works for actual model-directed calls; `auto` did not. Hono completed in both lanes, then Zod timed out after passing tests; five coding runs are not run. The full comparison/goal remains incomplete. Preserve all evidence, do not rerun, tune retrieval, expand hosted work or infer paid demand. The packaging helper now emits the working `approve` value only with the explicit flag.

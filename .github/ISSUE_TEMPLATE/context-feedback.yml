@@ -1,0 +1,48 @@
+name: Code context — trial feedback
+description: Tell us whether the preview helped during your own development work.
+title: "[Context feedback] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Voluntary feedback only; the tool sends no telemetry. Describe your own experience. Prepared demos and automated historical studies are separate evidence. Keep private source, account details and credentials out of this public issue.
+  - type: input
+    id: version
+    attributes:
+      label: Preview version and coding agent
+    validations:
+      required: true
+  - type: dropdown
+    id: setup
+    attributes:
+      label: Did you get it working?
+      options:
+        - Yes, on my own repository
+        - Only on the prepared demo
+        - No, setup blocked me
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: What were you trying to do, and what happened?
+      description: Include what helped, irrelevant or missing context, extra work and your usual alternative. No source upload is needed.
+    validations:
+      required: true
+  - type: dropdown
+    id: returned
+    attributes:
+      label: Have you chosen to use it again on a different task?
+      options:
+        - Yes, on another day without a reminder
+        - Yes, on another task the same day
+        - No, I have not had another suitable task
+        - No, I preferred my usual tools
+        - I could not get it working
+    validations:
+      required: true
+  - type: textarea
+    id: return_reason
+    attributes:
+      label: What made you return or stop?
+      description: A concrete example is more useful than a rating. If you want to, describe a recurring problem you would pay to solve; this is not a purchase commitment.

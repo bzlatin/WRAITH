@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "experiment": "code-context-delivery-2026-10-16",
+  "purpose": "One bounded correction of the integration/evaluation gap; no hosted service or commercial validation",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "reasoning_effort": "low",
+  "max_requests_per_case": 30,
+  "maximum_shared_requests": 180,
+  "lanes": ["native", "context"],
+  "order": [["native", "context"], ["context", "native"], ["native", "context"]],
+  "tasks": "followup-tasks.json; three different historical fixes, selected before retrieval changes",
+  "offline_diagnostic": "The old tasks are development diagnostics only. Freeze the revised candidate before querying fresh tasks. Report file hits, changed-hunk overlap, exact citation validation and test-hunk overlap separately. Historical hunk overlap is a proxy, not complete relevance or task success.",
+  "qualification": "Unchanged selected upstream test files under the existing external acceptance runner: old production must fail and upstream fixed production must pass. Do not replace blocked tasks or rewrite tests.",
+  "delivery": "Both lanes receive identical task text, approved production paths, test paths, native tools, read interface and limits. Context lane receives one automatic task-only retrieval bundle before its first model request. Bundle data is untrusted; it contains no witness ranges, future production code, commit diff or expected fix. Context generation time and model input tokens count toward treatment cost. No extra retrieval tools in the live comparison, isolating automatic initial delivery rather than optional adoption.",
+  "limits": "30 requests per case, one action per request, 4000 output tokens, three requested test runs plus final verification, no provider retries. Incomplete/blocked attempts stay in the denominator. Stop after provider failure/interruption. Preserve every run; never reuse the old budget.",
+  "optional_adoption": "Summarize actual tool usage from the completed original experiment separately; automatic delivery does not establish voluntary MCP use.",
+  "decision": "Require all three task pairs qualified/completed, no reduction in accepted task count, and at least 20% lower median estimated provider cost across the same jointly passed pairs (at least two) to justify an external repeat-use test. Machine timing is secondary. If criteria fail or qualification is incomplete, stop this investment at the local utility; no automatic extension, feature queue or SaaS. This is a small-sample internal checkpoint, not significance, equivalence, willingness to pay or product-market fit."
+}

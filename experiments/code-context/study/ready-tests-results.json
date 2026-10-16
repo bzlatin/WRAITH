@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "experiment": "codex-ready-tests-2026-10-16",
+  "status": "stopped",
+  "attempted_sessions": 4,
+  "shared_cap": 8,
+  "unused_slots_closed": 4,
+  "operator_stop": "Controller interrupted after observing MCP approval denials, to avoid additional sessions with a known nonfunctional treatment",
+  "actual_successful_wraith_calls": 0,
+  "comparison": "Invalid for Wraith efficacy: both instructed context runs were denied MCP access and fell back to native tools. Do not pool or market their timing/token results as Wraith performance.",
+  "records": [
+    {
+      "status": "completed",
+      "slot": 1,
+      "seconds": 38.6564263748005,
+      "exit_code": 0,
+      "error": null,
+      "events_sha256": "22a2c6e7a3af2a79d9f94f546302504fe290bf768efce44f25e6317251c272e3",
+      "mcp_calls": [],
+      "command_count": 6,
+      "usage": [
+        {
+          "input_tokens": 145839,
+          "cached_input_tokens": 112768,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1016,
+          "reasoning_output_tokens": 403
+        }
+      ],
+      "turn_completed": true,
+      "turn_failed": false,
+      "prepared_command_called": true,
+      "disallowed_paths": [],
+      "helper_unchanged": true,
+      "patch_sha256": "2bd6cb4f377b6ea34fb54a588714e1f09c3a7a6c63cf58c3096f52fa20acc64c",
+      "acceptance": "passed",
+      "accepted": true,
+      "successful_code_context": false,
+      "case": "01-hono-native-1",
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 1
+    },
+    {
+      "status": "completed",
+      "slot": 2,
+      "seconds": 56.677273584064096,
+      "exit_code": 0,
+      "error": null,
+      "events_sha256": "03ed55fc34d8c45dc00c29a7a08b2a2267ddb477243c0317e4110bbadafb974d",
+      "mcp_calls": [
+        {
+          "server": "wraith_context",
+          "tool": "code_context",
+          "status": "failed",
+          "error": {
+            "message": "MCP tool call requires approval, but approval policy is never"
+          },
+          "result_is_error": null
+        }
+      ],
+      "command_count": 5,
+      "usage": [
+        {
+          "input_tokens": 119545,
+          "cached_input_tokens": 89856,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 846,
+          "reasoning_output_tokens": 188
+        }
+      ],
+      "turn_completed": true,
+      "turn_failed": false,
+      "prepared_command_called": true,
+      "disallowed_paths": [],
+      "helper_unchanged": true,
+      "patch_sha256": "53a9dfe8f3836b4dbe944c308635aadb8b6ac52b7bf7f41e71505f21debb4ebc",
+      "acceptance": "passed",
+      "accepted": true,
+      "successful_code_context": false,
+      "case": "02-hono-context-1",
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 1
+    },
+    {
+      "status": "completed",
+      "slot": 3,
+      "seconds": 21.481734208064154,
+      "exit_code": 0,
+      "error": null,
+      "events_sha256": "b2b8eebe2617c42ac9fd5a6e4c7f7b6ca76558e00d1bbe34c1981397fc7d2b7c",
+      "mcp_calls": [
+        {
+          "server": "wraith_context",
+          "tool": "code_context",
+          "status": "failed",
+          "error": {
+            "message": "MCP tool call requires approval, but approval policy is never"
+          },
+          "result_is_error": null
+        }
+      ],
+      "command_count": 4,
+      "usage": [
+        {
+          "input_tokens": 126946,
+          "cached_input_tokens": 106624,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 626,
+          "reasoning_output_tokens": 24
+        }
+      ],
+      "turn_completed": true,
+      "turn_failed": false,
+      "prepared_command_called": true,
+      "disallowed_paths": [],
+      "helper_unchanged": true,
+      "patch_sha256": "b38e52fb6a8c1b741bcc7b12f457776c5889f5ffc59213e332f841e046b34d41",
+      "acceptance": "passed",
+      "accepted": true,
+      "successful_code_context": false,
+      "case": "03-zod-context-1",
+      "repository": "zod",
+      "lane": "context",
+      "repetition": 1
+    },
+    {
+      "status": "interrupted",
+      "slot": 4,
+      "seconds": 12.18441562494263,
+      "exit_code": -9,
+      "error": null,
+      "events_sha256": "a501d4a9d0d59575bfc52ef5b0a2b4d6b97e1f9a2e7e88637f9e224c4c4f65fd",
+      "mcp_calls": [],
+      "command_count": 3,
+      "usage": [],
+      "turn_completed": false,
+      "turn_failed": false,
+      "prepared_command_called": false,
+      "disallowed_paths": [],
+      "helper_unchanged": true,
+      "patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "acceptance": "failed",
+      "accepted": false,
+      "successful_code_context": false,
+      "case": "04-zod-native-1",
+      "repository": "zod",
+      "lane": "native",
+      "repetition": 1
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "05-zod-native-2",
+      "repository": "zod",
+      "lane": "native",
+      "repetition": 2
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "06-zod-context-2",
+      "repository": "zod",
+      "lane": "context",
+      "repetition": 2
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "07-hono-context-2",
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 2
+    },
+    {
+      "status": "not_run_after_stop",
+      "accepted": false,
+      "case": "08-hono-native-2",
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 2
+    }
+  ]
+}

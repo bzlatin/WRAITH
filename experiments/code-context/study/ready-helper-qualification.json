@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "model_turns_started": 0,
+  "scope": "Prepared run-tests.cjs helper in actual Codex :workspace sandbox, unchanged selected tests; full project CI unavailable",
+  "records": [
+    {
+      "repository": "hono",
+      "state": "base",
+      "status": "failed",
+      "expected": "failed",
+      "seconds": 1.0231171669438481
+    },
+    {
+      "repository": "hono",
+      "state": "fixed",
+      "status": "passed",
+      "expected": "passed",
+      "seconds": 0.7329917920287699
+    },
+    {
+      "repository": "zod",
+      "state": "base",
+      "status": "failed",
+      "expected": "failed",
+      "seconds": 1.5698132088873535
+    },
+    {
+      "repository": "zod",
+      "state": "fixed",
+      "status": "passed",
+      "expected": "passed",
+      "seconds": 1.3425574579741806
+    }
+  ]
+}

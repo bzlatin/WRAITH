@@ -3,6 +3,16 @@
 Wraith should make an agent change easier to review: show what broke, show the
 before/after evidence, and give the developer a check they can repeat.
 
+## Local code-context preview
+
+The owner authorized a separate [source preview](code-context-preview.md) under
+`experiments/code-context/`, one installed Codex MCP comparison, and a public PR.
+The retrieval tool works locally; prior studies did not meet their continuation
+threshold. Preserve those results. Independent repeat use and paid demand remain
+unknown. The [installed Codex study](code-context-codex-assessment.md) stopped on
+account/model errors before coding. Keep the free utility available; do not build a hosted service or add
+features to avoid the adoption decision. Existing Rust release contracts stay fixed.
+
 ## Validation goal
 
 Catch a useful, naturally occurring regression in an independently useful agent,

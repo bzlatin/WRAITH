@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "codex_version": "codex-cli 0.163.0",
+  "tools": [
+    "code_context",
+    "code_references",
+    "code_symbols"
+  ],
+  "model_turns_started": 0,
+  "read_tool_approval_modes": {
+    "code_context": "auto",
+    "code_references": "auto",
+    "code_symbols": "auto"
+  },
+  "codex_dispatched_tool": "code_context",
+  "result_count": 5,
+  "tool_result_status": "ok",
+  "scope": "Codex host-dispatched MCP call; no model turn or voluntary agent use",
+  "control": "Default configuration also allows host-dispatched calls; this API does not establish the model-mediated approval path. A real model-directed preflight is required."
+}

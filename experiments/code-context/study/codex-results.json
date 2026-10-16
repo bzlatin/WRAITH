@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "platform": "macOS arm64, Node.js 22.19.0, Python 3.13.0, Codex 0.143.0",
+  "shared_session_ceiling": 8,
+  "attempted_sessions": 3,
+  "completed_development_sessions": 0,
+  "unused_slots_closed": 5,
+  "auth_method": "ChatGPT; forced; provider-key environment excluded",
+  "qualification": "Same frozen tasks: base regression fails, upstream fixed tests pass; initial runner and worktree setup errors preserved",
+  "new_agent_benefit": "unresolved; no coding sessions completed",
+  "commercial_status": "no independent repeat use or paid commitment; no hosted expansion",
+  "records": [
+    {
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 1,
+      "status": "execution_error",
+      "seconds": 3.3908054169733077,
+      "exit_code": 1,
+      "mcp_calls": [],
+      "command_count": 0,
+      "usage": [],
+      "turn_completed": false,
+      "turn_failed": true,
+      "variant": "actual-codex-mcp-2026-10-16",
+      "error": "ChatGPT account rejected requested model before development response",
+      "events_sha256": "bb195ad3a084414e4daf88a967306bd647e63b27f2b1cafe35193d715b342029"
+    },
+    {
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 1,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-2026-10-16"
+    },
+    {
+      "repository": "zod",
+      "lane": "context",
+      "repetition": 1,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-2026-10-16"
+    },
+    {
+      "repository": "zod",
+      "lane": "native",
+      "repetition": 1,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-2026-10-16"
+    },
+    {
+      "repository": "zod",
+      "lane": "native",
+      "repetition": 2,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-2026-10-16"
+    },
+    {
+      "repository": "zod",
+      "lane": "context",
+      "repetition": 2,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-2026-10-16"
+    },
+    {
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 2,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-2026-10-16"
+    },
+    {
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 2,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-2026-10-16"
+    },
+    {
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 1,
+      "status": "execution_error",
+      "seconds": 2.55205083405599,
+      "exit_code": 1,
+      "mcp_calls": [],
+      "command_count": 0,
+      "usage": [],
+      "turn_completed": false,
+      "turn_failed": true,
+      "variant": "actual-codex-mcp-supported-2026-10-16",
+      "error": "ChatGPT account rejected requested model before development response",
+      "events_sha256": "a6f68fa88adb58d68bd7e9a7e8d290dccfbaff4a44c9a80cb8e53b7212c75a8d"
+    },
+    {
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 1,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-supported-2026-10-16"
+    },
+    {
+      "repository": "zod",
+      "lane": "context",
+      "repetition": 1,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-supported-2026-10-16"
+    },
+    {
+      "repository": "zod",
+      "lane": "native",
+      "repetition": 1,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-supported-2026-10-16"
+    },
+    {
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 2,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-supported-2026-10-16"
+    },
+    {
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 2,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-supported-2026-10-16"
+    },
+    {
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 1,
+      "status": "execution_error",
+      "seconds": 2.463376333937049,
+      "exit_code": 1,
+      "mcp_calls": [],
+      "command_count": 0,
+      "usage": [],
+      "turn_completed": false,
+      "turn_failed": true,
+      "variant": "actual-codex-mcp-compatible-2026-10-16",
+      "error": "ChatGPT account rejected requested model before development response",
+      "events_sha256": "a0bd090deb9e5d9c39ee94535c7b83b5d9333f5ad262837803c9bb183fbdac89"
+    },
+    {
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 1,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-compatible-2026-10-16"
+    },
+    {
+      "repository": "zod",
+      "lane": "context",
+      "repetition": 1,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-compatible-2026-10-16"
+    },
+    {
+      "repository": "zod",
+      "lane": "native",
+      "repetition": 1,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-compatible-2026-10-16"
+    },
+    {
+      "repository": "hono",
+      "lane": "context",
+      "repetition": 2,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-compatible-2026-10-16"
+    },
+    {
+      "repository": "hono",
+      "lane": "native",
+      "repetition": 2,
+      "status": "not_run_after_stop",
+      "variant": "actual-codex-mcp-compatible-2026-10-16"
+    }
+  ]
+}
